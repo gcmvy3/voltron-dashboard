@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-02-14T18:54:10
+# Project created by QtCreator 2019-03-25T16:11:55
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Dashboard
+TARGET = voltron-dashboard
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
