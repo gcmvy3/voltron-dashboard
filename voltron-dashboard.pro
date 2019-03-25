@@ -26,10 +26,15 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    Threads/BatteryThread.c \
+    Threads/main.c
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    Threads/BatteryThread.h \
+    Threads/Packets.h \
+    Threads/Pipes.h
 
 FORMS += \
         mainwindow.ui
