@@ -14,16 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QTableWidget" name="batteryTable">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>140</y>
-      <width>441</width>
-      <height>231</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="batteryReadButton">
     <property name="geometry">
      <rect>
@@ -39,6 +29,29 @@
     <property name="checkable">
      <bool>true</bool>
     </property>
+   </widget>
+   <widget class="BatteryWidget" name="batteryWidget">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>160</y>
+      <width>361</width>
+      <height>192</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>Cell Number</string>
+     </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Charge</string>
+     </property>
+    </column>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -62,6 +75,13 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>BatteryWidget</class>
+   <extends>QTableWidget</extends>
+   <header>Widgets/BatteryWidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

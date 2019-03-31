@@ -28,12 +28,16 @@ void MainWindow::on_batteryReadButton_toggled(bool checked)
         batteryThread = new BatteryThread();
         batteryThread->moveToThread(thread);
 
+        // Connect the required signals for a QThread
         connect(batteryThread, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
         connect(thread, SIGNAL(started()), batteryThread, SLOT(start()));
         connect(batteryThread, SIGNAL(finished()), thread, SLOT(quit()));
         connect(batteryThread, SIGNAL(finished()), batteryThread, SLOT(deleteLater()));
         connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-        connect(batteryThread, SIGNAL(newPacket(BatteryPacket)), this, SLOT(on_newBatteryPacket(BatteryPacket)));
+
+        // Connect the battery thread to the battery widget
+        connect(batteryThread, SIGNAL(newPacket(BatteryPacket)), ui->batteryWidget, SLOT(newPacket(BatteryPacket)));
+
         thread->start();
     }
     else

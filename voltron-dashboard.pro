@@ -28,21 +28,13 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     Threads/BatteryThread.cpp \
-    build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_BatteryThread.cpp \
-    build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_mainwindow.cpp \
-    Threads/BatteryThread.cpp \
-    main.cpp \
-    mainwindow.cpp
+    Widgets/BatteryWidget.cpp
 
 HEADERS += \
         mainwindow.h \
     Threads/Packets.h \
     Threads/BatteryThread.h \
-    build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h \
-    build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/ui_mainwindow.h \
-    Threads/BatteryThread.h \
-    Threads/Packets.h \
-    mainwindow.h
+    Widgets/BatteryWidget.h
 
 FORMS += \
         mainwindow.ui
@@ -51,3 +43,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    Widgets/Untitled Document

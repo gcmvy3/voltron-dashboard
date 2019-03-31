@@ -16,9 +16,9 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
+#include "Widgets/BatteryWidget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -26,8 +26,8 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QTableWidget *batteryTable;
     QPushButton *batteryReadButton;
+    BatteryWidget *batteryWidget;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -39,13 +39,20 @@ public:
         MainWindow->resize(825, 481);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        batteryTable = new QTableWidget(centralWidget);
-        batteryTable->setObjectName(QString::fromUtf8("batteryTable"));
-        batteryTable->setGeometry(QRect(180, 140, 441, 231));
         batteryReadButton = new QPushButton(centralWidget);
         batteryReadButton->setObjectName(QString::fromUtf8("batteryReadButton"));
         batteryReadButton->setGeometry(QRect(340, 60, 141, 31));
         batteryReadButton->setCheckable(true);
+        batteryWidget = new BatteryWidget(centralWidget);
+        if (batteryWidget->columnCount() < 2)
+            batteryWidget->setColumnCount(2);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        __qtablewidgetitem->setTextAlignment(Qt::AlignCenter);
+        batteryWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        batteryWidget->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+        batteryWidget->setObjectName(QString::fromUtf8("batteryWidget"));
+        batteryWidget->setGeometry(QRect(260, 160, 361, 192));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -67,6 +74,10 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
         batteryReadButton->setText(QApplication::translate("MainWindow", "Start Reading", nullptr));
+        QTableWidgetItem *___qtablewidgetitem = batteryWidget->horizontalHeaderItem(0);
+        ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "Cell Number", nullptr));
+        QTableWidgetItem *___qtablewidgetitem1 = batteryWidget->horizontalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QApplication::translate("MainWindow", "Charge", nullptr));
     } // retranslateUi
 
 };
