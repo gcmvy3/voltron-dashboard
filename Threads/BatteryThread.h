@@ -1,10 +1,39 @@
-#ifndef BATTERY_THREAD_H
-#define BATTERY_THREAD_H
+#ifndef BATTERYTHREAD_H
+#define BATTERYTHREAD_H
 
-#include <pthread.h>
+#include <iostream>
+#include <fstream>
+#include <QObject>
 
-pthread_t batteryThreadId;
+#include "Threads/Packets.h"
 
-void* batteryThread(void* args);
+class BatteryThread : public QObject
+{
+    Q_OBJECT
+public:
+    BatteryThread();
+    ~BatteryThread();
 
-#endif
+public slots:
+    void start();
+
+signals:
+    void finished();
+    void error(QString error);
+    void newPacket(BatteryPacket packet);
+
+private:
+
+    static const int PIPE_CLOSED_ERROR = 1;
+    static const int NO_PACKET_ERROR = 2;
+
+    static std::ifstream batteryPipe;
+
+    static BatteryPacket latestPacket;
+
+    static int openPipe();
+
+    static BatteryPacket readPacket();
+};
+
+#endif // BATTERYTHREAD_H
