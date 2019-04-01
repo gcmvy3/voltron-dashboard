@@ -6,9 +6,6 @@
 
 using namespace std;
 
-ifstream BatteryThread::batteryPipe;
-BatteryPacket BatteryThread::latestPacket;
-
 // Constructor
 BatteryThread::BatteryThread()
 {
