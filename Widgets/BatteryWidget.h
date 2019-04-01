@@ -3,9 +3,13 @@
 
 #include <QWidget>
 #include <QTableWidget>
+#include <QPushButton>
+#include <QThread>
+#include <QHeaderView>
 #include "Threads/Packets.h"
+#include "Threads/BatteryThread.h"
 
-class BatteryWidget : public QTableWidget
+class BatteryWidget : public QWidget
 {
     Q_OBJECT
 public:
@@ -13,10 +17,20 @@ public:
 
     const int NUM_CELLS = 20;
 
+    QPushButton *toggleButton;
+    QTableWidget *table;
+
 signals:
 
 public slots:
+    void onButtonToggled(bool buttonChecked);
+    void onStartReading();
+    void onStopReading();
     void newPacket(BatteryPacket packet);
+
+private:
+    BatteryThread *batteryThread;
+
 };
 
 #endif // BATTERYWIDGET_H

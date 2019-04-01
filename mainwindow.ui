@@ -6,52 +6,28 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>825</width>
-    <height>481</height>
+    <width>1676</width>
+    <height>887</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="batteryReadButton">
+   <widget class="QMdiArea" name="mdiArea">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>60</y>
-      <width>141</width>
-      <height>31</height>
+      <x>9</x>
+      <y>39</y>
+      <width>1661</width>
+      <height>781</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Start Reading</string>
-    </property>
-    <property name="checkable">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="BatteryWidget" name="batteryWidget">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>160</y>
-      <width>361</width>
-      <height>192</height>
-     </rect>
-    </property>
-    <column>
-     <property name="text">
-      <string>Cell Number</string>
+    <widget class="BatteryWidget" name="batteryWidget">
+     <property name="windowTitle">
+      <string>Subwindow</string>
      </property>
-     <property name="textAlignment">
-      <set>AlignCenter</set>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Charge</string>
-     </property>
-    </column>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -59,18 +35,22 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>825</width>
+     <width>1676</width>
      <height>22</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
@@ -78,8 +58,9 @@
  <customwidgets>
   <customwidget>
    <class>BatteryWidget</class>
-   <extends>QTableWidget</extends>
+   <extends>QWidget</extends>
    <header>Widgets/BatteryWidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

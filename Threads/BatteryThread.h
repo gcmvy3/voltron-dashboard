@@ -27,13 +27,13 @@ private:
     static const int PIPE_CLOSED_ERROR = 1;
     static const int NO_PACKET_ERROR = 2;
 
-    static std::ifstream batteryPipe;
+    std::ifstream batteryPipe;
 
-    static BatteryPacket latestPacket;
+    BatteryPacket latestPacket;
 
-    static int openPipe();
+    int openPipe();
 
-    static BatteryPacket readPacket();
+    BatteryPacket readPacket();
 };
 
 #endif // BATTERYTHREAD_H

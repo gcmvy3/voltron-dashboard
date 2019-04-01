@@ -829,9 +829,6 @@ moc_mainwindow.cpp: ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtGui/qtouchdevice.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtGui/qicon.h \
-		../Threads/Packets.h \
-		../Threads/BatteryThread.h \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
 		moc_predefs.h \
 		../../../Qt/5.12.1/gcc_64/bin/moc
 	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../mainwindow.h -o moc_mainwindow.cpp
@@ -1016,7 +1013,14 @@ moc_BatteryWidget.cpp: ../Widgets/BatteryWidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QPushButton \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h \
 		../Threads/Packets.h \
+		../Threads/BatteryThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
 		moc_predefs.h \
 		../../../Qt/5.12.1/gcc_64/bin/moc
 	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Widgets/BatteryWidget.h -o moc_BatteryWidget.cpp
@@ -1154,7 +1158,14 @@ ui_mainwindow.h: ../mainwindow.ui \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qrubberband.h \
-		../Threads/Packets.h
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QPushButton \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h \
+		../Threads/Packets.h \
+		../Threads/BatteryThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject
 	/home/voltron/Qt/5.12.1/gcc_64/bin/uic ../mainwindow.ui -o ui_mainwindow.h
 
 compiler_yacc_decl_make_all:
@@ -1274,9 +1285,6 @@ main.o: ../main.cpp ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtGui/qtouchdevice.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtGui/qicon.h \
-		../Threads/Packets.h \
-		../Threads/BatteryThread.h \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1393,9 +1401,6 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtGui/qtouchdevice.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtGui/qicon.h \
-		../Threads/Packets.h \
-		../Threads/BatteryThread.h \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
 		ui_mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QVariant \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QApplication \
@@ -1405,11 +1410,25 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.12.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QHeaderView \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qheaderview.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QMdiArea \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qmdiarea.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qframe.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QMenuBar \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qmenubar.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qmenu.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qaction.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QStatusBar \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qstatusbar.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QToolBar \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtoolbar.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QWidget \
+		../Widgets/BatteryWidget.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QTableWidget \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtablewidget.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtableview.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractitemview.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qitemselectionmodel.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
@@ -1422,25 +1441,14 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qstyle.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qrubberband.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QMenuBar \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qmenubar.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qmenu.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QPushButton \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QStatusBar \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qstatusbar.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QToolBar \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtoolbar.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QWidget \
-		../Widgets/BatteryWidget.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QTableWidget \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtablewidget.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtableview.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h \
+		../Threads/Packets.h \
+		../Threads/BatteryThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../mainwindow.cpp
 
 BatteryThread.o: ../Threads/BatteryThread.cpp ../Threads/BatteryThread.h \
@@ -1621,7 +1629,14 @@ BatteryWidget.o: ../Widgets/BatteryWidget.cpp ../Widgets/BatteryWidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qrubberband.h \
-		../Threads/Packets.h
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QPushButton \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h \
+		../Threads/Packets.h \
+		../Threads/BatteryThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BatteryWidget.o ../Widgets/BatteryWidget.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

@@ -10,13 +10,13 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMdiArea>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 #include "Widgets/BatteryWidget.h"
 
@@ -26,44 +26,41 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QPushButton *batteryReadButton;
+    QMdiArea *mdiArea;
     BatteryWidget *batteryWidget;
     QMenuBar *menuBar;
-    QToolBar *mainToolBar;
+    QMenu *menuFile;
+    QMenu *menuEdit;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(825, 481);
+        MainWindow->resize(1676, 887);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        batteryReadButton = new QPushButton(centralWidget);
-        batteryReadButton->setObjectName(QString::fromUtf8("batteryReadButton"));
-        batteryReadButton->setGeometry(QRect(340, 60, 141, 31));
-        batteryReadButton->setCheckable(true);
-        batteryWidget = new BatteryWidget(centralWidget);
-        if (batteryWidget->columnCount() < 2)
-            batteryWidget->setColumnCount(2);
-        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
-        __qtablewidgetitem->setTextAlignment(Qt::AlignCenter);
-        batteryWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
-        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        batteryWidget->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+        mdiArea = new QMdiArea(centralWidget);
+        mdiArea->setObjectName(QString::fromUtf8("mdiArea"));
+        mdiArea->setGeometry(QRect(9, 39, 1661, 781));
+        batteryWidget = new BatteryWidget();
         batteryWidget->setObjectName(QString::fromUtf8("batteryWidget"));
-        batteryWidget->setGeometry(QRect(260, 160, 361, 192));
+        mdiArea->addSubWindow(batteryWidget);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 825, 22));
+        menuBar->setGeometry(QRect(0, 0, 1676, 22));
+        menuFile = new QMenu(menuBar);
+        menuFile->setObjectName(QString::fromUtf8("menuFile"));
+        menuEdit = new QMenu(menuBar);
+        menuEdit->setObjectName(QString::fromUtf8("menuEdit"));
         MainWindow->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(MainWindow);
-        mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
-        MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindow->setStatusBar(statusBar);
+
+        menuBar->addAction(menuFile->menuAction());
+        menuBar->addAction(menuEdit->menuAction());
 
         retranslateUi(MainWindow);
 
@@ -73,11 +70,9 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
-        batteryReadButton->setText(QApplication::translate("MainWindow", "Start Reading", nullptr));
-        QTableWidgetItem *___qtablewidgetitem = batteryWidget->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "Cell Number", nullptr));
-        QTableWidgetItem *___qtablewidgetitem1 = batteryWidget->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QApplication::translate("MainWindow", "Charge", nullptr));
+        batteryWidget->setWindowTitle(QApplication::translate("MainWindow", "Subwindow", nullptr));
+        menuFile->setTitle(QApplication::translate("MainWindow", "File", nullptr));
+        menuEdit->setTitle(QApplication::translate("MainWindow", "Edit", nullptr));
     } // retranslateUi
 
 };
