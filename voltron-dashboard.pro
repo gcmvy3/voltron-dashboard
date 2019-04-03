@@ -28,13 +28,17 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     Threads/BatteryThread.cpp \
-    Widgets/BatteryWidget.cpp
+    Widgets/BatteryWidget.cpp \
+    Threads/ConsoleThread.cpp \
+    Widgets/ConsoleWidget.cpp
 
 HEADERS += \
         mainwindow.h \
     Threads/Packets.h \
     Threads/BatteryThread.h \
-    Widgets/BatteryWidget.h
+    Widgets/BatteryWidget.h \
+    Threads/ConsoleThread.h \
+    Widgets/ConsoleWidget.h
 
 FORMS += \
         mainwindow.ui
