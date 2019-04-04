@@ -20,6 +20,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
@@ -34,8 +35,16 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout_2;
+    QTabWidget *tabWidget;
+    QWidget *tab;
+    QWidget *tab_2;
     BatteryWidget *batteryWidget;
+    QVBoxLayout *verticalLayout_4;
     QFrame *frame;
+    QVBoxLayout *verticalLayout_5;
+    QVBoxLayout *verticalLayout_3;
+    QLabel *batteryLabel;
+    QFrame *line;
     QPushButton *batteryReadButton;
     QTableWidget *batteryTable;
     ConsoleWidget *consoleWidget;
@@ -53,22 +62,65 @@ public:
         MainWindow->resize(983, 604);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
+        centralWidget->setStyleSheet(QString::fromUtf8("background-color: rgb(211, 215, 207)"));
         verticalLayout_2 = new QVBoxLayout(centralWidget);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        tabWidget = new QTabWidget(centralWidget);
+        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        tab = new QWidget();
+        tab->setObjectName(QString::fromUtf8("tab"));
+        tabWidget->addTab(tab, QString());
+        tab_2 = new QWidget();
+        tab_2->setObjectName(QString::fromUtf8("tab_2"));
+        tabWidget->addTab(tab_2, QString());
+
+        verticalLayout_2->addWidget(tabWidget);
+
         batteryWidget = new BatteryWidget(centralWidget);
         batteryWidget->setObjectName(QString::fromUtf8("batteryWidget"));
+        batteryWidget->setStyleSheet(QString::fromUtf8(""));
+        verticalLayout_4 = new QVBoxLayout(batteryWidget);
+        verticalLayout_4->setSpacing(6);
+        verticalLayout_4->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
         frame = new QFrame(batteryWidget);
         frame->setObjectName(QString::fromUtf8("frame"));
-        frame->setGeometry(QRect(10, 10, 551, 271));
+        frame->setStyleSheet(QString::fromUtf8("background-color: rgb(238, 238, 236)"));
         frame->setFrameShape(QFrame::StyledPanel);
         frame->setFrameShadow(QFrame::Raised);
+        verticalLayout_5 = new QVBoxLayout(frame);
+        verticalLayout_5->setSpacing(6);
+        verticalLayout_5->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        batteryLabel = new QLabel(frame);
+        batteryLabel->setObjectName(QString::fromUtf8("batteryLabel"));
+        QFont font;
+        font.setPointSize(14);
+        batteryLabel->setFont(font);
+        batteryLabel->setAutoFillBackground(false);
+        batteryLabel->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_3->addWidget(batteryLabel);
+
+        line = new QFrame(frame);
+        line->setObjectName(QString::fromUtf8("line"));
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Sunken);
+
+        verticalLayout_3->addWidget(line);
+
         batteryReadButton = new QPushButton(frame);
         batteryReadButton->setObjectName(QString::fromUtf8("batteryReadButton"));
-        batteryReadButton->setGeometry(QRect(210, 10, 141, 31));
         batteryReadButton->setCheckable(true);
         batteryReadButton->setFlat(false);
+
+        verticalLayout_3->addWidget(batteryReadButton);
+
         batteryTable = new QTableWidget(frame);
         if (batteryTable->columnCount() < 2)
             batteryTable->setColumnCount(2);
@@ -77,15 +129,24 @@ public:
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
         batteryTable->setHorizontalHeaderItem(1, __qtablewidgetitem1);
         batteryTable->setObjectName(QString::fromUtf8("batteryTable"));
-        batteryTable->setGeometry(QRect(5, 70, 541, 192));
         batteryTable->setColumnCount(2);
         batteryTable->horizontalHeader()->setStretchLastSection(true);
         batteryTable->verticalHeader()->setVisible(false);
+
+        verticalLayout_3->addWidget(batteryTable);
+
+
+        verticalLayout_5->addLayout(verticalLayout_3);
+
+
+        verticalLayout_4->addWidget(frame);
+
 
         verticalLayout_2->addWidget(batteryWidget);
 
         consoleWidget = new ConsoleWidget(centralWidget);
         consoleWidget->setObjectName(QString::fromUtf8("consoleWidget"));
+        consoleWidget->setStyleSheet(QString::fromUtf8("background-color: rgb(238, 238, 236)"));
         verticalLayout = new QVBoxLayout(consoleWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -97,7 +158,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
         label->setSizePolicy(sizePolicy);
-        label->setAutoFillBackground(true);
+        label->setAutoFillBackground(false);
         label->setFrameShape(QFrame::StyledPanel);
         label->setFrameShadow(QFrame::Plain);
         label->setLineWidth(1);
@@ -140,6 +201,9 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Tab 1", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", nullptr));
+        batteryLabel->setText(QApplication::translate("MainWindow", "Battery Data", nullptr));
         batteryReadButton->setText(QApplication::translate("MainWindow", "Read Data", nullptr));
         QTableWidgetItem *___qtablewidgetitem = batteryTable->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "Cell Number", nullptr));
