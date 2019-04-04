@@ -14,14 +14,18 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
+#include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "Widgets/BatteryWidget.h"
+#include "Widgets/ConsoleWidget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -29,10 +33,15 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
+    QVBoxLayout *verticalLayout_2;
     BatteryWidget *batteryWidget;
     QFrame *frame;
     QPushButton *batteryReadButton;
     QTableWidget *batteryTable;
+    ConsoleWidget *consoleWidget;
+    QVBoxLayout *verticalLayout;
+    QLabel *label;
+    QTextBrowser *consoleBrowser;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QStatusBar *statusBar;
@@ -44,9 +53,12 @@ public:
         MainWindow->resize(983, 604);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
+        verticalLayout_2 = new QVBoxLayout(centralWidget);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         batteryWidget = new BatteryWidget(centralWidget);
         batteryWidget->setObjectName(QString::fromUtf8("batteryWidget"));
-        batteryWidget->setGeometry(QRect(179, 169, 571, 291));
         frame = new QFrame(batteryWidget);
         frame->setObjectName(QString::fromUtf8("frame"));
         frame->setGeometry(QRect(10, 10, 551, 271));
@@ -69,6 +81,43 @@ public:
         batteryTable->setColumnCount(2);
         batteryTable->horizontalHeader()->setStretchLastSection(true);
         batteryTable->verticalHeader()->setVisible(false);
+
+        verticalLayout_2->addWidget(batteryWidget);
+
+        consoleWidget = new ConsoleWidget(centralWidget);
+        consoleWidget->setObjectName(QString::fromUtf8("consoleWidget"));
+        verticalLayout = new QVBoxLayout(consoleWidget);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        label = new QLabel(consoleWidget);
+        label->setObjectName(QString::fromUtf8("label"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
+        label->setSizePolicy(sizePolicy);
+        label->setAutoFillBackground(true);
+        label->setFrameShape(QFrame::StyledPanel);
+        label->setFrameShadow(QFrame::Plain);
+        label->setLineWidth(1);
+        label->setMidLineWidth(0);
+
+        verticalLayout->addWidget(label);
+
+        consoleBrowser = new QTextBrowser(consoleWidget);
+        consoleBrowser->setObjectName(QString::fromUtf8("consoleBrowser"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(consoleBrowser->sizePolicy().hasHeightForWidth());
+        consoleBrowser->setSizePolicy(sizePolicy1);
+
+        verticalLayout->addWidget(consoleBrowser);
+
+
+        verticalLayout_2->addWidget(consoleWidget);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -84,6 +133,7 @@ public:
 
         retranslateUi(MainWindow);
         QObject::connect(batteryReadButton, SIGNAL(clicked()), batteryWidget, SLOT(onStartReading()));
+        QObject::connect(batteryReadButton, SIGNAL(clicked()), consoleWidget, SLOT(onStartReading()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -96,6 +146,7 @@ public:
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "Cell Number", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = batteryTable->horizontalHeaderItem(1);
         ___qtablewidgetitem1->setText(QApplication::translate("MainWindow", "Charge Level", nullptr));
+        label->setText(QApplication::translate("MainWindow", "Console", nullptr));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 
