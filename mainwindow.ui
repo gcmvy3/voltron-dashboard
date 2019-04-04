@@ -186,21 +186,5 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>batteryReadButton</sender>
-   <signal>clicked()</signal>
-   <receiver>consoleWidget</receiver>
-   <slot>onStartReading()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>343</x>
-     <y>62</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>10</x>
-     <y>341</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
 </ui>

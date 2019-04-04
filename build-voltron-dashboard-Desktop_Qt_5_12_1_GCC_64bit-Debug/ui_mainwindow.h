@@ -133,7 +133,6 @@ public:
 
         retranslateUi(MainWindow);
         QObject::connect(batteryReadButton, SIGNAL(clicked()), batteryWidget, SLOT(onStartReading()));
-        QObject::connect(batteryReadButton, SIGNAL(clicked()), consoleWidget, SLOT(onStartReading()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
