@@ -5,6 +5,7 @@
 #include <QTextBrowser>
 #include <QPushButton>
 #include <QThread>
+#include <QDateTime>
 #include "Threads/ConsoleThread.h"
 #include "Threads/Packets.h"
 

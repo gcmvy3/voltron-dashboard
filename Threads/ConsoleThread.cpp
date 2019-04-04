@@ -72,6 +72,8 @@ int ConsoleThread::openPipe()
 ConsolePacket ConsoleThread::readPacket()
 {
     struct ConsolePacket packet;
+    QString actualMsg;
+    struct DebugPacket dpacket;
 
     if(consolePipe.is_open())
     {
@@ -81,8 +83,11 @@ ConsolePacket ConsoleThread::readPacket()
         }
         else
         {
-            // needs edit to handle variable size packets...
-            consolePipe.read((char*)&packet, sizeof(struct ConsolePacket));
+            consolePipe.read((char*)&dpacket, sizeof(struct DebugPacket));
+
+            char msg[dpacket.strLength];
+            consolePipe.read((char*)&msg, dpacket.strLength);
+            packet.msg = QString(msg);
             return packet;
         }
     }

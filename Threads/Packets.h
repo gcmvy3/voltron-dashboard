@@ -2,7 +2,7 @@
 #define PACKETS_H
 
 #define BATTERY_PIPE_NAME "/tmp/voltron_battery"
-#define CONSOLE_PIPE_NAME "/tmp/voltron_console"
+#define CONSOLE_PIPE_NAME "/tmp/voltron_debug"
 
 #include <QString>
 
@@ -13,10 +13,13 @@ struct BatteryPacket
     float charge;
 };
 
+struct DebugPacket
+{
+    int strLength;
+};
+
 struct ConsolePacket
 {
-    int stringSize;
-
     QString msg;
 };
 

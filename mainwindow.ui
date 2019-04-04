@@ -84,7 +84,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="consoleWidget" native="true">
+     <widget class="ConsoleWidget" name="consoleWidget" native="true">
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QLabel" name="label">
@@ -158,6 +158,15 @@
     <slot>onStartReading()</slot>
    </slots>
   </customwidget>
+  <customwidget>
+   <class>ConsoleWidget</class>
+   <extends>QWidget</extends>
+   <header>Widgets/ConsoleWidget.h</header>
+   <container>1</container>
+   <slots>
+    <slot>onStartReading()</slot>
+   </slots>
+  </customwidget>
  </customwidgets>
  <resources/>
  <connections>
@@ -174,6 +183,22 @@
     <hint type="destinationlabel">
      <x>294</x>
      <y>198</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>batteryReadButton</sender>
+   <signal>clicked()</signal>
+   <receiver>consoleWidget</receiver>
+   <slot>onStartReading()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>343</x>
+     <y>62</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>10</x>
+     <y>341</y>
     </hint>
    </hints>
   </connection>
