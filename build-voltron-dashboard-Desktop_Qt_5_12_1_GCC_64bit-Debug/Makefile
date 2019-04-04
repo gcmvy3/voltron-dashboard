@@ -1743,6 +1743,9 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
 		ui_mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QVariant \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QAction \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qaction.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1750,11 +1753,12 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.12.1/gcc_64/include/QtGui/qinputmethod.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QFrame \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qframe.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QHeaderView \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qheaderview.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractitemview.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qframe.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qitemselectionmodel.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
@@ -1767,11 +1771,12 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qstyle.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QLabel \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qlabel.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QMenu \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qmenu.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QMenuBar \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qmenubar.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qmenu.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QPushButton \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractbutton.h \
@@ -1780,11 +1785,27 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QTableWidget \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtablewidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtableview.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QToolBar \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtoolbar.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QTextBrowser \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtextbrowser.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtextedit.h \
+		../../../Qt/5.12.1/gcc_64/include/QtGui/qtextdocument.h \
+		../../../Qt/5.12.1/gcc_64/include/QtGui/qtextoption.h \
+		../../../Qt/5.12.1/gcc_64/include/QtGui/qtextcursor.h \
+		../../../Qt/5.12.1/gcc_64/include/QtGui/qtextformat.h \
+		../../../Qt/5.12.1/gcc_64/include/QtGui/qpen.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QVBoxLayout \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qlayout.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qgridlayout.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QWidget \
+		../Widgets/BatteryWidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h \
+		../Widgets/ConsoleWidget.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDateTime \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qdatetime.h \
+		../Threads/ConsoleThread.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../mainwindow.cpp
 
 BatteryThread.o: ../Threads/BatteryThread.cpp ../Threads/BatteryThread.h \
