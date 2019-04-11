@@ -1,9 +1,9 @@
 #ifndef CONSOLETHREAD_H
 #define CONSOLETHREAD_H
 
-#include <iostream>
-#include <fstream>
 #include <QObject>
+#include <QtNetwork/QUdpSocket>
+#include <QNetworkInterface>
 
 #include "Threads/Packets.h"
 
@@ -16,6 +16,7 @@ public:
 
 public slots:
     void start();
+    void readPendingDatagrams();
 
 signals:
     void finished();
@@ -24,16 +25,11 @@ signals:
 
 private:
 
-    static const int PIPE_CLOSED_ERROR = 1;
-    static const int NO_PACKET_ERROR = 2;
+    QUdpSocket* udpSocket;
 
-    std::ifstream consolePipe;
+    ConsolePacket* latestPacket;
 
-    ConsolePacket latestPacket;
-
-    int openPipe();
-
-    ConsolePacket readPacket();
+    void processDatagram(QByteArray datagram);
 };
 
 #endif // CONSOLETHREAD_H

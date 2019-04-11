@@ -5,6 +5,14 @@ ConsoleWidget::ConsoleWidget(QWidget *parent) : QWidget(parent)
 {
 }
 
+// Called automatically when the widget is shown
+void ConsoleWidget::showEvent( QShowEvent* event )
+{
+    QWidget::showEvent( event );
+    onStartReading();
+}
+
+
 void ConsoleWidget::onStartReading()
 {
     console = this->findChild<QTextBrowser*>("consoleBrowser");
@@ -14,27 +22,12 @@ void ConsoleWidget::onStartReading()
         qDebug("ERROR: Console browser does not exist");
     }
 
-    qDebug("Button clicked, starting thread\n");
-
-    QThread* thread = new QThread;
-    consoleThread = new ConsoleThread();
-    consoleThread->moveToThread(thread);
-
-    // Connect the required signals for a QThread
-    connect(consoleThread, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
-    connect(thread, SIGNAL(started()), consoleThread, SLOT(start()));
-    connect(consoleThread, SIGNAL(finished()), thread, SLOT(quit()));
-    connect(consoleThread, SIGNAL(finished()), consoleThread, SLOT(deleteLater()));
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-
-    connect(consoleThread, SIGNAL(newPacket(ConsolePacket)), this, SLOT(newPacket(ConsolePacket)));
-
-    thread->start();
+    connect(CommunicationManager::consoleThread, SIGNAL(newPacket(ConsolePacket)), this, SLOT(newPacket(ConsolePacket)));
 }
 
 void ConsoleWidget::onStopReading()
 {
-    // TODO implement this
+    disconnect(CommunicationManager::consoleThread, SIGNAL(newPacket(ConsolePacket)), this, SLOT(newPacket(ConsolePacket)));
 }
 
 // Called when a new packet is read

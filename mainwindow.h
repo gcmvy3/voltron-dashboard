@@ -2,8 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "Threads/Packets.h"
-#include "Threads/BatteryThread.h"
+#include "CommunicationManager.h"
 
 namespace Ui {
 class MainWindow;

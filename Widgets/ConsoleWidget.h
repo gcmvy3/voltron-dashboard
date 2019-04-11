@@ -6,7 +6,7 @@
 #include <QPushButton>
 #include <QThread>
 #include <QDateTime>
-#include "Threads/ConsoleThread.h"
+#include "CommunicationManager.h"
 #include "Threads/Packets.h"
 
 class ConsoleWidget : public QWidget
@@ -19,6 +19,9 @@ public:
     QPushButton *readButton;
 
     ConsoleThread *consoleThread;
+
+protected:
+    void showEvent( QShowEvent* event) override;
 
 signals:
 

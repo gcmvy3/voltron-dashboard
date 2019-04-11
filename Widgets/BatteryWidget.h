@@ -5,7 +5,7 @@
 #include <QTableWidget>
 #include <QPushButton>
 #include <QThread>
-#include "Threads/BatteryThread.h"
+#include "CommunicationManager.h"
 #include "Threads/Packets.h"
 
 class BatteryWidget : public QWidget
@@ -19,7 +19,8 @@ public:
     QTableWidget *table;
     QPushButton *readButton;
 
-    BatteryThread *batteryThread;
+protected:
+    void showEvent( QShowEvent* event) override;
 
 signals:
 

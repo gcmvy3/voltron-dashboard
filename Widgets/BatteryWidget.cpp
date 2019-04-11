@@ -5,6 +5,14 @@ BatteryWidget::BatteryWidget(QWidget *parent) : QWidget(parent)
 {
 }
 
+// Called automatically when the widget is shown
+void BatteryWidget::showEvent( QShowEvent* event )
+{
+    QWidget::showEvent( event );
+    onStartReading();
+}
+
+
 void BatteryWidget::onStartReading()
 {
     table = this->findChild<QTableWidget*>("batteryTable");
@@ -23,27 +31,12 @@ void BatteryWidget::onStartReading()
         table->setItem(i, 1, new QTableWidgetItem(QString("No data")));
     }
 
-    qDebug("Button clicked, starting thread\n");
-
-    QThread* thread = new QThread;
-    batteryThread = new BatteryThread();
-    batteryThread->moveToThread(thread);
-
-    // Connect the required signals for a QThread
-    connect(batteryThread, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
-    connect(thread, SIGNAL(started()), batteryThread, SLOT(start()));
-    connect(batteryThread, SIGNAL(finished()), thread, SLOT(quit()));
-    connect(batteryThread, SIGNAL(finished()), batteryThread, SLOT(deleteLater()));
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-
-    connect(batteryThread, SIGNAL(newPacket(BatteryPacket)), this, SLOT(newPacket(BatteryPacket)));
-
-    thread->start();
+    connect(CommunicationManager::batteryThread, SIGNAL(newPacket(BatteryPacket)), this, SLOT(newPacket(BatteryPacket)));
 }
 
 void BatteryWidget::onStopReading()
 {
-    // TODO implement this
+    disconnect(CommunicationManager::batteryThread, SIGNAL(newPacket(BatteryPacket)), this, SLOT(newPacket(BatteryPacket)));
 }
 
 // Called when a new packet is read

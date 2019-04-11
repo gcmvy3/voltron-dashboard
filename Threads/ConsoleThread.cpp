@@ -3,8 +3,11 @@
 
 #include "ConsoleThread.h"
 #include "Packets.h"
+#include "CommunicationManager.h"
 
 using namespace std;
+
+const QString udpAddress = "224.0.0.155";
 
 // Constructor
 ConsoleThread::ConsoleThread()
@@ -21,23 +24,35 @@ ConsoleThread::~ConsoleThread()
 // Starts the thread
 void ConsoleThread::start()
 {
+    udpSocket = new QUdpSocket();
+    udpSocket->bind(QHostAddress::AnyIPv4, CONSOLE_PORT, QUdpSocket::ShareAddress);
 
+    udpSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
+
+    connect(udpSocket, SIGNAL(readyRead()),
+                this, SLOT(readPendingDatagrams()));
 }
 
-// Tries to open the console pipe created by the core program
-int ConsoleThread::openPipe()
+void ConsoleThread::readPendingDatagrams()
 {
-    return 0;
+    while (udpSocket->hasPendingDatagrams())
+    {
+            QByteArray datagram;
+            datagram.resize(udpSocket->pendingDatagramSize());
+            QHostAddress sender;
+            quint16 senderPort;
+
+            udpSocket->readDatagram(datagram.data(), datagram.size(),
+                                    &sender, &senderPort);
+
+            ConsoleThread::processDatagram(datagram);
+     }
 }
 
-// Tries to read a packet from the console pipe
-// Throws an error if the pipe is closed or if there are no packets to read
-ConsolePacket ConsoleThread::readPacket()
+
+void ConsoleThread::processDatagram(QByteArray datagram)
 {
-    struct ConsolePacket dpacket;
-    return dpacket;
+    ConsolePacket* consolePacket = (ConsolePacket*)datagram.data();
+    ConsoleThread::latestPacket = consolePacket;
+    emit newPacket(*consolePacket);
 }
-
-
-
-

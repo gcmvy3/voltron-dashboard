@@ -1,7 +1,7 @@
 #ifndef PACKETS_H
 #define PACKETS_H
 
-#define DEBUG_PORT 12000
+#define CONSOLE_PORT 12000
 #define BATTERY_PORT 12001
 
 struct ConsolePacket

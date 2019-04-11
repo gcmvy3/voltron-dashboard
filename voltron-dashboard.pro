@@ -30,7 +30,8 @@ SOURCES += \
     Threads/BatteryThread.cpp \
     Widgets/BatteryWidget.cpp \
     Threads/ConsoleThread.cpp \
-    Widgets/ConsoleWidget.cpp
+    Widgets/ConsoleWidget.cpp \
+    CommunicationManager.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,7 +39,8 @@ HEADERS += \
     Threads/BatteryThread.h \
     Widgets/BatteryWidget.h \
     Threads/ConsoleThread.h \
-    Widgets/ConsoleWidget.h
+    Widgets/ConsoleWidget.h \
+    CommunicationManager.h
 
 FORMS += \
         mainwindow.ui
