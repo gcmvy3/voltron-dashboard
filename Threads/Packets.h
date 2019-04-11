@@ -1,10 +1,13 @@
 #ifndef PACKETS_H
 #define PACKETS_H
 
-#define BATTERY_PIPE_NAME "/tmp/voltron_battery"
-#define CONSOLE_PIPE_NAME "/tmp/voltron_debug"
+#define DEBUG_PORT 12000
+#define BATTERY_PORT 12001
 
-#include <QString>
+struct ConsolePacket
+{
+    int strLength;
+};
 
 struct BatteryPacket
 {
@@ -13,14 +16,21 @@ struct BatteryPacket
     float charge;
 };
 
-struct DebugPacket
-{
-    int strLength;
-};
 
-struct ConsolePacket
+#define LIDAR_MEMORY_NAME "/voltron_lidar_data"
+
+#define LIDAR_DATA_NUM_POINTS 384 * 16
+#define LIDAR_DATA_NUM_REGIONS 8
+
+struct LIDARData
 {
-    QString msg;
+    struct
+    {
+        float x;
+        float y;
+        float z;
+        float reflectivity;
+    } point[LIDAR_DATA_NUM_POINTS];
 };
 
 #endif

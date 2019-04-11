@@ -20,7 +20,6 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
@@ -35,9 +34,6 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout_2;
-    QTabWidget *tabWidget;
-    QWidget *tab;
-    QWidget *tab_2;
     BatteryWidget *batteryWidget;
     QVBoxLayout *verticalLayout_4;
     QFrame *frame;
@@ -67,17 +63,6 @@ public:
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        tabWidget = new QTabWidget(centralWidget);
-        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        tab = new QWidget();
-        tab->setObjectName(QString::fromUtf8("tab"));
-        tabWidget->addTab(tab, QString());
-        tab_2 = new QWidget();
-        tab_2->setObjectName(QString::fromUtf8("tab_2"));
-        tabWidget->addTab(tab_2, QString());
-
-        verticalLayout_2->addWidget(tabWidget);
-
         batteryWidget = new BatteryWidget(centralWidget);
         batteryWidget->setObjectName(QString::fromUtf8("batteryWidget"));
         batteryWidget->setStyleSheet(QString::fromUtf8(""));
@@ -201,8 +186,6 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Tab 1", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", nullptr));
         batteryLabel->setText(QApplication::translate("MainWindow", "Battery Data", nullptr));
         batteryReadButton->setText(QApplication::translate("MainWindow", "Read Data", nullptr));
         QTableWidgetItem *___qtablewidgetitem = batteryTable->horizontalHeaderItem(0);

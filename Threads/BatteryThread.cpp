@@ -6,6 +6,8 @@
 
 using namespace std;
 
+const QString udpAddress = "224.0.0.155";
+
 // Constructor
 BatteryThread::BatteryThread()
 {
@@ -21,74 +23,53 @@ BatteryThread::~BatteryThread()
 // Starts the thread
 void BatteryThread::start()
 {
-    // Try to open the battery pipe
-    if(openPipe() == 0)
+    udpSocket = new QUdpSocket();
+    udpSocket->bind(QHostAddress::AnyIPv4, BATTERY_PORT, QUdpSocket::ShareAddress);
+
+    QNetworkInterface loopbackInterface;
+
+    // Get loopback interface from list of interfaces
+    QList<QNetworkInterface> ifaces = QNetworkInterface::allInterfaces();
+    for(int i=0; i < ifaces.size(); i++)
     {
-        // Read packets continually until the thread is stopped
-        while(1)
+        QNetworkInterface interface = ifaces[i];
+        if((bool)(interface.flags() & QNetworkInterface::IsLoopBack))
         {
-            try
-            {
-               BatteryPacket bufferPacket = readPacket();
-               latestPacket = bufferPacket;
-               emit newPacket(latestPacket);
-            }
-            catch(int exception)
-            {
-                if(exception == PIPE_CLOSED_ERROR)
-                {
-                    emit error("Error: battery pipe closed unexpectedly");
-                }
-                else if(exception == NO_PACKET_ERROR)
-                {
-                    // Not a fatal error, so just keep trying to read packets
-                }
-            }
+            loopbackInterface = interface;
+            break;
         }
     }
-    else
-    {
-        emit error("Error: Could not open battery pipe");
-    }
 
-    emit finished();
+    udpSocket->joinMulticastGroup(QHostAddress(udpAddress), loopbackInterface);
+
+    connect(udpSocket, SIGNAL(readyRead()),
+                this, SLOT(readPendingDatagrams()));
 }
 
-// Tries to open the battery pipe created by the core program
-int BatteryThread::openPipe()
+void BatteryThread::readPendingDatagrams()
 {
-    batteryPipe.open(BATTERY_PIPE_NAME, ifstream::in);
+    qDebug("Starting to listen for datagrams");
 
-    if(batteryPipe.fail())
+    while (udpSocket->hasPendingDatagrams())
     {
-        return 1;
-    }
+            QByteArray datagram;
+            datagram.resize(udpSocket->pendingDatagramSize());
+            QHostAddress sender;
+            quint16 senderPort;
 
-    return 0;
+            udpSocket->readDatagram(datagram.data(), datagram.size(),
+                                    &sender, &senderPort);
+
+            BatteryThread::processDatagram(datagram);
+     }
 }
 
-// Tries to read a packet from the battery pipe
-// Throws an error if the pipe is closed or if there are no packets to read
-BatteryPacket BatteryThread::readPacket()
-{
-    struct BatteryPacket packet;
 
-    if(batteryPipe.is_open())
-    {
-        if(batteryPipe.peek() == EOF)
-        {
-            throw NO_PACKET_ERROR;
-        }
-        else
-        {
-            batteryPipe.read((char*)&packet, sizeof(struct BatteryPacket));
-            return packet;
-        }
-    }
-    else
-    {
-        throw PIPE_CLOSED_ERROR;
-    }
+void BatteryThread::processDatagram(QByteArray datagram)
+{
+    BatteryPacket* batteryPacket = (BatteryPacket*)datagram.data();
+    BatteryThread::latestPacket = batteryPacket;
+    emit newPacket(*batteryPacket);
 }
 
 

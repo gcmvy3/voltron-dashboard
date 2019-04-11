@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../../voltron-dashboard -I. -I../../../Qt/5.12.1/gcc_64/include -I../../../Qt/5.12.1/gcc_64/include/QtWidgets -I../../../Qt/5.12.1/gcc_64/include/QtGui -I../../../Qt/5.12.1/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I../../../Qt/5.12.1/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../../voltron-dashboard -I. -I../../../Qt/5.12.1/gcc_64/include -I../../../Qt/5.12.1/gcc_64/include/QtWidgets -I../../../Qt/5.12.1/gcc_64/include/QtGui -I../../../Qt/5.12.1/gcc_64/include/QtNetwork -I../../../Qt/5.12.1/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I../../../Qt/5.12.1/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/voltron/Qt/5.12.1/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = voltron-dashboard1.0.0
 DISTDIR = /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/.tmp/voltron-dashboard1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/voltron/Qt/5.12.1/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/home/voltron/Qt/5.12.1/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread   
+LIBS          = $(SUBLIBS) -L/home/voltron/Qt/5.12.1/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -484,6 +484,7 @@ Makefile: ../voltron-dashboard.pro ../../../Qt/5.12.1/gcc_64/mkspecs/features/sp
 		../voltron-dashboard.pro \
 		../../../Qt/5.12.1/gcc_64/lib/libQt5Widgets.prl \
 		../../../Qt/5.12.1/gcc_64/lib/libQt5Gui.prl \
+		../../../Qt/5.12.1/gcc_64/lib/libQt5Network.prl \
 		../../../Qt/5.12.1/gcc_64/lib/libQt5Core.prl
 	$(QMAKE) -o Makefile ../voltron-dashboard.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
 ../../../Qt/5.12.1/gcc_64/mkspecs/features/spec_pre.prf:
@@ -681,6 +682,7 @@ Makefile: ../voltron-dashboard.pro ../../../Qt/5.12.1/gcc_64/mkspecs/features/sp
 ../voltron-dashboard.pro:
 ../../../Qt/5.12.1/gcc_64/lib/libQt5Widgets.prl:
 ../../../Qt/5.12.1/gcc_64/lib/libQt5Gui.prl:
+../../../Qt/5.12.1/gcc_64/lib/libQt5Network.prl:
 ../../../Qt/5.12.1/gcc_64/lib/libQt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../voltron-dashboard.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
@@ -845,9 +847,15 @@ moc_mainwindow.cpp: ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QString \
 		../Threads/BatteryThread.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/QUdpSocket \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qudpsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qhostaddress.h \
 		moc_predefs.h \
 		../../../Qt/5.12.1/gcc_64/bin/moc
-	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../mainwindow.h -o moc_mainwindow.cpp
+	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtNetwork -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../mainwindow.h -o moc_mainwindow.cpp
 
 moc_BatteryThread.cpp: ../Threads/BatteryThread.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
@@ -900,11 +908,31 @@ moc_BatteryThread.cpp: ../Threads/BatteryThread.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qvarlengtharray.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qcontainerfwd.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/QUdpSocket \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qudpsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qvector.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qset.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qhostaddress.h \
 		../Threads/Packets.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QString \
 		moc_predefs.h \
 		../../../Qt/5.12.1/gcc_64/bin/moc
-	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Threads/BatteryThread.h -o moc_BatteryThread.cpp
+	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtNetwork -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Threads/BatteryThread.h -o moc_BatteryThread.cpp
 
 moc_BatteryWidget.cpp: ../Widgets/BatteryWidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QWidget \
@@ -1037,11 +1065,17 @@ moc_BatteryWidget.cpp: ../Widgets/BatteryWidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h \
 		../Threads/BatteryThread.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/QUdpSocket \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qudpsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qhostaddress.h \
 		../Threads/Packets.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QString \
 		moc_predefs.h \
 		../../../Qt/5.12.1/gcc_64/bin/moc
-	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Widgets/BatteryWidget.h -o moc_BatteryWidget.cpp
+	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtNetwork -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Widgets/BatteryWidget.h -o moc_BatteryWidget.cpp
 
 moc_ConsoleThread.cpp: ../Threads/ConsoleThread.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
@@ -1098,7 +1132,7 @@ moc_ConsoleThread.cpp: ../Threads/ConsoleThread.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QString \
 		moc_predefs.h \
 		../../../Qt/5.12.1/gcc_64/bin/moc
-	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Threads/ConsoleThread.h -o moc_ConsoleThread.cpp
+	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtNetwork -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Threads/ConsoleThread.h -o moc_ConsoleThread.cpp
 
 moc_ConsoleWidget.cpp: ../Widgets/ConsoleWidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QWidget \
@@ -1228,7 +1262,7 @@ moc_ConsoleWidget.cpp: ../Widgets/ConsoleWidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QString \
 		moc_predefs.h \
 		../../../Qt/5.12.1/gcc_64/bin/moc
-	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Widgets/ConsoleWidget.h -o moc_ConsoleWidget.cpp
+	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtNetwork -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Widgets/ConsoleWidget.h -o moc_ConsoleWidget.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1371,6 +1405,12 @@ ui_mainwindow.h: ../mainwindow.ui \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h \
 		../Threads/BatteryThread.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/QUdpSocket \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qudpsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qhostaddress.h \
 		../Threads/Packets.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QString \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QWidget \
@@ -1621,6 +1661,12 @@ main.o: ../main.cpp ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QString \
 		../Threads/BatteryThread.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/QUdpSocket \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qudpsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qhostaddress.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1741,6 +1787,12 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QString \
 		../Threads/BatteryThread.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/QUdpSocket \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qudpsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qhostaddress.h \
 		ui_mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QVariant \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QAction \
@@ -1782,6 +1834,7 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QStatusBar \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qstatusbar.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QTabWidget \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QTableWidget \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtablewidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtableview.h \
@@ -1859,6 +1912,26 @@ BatteryThread.o: ../Threads/BatteryThread.cpp ../Threads/BatteryThread.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qvarlengtharray.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qcontainerfwd.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/QUdpSocket \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qudpsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qvector.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qset.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qhostaddress.h \
 		../Threads/Packets.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QString
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BatteryThread.o ../Threads/BatteryThread.cpp
@@ -1994,6 +2067,12 @@ BatteryWidget.o: ../Widgets/BatteryWidget.cpp ../Widgets/BatteryWidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h \
 		../Threads/BatteryThread.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/QUdpSocket \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qudpsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qhostaddress.h \
 		../Threads/Packets.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QString
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BatteryWidget.o ../Widgets/BatteryWidget.cpp

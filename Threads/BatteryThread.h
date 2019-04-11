@@ -1,9 +1,9 @@
 #ifndef BATTERYTHREAD_H
 #define BATTERYTHREAD_H
 
-#include <iostream>
-#include <fstream>
 #include <QObject>
+#include <QtNetwork/QUdpSocket>
+#include <QNetworkInterface>
 
 #include "Threads/Packets.h"
 
@@ -16,6 +16,7 @@ public:
 
 public slots:
     void start();
+    void readPendingDatagrams();
 
 signals:
     void finished();
@@ -24,16 +25,11 @@ signals:
 
 private:
 
-    static const int PIPE_CLOSED_ERROR = 1;
-    static const int NO_PACKET_ERROR = 2;
+    QUdpSocket* udpSocket;
 
-    std::ifstream batteryPipe;
+    BatteryPacket* latestPacket;
 
-    BatteryPacket latestPacket;
-
-    int openPipe();
-
-    BatteryPacket readPacket();
+    void processDatagram(QByteArray datagram);
 };
 
 #endif // BATTERYTHREAD_H

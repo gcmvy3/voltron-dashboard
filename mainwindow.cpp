@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->findChild<ConsoleWidget*>("consoleWidget")->onStartReading();
+    this->findChild<BatteryWidget*>("batteryWidget")->onStartReading();
 }
 
 MainWindow::~MainWindow()
