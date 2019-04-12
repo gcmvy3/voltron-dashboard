@@ -3,6 +3,7 @@
 
 #define CONSOLE_PORT 12000
 #define BATTERY_PORT 12001
+#define LIDAR_PORT 12002
 
 struct ConsolePacket
 {
@@ -22,7 +23,7 @@ struct BatteryPacket
 #define LIDAR_DATA_NUM_POINTS 384 * 16
 #define LIDAR_DATA_NUM_REGIONS 8
 
-struct LIDARData
+struct LidarPacket
 {
     struct
     {

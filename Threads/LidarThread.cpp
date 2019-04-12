@@ -1,26 +1,16 @@
-
-#include "BatteryThread.h"
+#include "LidarThread.h"
 #include "CommunicationManager.h"
 
-using namespace std;
-
-// Constructor
-BatteryThread::BatteryThread()
+LidarThread::LidarThread(QObject *parent) : QObject(parent)
 {
-    qRegisterMetaType<BatteryPacket>("BatteryPacket");
-}
-
-// Destructor
-BatteryThread::~BatteryThread()
-{
-
+    qRegisterMetaType<LidarPacket>("LidarPacket");
 }
 
 // Starts the thread
-void BatteryThread::start()
+void LidarThread::start()
 {
     udpSocket = new QUdpSocket();
-    udpSocket->bind(QHostAddress::AnyIPv4, BATTERY_PORT, QUdpSocket::ShareAddress);
+    udpSocket->bind(QHostAddress::AnyIPv4, LIDAR_PORT, QUdpSocket::ShareAddress);
 
     udpSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
 
@@ -28,7 +18,7 @@ void BatteryThread::start()
                 this, SLOT(readPendingDatagrams()));
 }
 
-void BatteryThread::readPendingDatagrams()
+void LidarThread::readPendingDatagrams()
 {
     while (udpSocket->hasPendingDatagrams())
     {
@@ -40,14 +30,14 @@ void BatteryThread::readPendingDatagrams()
             udpSocket->readDatagram(datagram.data(), datagram.size(),
                                     &sender, &senderPort);
 
-            BatteryThread::processDatagram(datagram);
+            LidarThread::processDatagram(datagram);
      }
 }
 
 
-void BatteryThread::processDatagram(QByteArray datagram)
+void LidarThread::processDatagram(QByteArray datagram)
 {
-    BatteryPacket* batteryPacket = (BatteryPacket*)datagram.data();
-    BatteryThread::latestPacket = batteryPacket;
-    emit newPacket(*batteryPacket);
+    LidarPacket* lidarPacket = (LidarPacket*)datagram.data();
+    LidarThread::latestPacket = lidarPacket;
+    emit newPacket(*lidarPacket);
 }

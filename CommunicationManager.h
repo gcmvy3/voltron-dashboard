@@ -2,8 +2,9 @@
 #define COMMUNICATIONMANAGER_H
 
 #include <QObject>
-#include <Threads/BatteryThread.h>
-#include <Threads/ConsoleThread.h>
+#include "Threads/BatteryThread.h"
+#include "Threads/ConsoleThread.h"
+#include "Threads/LidarThread.h"
 #include <QThread>
 
 class CommunicationManager : QObject
@@ -15,6 +16,7 @@ public:
 
     static BatteryThread* batteryThread;
     static ConsoleThread* consoleThread;
+    static LidarThread* lidarThread;
 
     static QHostAddress getUDPAddress(){return QHostAddress("224.0.0.155");}
 

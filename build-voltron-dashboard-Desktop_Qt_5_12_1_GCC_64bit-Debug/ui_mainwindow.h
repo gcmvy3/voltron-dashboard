@@ -18,7 +18,8 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
+#include <QtWidgets/QOpenGLWidget>
+#include <QtWidgets/QSplitter>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextBrowser>
@@ -26,6 +27,7 @@
 #include <QtWidgets/QWidget>
 #include "Widgets/BatteryWidget.h"
 #include "Widgets/ConsoleWidget.h"
+#include "Widgets/LidarWidget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -33,7 +35,13 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
+    QVBoxLayout *verticalLayout_6;
+    QSplitter *splitter_2;
+    QSplitter *splitter;
+    LidarWidget *lidarWidget;
     QVBoxLayout *verticalLayout_2;
+    QLabel *lidarLabel;
+    QOpenGLWidget *openGLWidget;
     BatteryWidget *batteryWidget;
     QVBoxLayout *verticalLayout_4;
     QFrame *frame;
@@ -41,7 +49,6 @@ public:
     QVBoxLayout *verticalLayout_3;
     QLabel *batteryLabel;
     QFrame *line;
-    QPushButton *batteryReadButton;
     QTableWidget *batteryTable;
     ConsoleWidget *consoleWidget;
     QVBoxLayout *verticalLayout;
@@ -59,12 +66,55 @@ public:
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         centralWidget->setStyleSheet(QString::fromUtf8("background-color: rgb(211, 215, 207)"));
-        verticalLayout_2 = new QVBoxLayout(centralWidget);
+        verticalLayout_6 = new QVBoxLayout(centralWidget);
+        verticalLayout_6->setSpacing(6);
+        verticalLayout_6->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
+        splitter_2 = new QSplitter(centralWidget);
+        splitter_2->setObjectName(QString::fromUtf8("splitter_2"));
+        splitter_2->setOrientation(Qt::Vertical);
+        splitter_2->setChildrenCollapsible(false);
+        splitter = new QSplitter(splitter_2);
+        splitter->setObjectName(QString::fromUtf8("splitter"));
+        splitter->setOrientation(Qt::Horizontal);
+        splitter->setChildrenCollapsible(false);
+        lidarWidget = new LidarWidget(splitter);
+        lidarWidget->setObjectName(QString::fromUtf8("lidarWidget"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(1);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(lidarWidget->sizePolicy().hasHeightForWidth());
+        lidarWidget->setSizePolicy(sizePolicy);
+        lidarWidget->setStyleSheet(QString::fromUtf8("background-color: rgb(238, 238, 236)"));
+        verticalLayout_2 = new QVBoxLayout(lidarWidget);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        batteryWidget = new BatteryWidget(centralWidget);
+        lidarLabel = new QLabel(lidarWidget);
+        lidarLabel->setObjectName(QString::fromUtf8("lidarLabel"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Maximum);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(lidarLabel->sizePolicy().hasHeightForWidth());
+        lidarLabel->setSizePolicy(sizePolicy1);
+        lidarLabel->setFrameShape(QFrame::StyledPanel);
+
+        verticalLayout_2->addWidget(lidarLabel);
+
+        openGLWidget = new QOpenGLWidget(lidarWidget);
+        openGLWidget->setObjectName(QString::fromUtf8("openGLWidget"));
+
+        verticalLayout_2->addWidget(openGLWidget);
+
+        splitter->addWidget(lidarWidget);
+        batteryWidget = new BatteryWidget(splitter);
         batteryWidget->setObjectName(QString::fromUtf8("batteryWidget"));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(1);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(batteryWidget->sizePolicy().hasHeightForWidth());
+        batteryWidget->setSizePolicy(sizePolicy2);
+        batteryWidget->setMinimumSize(QSize(200, 200));
         batteryWidget->setStyleSheet(QString::fromUtf8(""));
         verticalLayout_4 = new QVBoxLayout(batteryWidget);
         verticalLayout_4->setSpacing(6);
@@ -99,13 +149,6 @@ public:
 
         verticalLayout_3->addWidget(line);
 
-        batteryReadButton = new QPushButton(frame);
-        batteryReadButton->setObjectName(QString::fromUtf8("batteryReadButton"));
-        batteryReadButton->setCheckable(true);
-        batteryReadButton->setFlat(false);
-
-        verticalLayout_3->addWidget(batteryReadButton);
-
         batteryTable = new QTableWidget(frame);
         if (batteryTable->columnCount() < 2)
             batteryTable->setColumnCount(2);
@@ -126,10 +169,9 @@ public:
 
         verticalLayout_4->addWidget(frame);
 
-
-        verticalLayout_2->addWidget(batteryWidget);
-
-        consoleWidget = new ConsoleWidget(centralWidget);
+        splitter->addWidget(batteryWidget);
+        splitter_2->addWidget(splitter);
+        consoleWidget = new ConsoleWidget(splitter_2);
         consoleWidget->setObjectName(QString::fromUtf8("consoleWidget"));
         consoleWidget->setStyleSheet(QString::fromUtf8("background-color: rgb(238, 238, 236)"));
         verticalLayout = new QVBoxLayout(consoleWidget);
@@ -138,13 +180,10 @@ public:
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         label = new QLabel(consoleWidget);
         label->setObjectName(QString::fromUtf8("label"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
-        label->setSizePolicy(sizePolicy);
+        sizePolicy1.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
+        label->setSizePolicy(sizePolicy1);
         label->setAutoFillBackground(false);
-        label->setFrameShape(QFrame::StyledPanel);
+        label->setFrameShape(QFrame::VLine);
         label->setFrameShadow(QFrame::Plain);
         label->setLineWidth(1);
         label->setMidLineWidth(0);
@@ -153,16 +192,17 @@ public:
 
         consoleBrowser = new QTextBrowser(consoleWidget);
         consoleBrowser->setObjectName(QString::fromUtf8("consoleBrowser"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(consoleBrowser->sizePolicy().hasHeightForWidth());
-        consoleBrowser->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(consoleBrowser->sizePolicy().hasHeightForWidth());
+        consoleBrowser->setSizePolicy(sizePolicy3);
 
         verticalLayout->addWidget(consoleBrowser);
 
+        splitter_2->addWidget(consoleWidget);
 
-        verticalLayout_2->addWidget(consoleWidget);
+        verticalLayout_6->addWidget(splitter_2);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -178,7 +218,6 @@ public:
         menuBar->addAction(menuFile->menuAction());
 
         retranslateUi(MainWindow);
-        QObject::connect(batteryReadButton, SIGNAL(clicked()), batteryWidget, SLOT(onStartReading()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -186,8 +225,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
+        lidarLabel->setText(QApplication::translate("MainWindow", "LIDAR", nullptr));
         batteryLabel->setText(QApplication::translate("MainWindow", "Battery Data", nullptr));
-        batteryReadButton->setText(QApplication::translate("MainWindow", "Read Data", nullptr));
         QTableWidgetItem *___qtablewidgetitem = batteryTable->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "Cell Number", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = batteryTable->horizontalHeaderItem(1);

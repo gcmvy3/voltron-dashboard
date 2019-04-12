@@ -31,7 +31,9 @@ SOURCES += \
     Widgets/BatteryWidget.cpp \
     Threads/ConsoleThread.cpp \
     Widgets/ConsoleWidget.cpp \
-    CommunicationManager.cpp
+    CommunicationManager.cpp \
+    Threads/LidarThread.cpp \
+    Widgets/LidarWidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,7 +42,9 @@ HEADERS += \
     Widgets/BatteryWidget.h \
     Threads/ConsoleThread.h \
     Widgets/ConsoleWidget.h \
-    CommunicationManager.h
+    CommunicationManager.h \
+    Threads/LidarThread.h \
+    Widgets/LidarWidget.h
 
 FORMS += \
         mainwindow.ui

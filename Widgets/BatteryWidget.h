@@ -17,7 +17,6 @@ public:
     const int NUM_CELLS = 20;
 
     QTableWidget *table;
-    QPushButton *readButton;
 
 protected:
     void showEvent( QShowEvent* event) override;

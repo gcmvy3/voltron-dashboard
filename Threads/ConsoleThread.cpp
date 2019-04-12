@@ -1,8 +1,5 @@
-#include <iostream>
-#include <fstream>
 
 #include "ConsoleThread.h"
-#include "Packets.h"
 #include "CommunicationManager.h"
 
 using namespace std;
