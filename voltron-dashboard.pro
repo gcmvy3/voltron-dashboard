@@ -33,7 +33,8 @@ SOURCES += \
     Widgets/ConsoleWidget.cpp \
     CommunicationManager.cpp \
     Threads/LidarThread.cpp \
-    Widgets/LidarWidget.cpp
+    Widgets/LidarWidget.cpp \
+    Widgets/LidarRenderer.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,7 +45,8 @@ HEADERS += \
     Widgets/ConsoleWidget.h \
     CommunicationManager.h \
     Threads/LidarThread.h \
-    Widgets/LidarWidget.h
+    Widgets/LidarWidget.h \
+    Widgets/LidarRenderer.h
 
 FORMS += \
         mainwindow.ui

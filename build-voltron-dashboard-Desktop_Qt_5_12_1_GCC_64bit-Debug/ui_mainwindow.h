@@ -18,7 +18,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QOpenGLWidget>
 #include <QtWidgets/QSplitter>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
@@ -39,9 +38,6 @@ public:
     QSplitter *splitter_2;
     QSplitter *splitter;
     LidarWidget *lidarWidget;
-    QVBoxLayout *verticalLayout_2;
-    QLabel *lidarLabel;
-    QOpenGLWidget *openGLWidget;
     BatteryWidget *batteryWidget;
     QVBoxLayout *verticalLayout_4;
     QFrame *frame;
@@ -86,34 +82,14 @@ public:
         sizePolicy.setHeightForWidth(lidarWidget->sizePolicy().hasHeightForWidth());
         lidarWidget->setSizePolicy(sizePolicy);
         lidarWidget->setStyleSheet(QString::fromUtf8("background-color: rgb(238, 238, 236)"));
-        verticalLayout_2 = new QVBoxLayout(lidarWidget);
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        lidarLabel = new QLabel(lidarWidget);
-        lidarLabel->setObjectName(QString::fromUtf8("lidarLabel"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Maximum);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(lidarLabel->sizePolicy().hasHeightForWidth());
-        lidarLabel->setSizePolicy(sizePolicy1);
-        lidarLabel->setFrameShape(QFrame::StyledPanel);
-
-        verticalLayout_2->addWidget(lidarLabel);
-
-        openGLWidget = new QOpenGLWidget(lidarWidget);
-        openGLWidget->setObjectName(QString::fromUtf8("openGLWidget"));
-
-        verticalLayout_2->addWidget(openGLWidget);
-
         splitter->addWidget(lidarWidget);
         batteryWidget = new BatteryWidget(splitter);
         batteryWidget->setObjectName(QString::fromUtf8("batteryWidget"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy2.setHorizontalStretch(1);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(batteryWidget->sizePolicy().hasHeightForWidth());
-        batteryWidget->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(1);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(batteryWidget->sizePolicy().hasHeightForWidth());
+        batteryWidget->setSizePolicy(sizePolicy1);
         batteryWidget->setMinimumSize(QSize(200, 200));
         batteryWidget->setStyleSheet(QString::fromUtf8(""));
         verticalLayout_4 = new QVBoxLayout(batteryWidget);
@@ -180,8 +156,11 @@ public:
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         label = new QLabel(consoleWidget);
         label->setObjectName(QString::fromUtf8("label"));
-        sizePolicy1.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
-        label->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Maximum);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
+        label->setSizePolicy(sizePolicy2);
         label->setAutoFillBackground(false);
         label->setFrameShape(QFrame::VLine);
         label->setFrameShadow(QFrame::Plain);
@@ -225,7 +204,6 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
-        lidarLabel->setText(QApplication::translate("MainWindow", "LIDAR", nullptr));
         batteryLabel->setText(QApplication::translate("MainWindow", "Battery Data", nullptr));
         QTableWidgetItem *___qtablewidgetitem = batteryTable->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "Cell Number", nullptr));
