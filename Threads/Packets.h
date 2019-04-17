@@ -23,7 +23,7 @@ struct BatteryPacket
 #define LIDAR_DATA_NUM_POINTS 384 * 16
 #define LIDAR_DATA_NUM_REGIONS 8
 
-struct LidarPacket
+struct LIDARData
 {
     struct
     {
@@ -34,4 +34,8 @@ struct LidarPacket
     } point[LIDAR_DATA_NUM_POINTS];
 };
 
+struct LidarPacket
+{
+    int updated;
+};
 #endif
