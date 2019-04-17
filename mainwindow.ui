@@ -23,6 +23,9 @@
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
+      <property name="handleWidth">
+       <number>12</number>
+      </property>
       <property name="childrenCollapsible">
        <bool>false</bool>
       </property>
@@ -30,13 +33,16 @@
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
+       <property name="handleWidth">
+        <number>12</number>
+       </property>
        <property name="childrenCollapsible">
         <bool>false</bool>
        </property>
        <widget class="LidarWidget" name="lidarWidget" native="true">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>1</horstretch>
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <horstretch>2</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
@@ -46,7 +52,7 @@
        </widget>
        <widget class="BatteryWidget" name="batteryWidget" native="true">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>1</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>

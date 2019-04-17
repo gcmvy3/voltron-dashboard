@@ -1,7 +1,5 @@
 #include "LidarRenderer.h"
 
-#include "Threads/Packets.h"
-
 #include <iostream>
 #include <algorithm>
 #include <sys/mman.h>
@@ -11,6 +9,8 @@
 
 LidarRenderer::LidarRenderer(QWidget* parent) : QOpenGLWidget (parent), semaphore(1)
 {
+    lastTouchedPos = QPoint(-1,-1);
+
     connect(CommunicationManager::lidarThread, SIGNAL(newPacket(LidarPacket)), this, SLOT(onPacket(LidarPacket)));
 
     sharedMemoryFD = shm_open(LIDAR_MEMORY_NAME, O_RDONLY, 0777);
@@ -46,7 +46,7 @@ void LidarRenderer::initializeGL()
 {
     initializeOpenGLFunctions();
     glClearColor(0,0,0,1);
-    glPointSize(16.0f);
+    glPointSize(4.0f);
 
     buffer = new QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
     buffer->setUsagePattern(QOpenGLBuffer::StreamDraw);
@@ -65,12 +65,15 @@ void LidarRenderer::initializeGL()
 
     aspect = std::max(this->width(), this->height()) / std::min(this->width(), this->height());
 
-    //void* bufferData = buffer->map(QOpenGLBuffer::ReadWrite);
+    xRot = 0;
+    yRot = 0;
+    zRot = 0;
 }
 
 void LidarRenderer::resizeGL(int w, int h)
 {
     aspect = std::max(w, h) / std::min(w, h);
+    glViewport(0, 0, w, h);
 }
 
 void LidarRenderer::paintGL()
@@ -84,8 +87,6 @@ void LidarRenderer::paintGL()
             semaphore.release(1);
 
             buffer->write(newBlock * sizeof(LIDARData), &memoryRegions[newBlock], sizeof(LIDARData));
-
-            std::cout << "Uploaded block " << newBlock << std::endl;
         }
         else
             semaphore.release(1);
@@ -101,6 +102,9 @@ void LidarRenderer::paintGL()
     QMatrix4x4 transform;
     transform.perspective(60.0f, aspect, 0.1f, 1000.0f);
     transform.translate(0, 0, -2);
+    transform.rotate(xRot, 0, 1, 0);
+    transform.rotate(yRot, 1, 0, 0);
+
     program->setUniformValue(transformLoc, transform);
 
     glEnableVertexAttribArray(0);
@@ -117,4 +121,54 @@ void LidarRenderer::onPacket(LidarPacket packet)
     semaphore.acquire(1);
     dirtyBlocks.push_back(packet.updated);
     semaphore.release(1);
+}
+
+void LidarRenderer::setXRotation(int angle)
+{
+    //Normalize angle
+    while (angle < 0)
+        angle += 360 * 16;
+    while (angle > 360 * 16)
+        angle -= 360 * 16;
+
+    if(angle != xRot)
+    {
+        xRot = angle;
+    }
+}
+
+void LidarRenderer::setYRotation(int angle)
+{
+    //Normalize angle
+    while (angle < 0)
+        angle += 360 * 16;
+    while (angle > 360 * 16)
+        angle -= 360 * 16;
+
+    if(angle != yRot)
+    {
+        yRot = angle;
+    }
+}
+
+void LidarRenderer::mouseMoveEvent(QMouseEvent *event)
+{
+    if(lastTouchedPos != QPoint(-1, -1))
+    {
+        int dx = event->x() - lastTouchedPos.x();
+        int dy = event->y() - lastTouchedPos.y();
+
+        if(event->buttons() & Qt::LeftButton)
+        {
+            setXRotation(xRot + dx);
+            setYRotation(yRot + dy);
+        }
+    }
+
+    lastTouchedPos = event->pos();
+}
+
+void LidarRenderer::mouseReleaseEvent(QMouseEvent* event)
+{
+    lastTouchedPos = QPoint(-1,-1);
 }

@@ -69,15 +69,17 @@ public:
         splitter_2 = new QSplitter(centralWidget);
         splitter_2->setObjectName(QString::fromUtf8("splitter_2"));
         splitter_2->setOrientation(Qt::Vertical);
+        splitter_2->setHandleWidth(12);
         splitter_2->setChildrenCollapsible(false);
         splitter = new QSplitter(splitter_2);
         splitter->setObjectName(QString::fromUtf8("splitter"));
         splitter->setOrientation(Qt::Horizontal);
+        splitter->setHandleWidth(12);
         splitter->setChildrenCollapsible(false);
         lidarWidget = new LidarWidget(splitter);
         lidarWidget->setObjectName(QString::fromUtf8("lidarWidget"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(1);
+        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+        sizePolicy.setHorizontalStretch(2);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(lidarWidget->sizePolicy().hasHeightForWidth());
         lidarWidget->setSizePolicy(sizePolicy);
@@ -85,7 +87,7 @@ public:
         splitter->addWidget(lidarWidget);
         batteryWidget = new BatteryWidget(splitter);
         batteryWidget->setObjectName(QString::fromUtf8("batteryWidget"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy1.setHorizontalStretch(1);
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(batteryWidget->sizePolicy().hasHeightForWidth());
