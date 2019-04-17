@@ -46,7 +46,7 @@ void LidarRenderer::initializeGL()
 {
     initializeOpenGLFunctions();
     glClearColor(0,0,0,1);
-    glPointSize(16.0f);
+    glPointSize(4.0f);
 
     buffer = new QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
     buffer->setUsagePattern(QOpenGLBuffer::StreamDraw);
