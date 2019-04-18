@@ -32,7 +32,7 @@ static const char *vertexShaderSource =
         "varying vec4 col;\n"
         "uniform mat4 matrix;\n"
         "void main() {\n"
-        "   col = vec4(1.0, 0.0, 1.0, 1.0);\n"
+        "   col = vec4(posAttr.w, 0.0, 1.0, 1.0);\n"
         "   gl_Position = matrix * vec4(posAttr.xyz, 1.0);\n"
         "}\n";
 
@@ -86,6 +86,7 @@ void LidarRenderer::paintGL()
             dirtyBlocks.erase(dirtyBlocks.begin());
             semaphore.release(1);
 
+            renderBlock = newBlock;
             buffer->write(newBlock * sizeof(LIDARData), &memoryRegions[newBlock], sizeof(LIDARData));
         }
         else
@@ -110,7 +111,7 @@ void LidarRenderer::paintGL()
     glEnableVertexAttribArray(0);
     buffer->bind();
     glVertexAttribPointer(posLoc, 4, GL_FLOAT, GL_FALSE, 0, (void*) 0);
-    glDrawArrays(GL_POINTS, 0, LIDAR_DATA_NUM_POINTS * LIDAR_DATA_NUM_REGIONS);
+    glDrawArrays(GL_POINTS, renderBlock * LIDAR_DATA_NUM_POINTS, LIDAR_DATA_NUM_POINTS);
     glDisableVertexAttribArray(0);
 
     update();

@@ -47,6 +47,7 @@ protected:
     uint colLoc;
     int transformLoc;
 
+    int renderBlock = 0;
     std::vector<int> dirtyBlocks;
     QSemaphore semaphore;
 
