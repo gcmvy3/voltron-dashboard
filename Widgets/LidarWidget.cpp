@@ -15,11 +15,24 @@ LidarWidget::LidarWidget(QWidget *parent) : QWidget(parent)
     setLayout(layout);
 }
 
-// Called automatically when the widget is shown
+/**
+ * Called automatically when the widget is shown.
+ * Connects the widget to the incoming data packets.
+ **/
 void LidarWidget::showEvent( QShowEvent* event )
 {
     QWidget::showEvent( event );
     onStartReading();
+}
+
+/**
+ * Called automatically when the widget is shown.
+ * Disconnects the widget from the incoming data packets for better performance.
+ **/
+void LidarWidget::hideEvent( QHideEvent* event )
+{
+    QWidget::hideEvent( event );
+    onStopReading();
 }
 
 void LidarWidget::onStartReading()

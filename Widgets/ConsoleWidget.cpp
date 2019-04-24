@@ -5,11 +5,24 @@ ConsoleWidget::ConsoleWidget(QWidget *parent) : QWidget(parent)
 {
 }
 
-// Called automatically when the widget is shown
+/**
+ * Called automatically when the widget is shown.
+ * Connects the widget to the incoming data packets.
+ **/
 void ConsoleWidget::showEvent( QShowEvent* event )
 {
     QWidget::showEvent( event );
     onStartReading();
+}
+
+/**
+ * Called automatically when the widget is shown.
+ * Disconnects the widget from the incoming data packets for better performance.
+ **/
+void ConsoleWidget::hideEvent( QHideEvent* event )
+{
+    QWidget::hideEvent( event );
+    onStopReading();
 }
 
 

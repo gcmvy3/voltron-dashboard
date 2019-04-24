@@ -5,17 +5,37 @@ BatteryWidget::BatteryWidget(QWidget *parent) : QWidget(parent)
 {
 }
 
-// Called automatically when the widget is shown
+/**
+ * Called automatically when the widget is shown.
+ * Connects the widget to the incoming data packets.
+ **/
 void BatteryWidget::showEvent( QShowEvent* event )
 {
     QWidget::showEvent( event );
     onStartReading();
 }
 
+/**
+ * Called automatically when the widget is shown.
+ * Disconnects the widget from the incoming data packets for better performance.
+ **/
+void BatteryWidget::hideEvent( QHideEvent* event )
+{
+    QWidget::hideEvent( event );
+    onStopReading();
+}
 
 void BatteryWidget::onStartReading()
 {
-    table = this->findChild<QTableWidget*>("batteryTable");
+    updateWidgetIndex();
+
+    QString idSuffix = "";
+    if(widgetIndex != -1)
+    {
+        idSuffix = QString("_").append(QString::number(widgetIndex));
+    }
+
+    table = this->findChild<QTableWidget*>("batteryTable" + idSuffix);
 
     if(table == nullptr)
     {
@@ -51,4 +71,25 @@ void BatteryWidget::newPacket(BatteryPacket packet)
 void BatteryWidget::errorString(QString error)
 {
     qCritical("%s \n", qPrintable(error));
+}
+
+/**
+ * Reads the numerical suffix appended to the widgetID and sets it as the widgetIndex attribute.
+ * This allows us to find children by name when we have an arbitrary number of instances.
+ */
+void BatteryWidget::updateWidgetIndex()
+{
+    QString widgetID = this->objectName();
+
+    if(widgetID.contains("_"))
+    {
+        QString indexString = widgetID.split("_").last();
+        if(!indexString.isEmpty())
+        {
+            widgetIndex = indexString.toInt();
+            return;
+        }
+    }
+
+    widgetIndex = -1;
 }
