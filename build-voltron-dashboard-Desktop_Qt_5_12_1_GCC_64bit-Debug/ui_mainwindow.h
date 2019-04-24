@@ -75,6 +75,11 @@ public:
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        tabWidget->setStyleSheet(QString::fromUtf8("QTabBar{font: 14pt;}\n"
+"QTabBar::tab { height: 40%;}"));
+        tabWidget->setTabShape(QTabWidget::Rounded);
+        tabWidget->setDocumentMode(false);
+        tabWidget->setMovable(false);
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         verticalLayout_6 = new QVBoxLayout(tab);
@@ -236,7 +241,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
