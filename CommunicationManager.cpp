@@ -15,7 +15,7 @@ void CommunicationManager::init()
     batteryThread->moveToThread(batteryQThread);
 
     // Connect the required signals for a QThread
-    QObject::connect(batteryThread, &BatteryThread::error, &CommunicationManager::errorString);
+    QObject::connect(batteryThread, &BatteryThread::error, &CommunicationManager::printError);
     connect(batteryQThread, SIGNAL(started()), batteryThread, SLOT(start()));
     connect(batteryThread, SIGNAL(finished()), batteryQThread, SLOT(quit()));
     connect(batteryThread, SIGNAL(finished()), batteryThread, SLOT(deleteLater()));
@@ -30,7 +30,7 @@ void CommunicationManager::init()
     consoleThread->moveToThread(consoleQThread);
 
     // Connect the required signals for a QThread
-    QObject::connect(consoleThread, &ConsoleThread::error, &CommunicationManager::errorString);
+    QObject::connect(consoleThread, &ConsoleThread::error, &CommunicationManager::printError);
     connect(consoleQThread, SIGNAL(started()), consoleThread, SLOT(start()));
     connect(consoleThread, SIGNAL(finished()), consoleQThread, SLOT(quit()));
     connect(consoleThread, SIGNAL(finished()), consoleThread, SLOT(deleteLater()));
@@ -45,7 +45,7 @@ void CommunicationManager::init()
     lidarThread->moveToThread(lidarQThread);
 
     // Connect the required signals for a QThread
-    QObject::connect(lidarThread, &LidarThread::error, &CommunicationManager::errorString);
+    QObject::connect(lidarThread, &LidarThread::error, &CommunicationManager::printError);
     connect(lidarQThread, SIGNAL(started()), lidarThread, SLOT(start()));
     connect(lidarThread, SIGNAL(finished()), lidarQThread, SLOT(quit()));
     connect(lidarThread, SIGNAL(finished()), lidarThread, SLOT(deleteLater()));
@@ -78,7 +78,7 @@ QNetworkInterface CommunicationManager::getLoopbackInterface()
     }
 }
 
-void CommunicationManager::errorString(QString error)
+void CommunicationManager::printError(QString error)
 {
-    qDebug() << error;
+    consoleThread->injectMessage(error);
 }

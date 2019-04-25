@@ -48,8 +48,7 @@ void ConsoleWidget::newPacket(ConsolePacket packet)
 {
     // Append the message with its timestamp to the console TextBrowser
     QString timeStamp = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
-    //QString message = "[" + timeStamp + "] " + packet.msg;
-    QString message = "Hello world";
+    QString message = QString("[" + timeStamp + "] " + QString::fromStdString(packet.message));
     console->append(message);
 }
 

@@ -16,14 +16,14 @@ LidarRenderer::LidarRenderer(QWidget* parent) : QOpenGLWidget (parent), semaphor
     sharedMemoryFD = shm_open(LIDAR_MEMORY_NAME, O_RDONLY, 0777);
     if (sharedMemoryFD == -1)
     {
-        //BAD STUFF
+        CommunicationManager::printError("ERROR: LIDAR shared memory could not be established");
     }
 
     size_t dataSize = sizeof(struct LIDARData) * LIDAR_DATA_NUM_REGIONS;
     memoryRegions = (LIDARData*)mmap(NULL, dataSize, PROT_READ, MAP_SHARED, sharedMemoryFD, 0);
     if (memoryRegions == MAP_FAILED)
     {
-        //BAD STUFF
+        CommunicationManager::printError("ERROR: LIDAR shared memory was established, but could not be mapped");
     }
 }
 

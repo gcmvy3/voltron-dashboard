@@ -29,7 +29,7 @@ private:
 signals:
 
 public slots:
-    static void errorString(QString);
+    static void printError(QString);
 };
 
 #endif // COMMUNICATIONMANAGER_H

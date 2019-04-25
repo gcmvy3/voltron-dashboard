@@ -5,9 +5,12 @@
 #define BATTERY_PORT 12001
 #define LIDAR_PORT 12002
 
+#include <string>
+
 struct ConsolePacket
 {
     int strLength;
+    std::string message;
 };
 
 struct BatteryPacket

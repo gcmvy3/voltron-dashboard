@@ -53,3 +53,11 @@ void ConsoleThread::processDatagram(QByteArray datagram)
     ConsoleThread::latestPacket = consolePacket;
     emit newPacket(*consolePacket);
 }
+
+void ConsoleThread::injectMessage(QString message)
+{
+    ConsolePacket* consolePacket = new ConsolePacket();
+    consolePacket->message = message.toStdString();
+    consolePacket->strLength = message.length();
+    emit newPacket(*consolePacket);
+}

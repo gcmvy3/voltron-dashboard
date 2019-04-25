@@ -47,6 +47,8 @@ void BatteryThread::readPendingDatagrams()
 
 void BatteryThread::processDatagram(QByteArray datagram)
 {
+    CommunicationManager::consoleThread->injectMessage(QString("Received battery packet"));
+
     BatteryPacket* batteryPacket = (BatteryPacket*)datagram.data();
     BatteryThread::latestPacket = batteryPacket;
     emit newPacket(*batteryPacket);
