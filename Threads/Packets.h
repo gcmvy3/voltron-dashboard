@@ -4,6 +4,8 @@
 #define CONSOLE_PORT 12000
 #define BATTERY_PORT 12001
 
+#define STEREO_PORT 12003
+
 struct ConsolePacket
 {
     int strLength;
@@ -31,6 +33,11 @@ struct LIDARData
         float z;
         float reflectivity;
     } point[LIDAR_DATA_NUM_POINTS];
+};
+
+struct StereoPacket
+{
+
 };
 
 #endif
