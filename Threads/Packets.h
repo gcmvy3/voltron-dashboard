@@ -4,6 +4,7 @@
 #define CONSOLE_PORT 12000
 #define BATTERY_PORT 12001
 #define LIDAR_PORT 12002
+#define CAN_PORT 12003
 
 #include <string>
 
@@ -20,6 +21,13 @@ struct BatteryPacket
     float charge;
 };
 
+struct CANPacket
+{
+    int id;
+    int sender;
+    int bitStart;
+    int bitEnd;
+};
 
 #define LIDAR_MEMORY_NAME "/voltron_lidar_data"
 

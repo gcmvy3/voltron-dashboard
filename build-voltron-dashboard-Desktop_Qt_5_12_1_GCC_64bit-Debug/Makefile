@@ -61,7 +61,8 @@ SOURCES       = ../main.cpp \
 		../CommunicationManager.cpp \
 		../Threads/LidarThread.cpp \
 		../Widgets/LidarWidget.cpp \
-		../Widgets/LidarRenderer.cpp moc_mainwindow.cpp \
+		../Widgets/LidarRenderer.cpp \
+		../Threads/CANThread.cpp moc_mainwindow.cpp \
 		moc_BatteryThread.cpp \
 		moc_BatteryWidget.cpp \
 		moc_ConsoleThread.cpp \
@@ -69,7 +70,8 @@ SOURCES       = ../main.cpp \
 		moc_CommunicationManager.cpp \
 		moc_LidarThread.cpp \
 		moc_LidarWidget.cpp \
-		moc_LidarRenderer.cpp
+		moc_LidarRenderer.cpp \
+		moc_CANThread.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		BatteryThread.o \
@@ -80,6 +82,7 @@ OBJECTS       = main.o \
 		LidarThread.o \
 		LidarWidget.o \
 		LidarRenderer.o \
+		CANThread.o \
 		moc_mainwindow.o \
 		moc_BatteryThread.o \
 		moc_BatteryWidget.o \
@@ -88,7 +91,8 @@ OBJECTS       = main.o \
 		moc_CommunicationManager.o \
 		moc_LidarThread.o \
 		moc_LidarWidget.o \
-		moc_LidarRenderer.o
+		moc_LidarRenderer.o \
+		moc_CANThread.o
 DIST          = ../Widgets/Untitled \
 		../Document \
 		../../../../Qt/5.12.1/gcc_64/mkspecs/features/spec_pre.prf \
@@ -292,7 +296,8 @@ DIST          = ../Widgets/Untitled \
 		../CommunicationManager.h \
 		../Threads/LidarThread.h \
 		../Widgets/LidarWidget.h \
-		../Widgets/LidarRenderer.h ../main.cpp \
+		../Widgets/LidarRenderer.h \
+		../Threads/CANThread.h ../main.cpp \
 		../mainwindow.cpp \
 		../Threads/BatteryThread.cpp \
 		../Widgets/BatteryWidget.cpp \
@@ -301,7 +306,8 @@ DIST          = ../Widgets/Untitled \
 		../CommunicationManager.cpp \
 		../Threads/LidarThread.cpp \
 		../Widgets/LidarWidget.cpp \
-		../Widgets/LidarRenderer.cpp
+		../Widgets/LidarRenderer.cpp \
+		../Threads/CANThread.cpp
 QMAKE_TARGET  = voltron-dashboard
 DESTDIR       = 
 TARGET        = voltron-dashboard
@@ -723,8 +729,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/5.12.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../mainwindow.h ../Threads/Packets.h ../Threads/BatteryThread.h ../Widgets/BatteryWidget.h ../Threads/ConsoleThread.h ../Widgets/ConsoleWidget.h ../CommunicationManager.h ../Threads/LidarThread.h ../Widgets/LidarWidget.h ../Widgets/LidarRenderer.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../main.cpp ../mainwindow.cpp ../Threads/BatteryThread.cpp ../Widgets/BatteryWidget.cpp ../Threads/ConsoleThread.cpp ../Widgets/ConsoleWidget.cpp ../CommunicationManager.cpp ../Threads/LidarThread.cpp ../Widgets/LidarWidget.cpp ../Widgets/LidarRenderer.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../mainwindow.h ../Threads/Packets.h ../Threads/BatteryThread.h ../Widgets/BatteryWidget.h ../Threads/ConsoleThread.h ../Widgets/ConsoleWidget.h ../CommunicationManager.h ../Threads/LidarThread.h ../Widgets/LidarWidget.h ../Widgets/LidarRenderer.h ../Threads/CANThread.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../main.cpp ../mainwindow.cpp ../Threads/BatteryThread.cpp ../Widgets/BatteryWidget.cpp ../Threads/ConsoleThread.cpp ../Widgets/ConsoleWidget.cpp ../CommunicationManager.cpp ../Threads/LidarThread.cpp ../Widgets/LidarWidget.cpp ../Widgets/LidarRenderer.cpp ../Threads/CANThread.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../mainwindow.ui $(DISTDIR)/
 
 
@@ -757,9 +763,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../../Qt/5.12.1/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h ../../../Qt/5.12.1/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_BatteryThread.cpp moc_BatteryWidget.cpp moc_ConsoleThread.cpp moc_ConsoleWidget.cpp moc_CommunicationManager.cpp moc_LidarThread.cpp moc_LidarWidget.cpp moc_LidarRenderer.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_BatteryThread.cpp moc_BatteryWidget.cpp moc_ConsoleThread.cpp moc_ConsoleWidget.cpp moc_CommunicationManager.cpp moc_LidarThread.cpp moc_LidarWidget.cpp moc_LidarRenderer.cpp moc_CANThread.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_BatteryThread.cpp moc_BatteryWidget.cpp moc_ConsoleThread.cpp moc_ConsoleWidget.cpp moc_CommunicationManager.cpp moc_LidarThread.cpp moc_LidarWidget.cpp moc_LidarRenderer.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_BatteryThread.cpp moc_BatteryWidget.cpp moc_ConsoleThread.cpp moc_ConsoleWidget.cpp moc_CommunicationManager.cpp moc_LidarThread.cpp moc_LidarWidget.cpp moc_LidarRenderer.cpp moc_CANThread.cpp
 moc_mainwindow.cpp: ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QMainWindow \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qmainwindow.h \
@@ -881,6 +887,8 @@ moc_mainwindow.cpp: ../mainwindow.h \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h \
 		moc_predefs.h \
@@ -1108,6 +1116,8 @@ moc_BatteryWidget.cpp: ../Widgets/BatteryWidget.h \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
 		moc_predefs.h \
 		../../../Qt/5.12.1/gcc_64/bin/moc
 	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtNetwork -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Widgets/BatteryWidget.h -o moc_BatteryWidget.cpp
@@ -1326,6 +1336,8 @@ moc_ConsoleWidget.cpp: ../Widgets/ConsoleWidget.h \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
 		moc_predefs.h \
 		../../../Qt/5.12.1/gcc_64/bin/moc
 	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtNetwork -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Widgets/ConsoleWidget.h -o moc_ConsoleWidget.cpp
@@ -1407,6 +1419,9 @@ moc_CommunicationManager.cpp: ../CommunicationManager.h \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qdatastream.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h \
 		moc_predefs.h \
@@ -1641,6 +1656,8 @@ moc_LidarWidget.cpp: ../Widgets/LidarWidget.h \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
 		../Widgets/LidarRenderer.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QOpenGLWidget \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qopenglwidget.h \
@@ -1814,11 +1831,93 @@ moc_LidarRenderer.cpp: ../Widgets/LidarRenderer.h \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h \
 		moc_predefs.h \
 		../../../Qt/5.12.1/gcc_64/bin/moc
 	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtNetwork -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Widgets/LidarRenderer.h -o moc_LidarRenderer.cpp
+
+moc_CANThread.cpp: ../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qobject.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qflags.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qnumeric.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qstring.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qchar.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qstringliteral.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qstringview.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qlist.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qpair.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qregexp.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/QUdpSocket \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qudpsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qvector.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qset.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qhostaddress.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/QNetworkInterface \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qnetworkinterface.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qdatastream.h \
+		../Threads/Packets.h \
+		moc_predefs.h \
+		../../../Qt/5.12.1/gcc_64/bin/moc
+	/home/voltron/Qt/5.12.1/gcc_64/bin/moc $(DEFINES) --include /home/voltron/Desktop/voltron-dashboard/build-voltron-dashboard-Desktop_Qt_5_12_1_GCC_64bit-Debug/moc_predefs.h -I/home/voltron/Qt/5.12.1/gcc_64/mkspecs/linux-g++ -I/home/voltron/Desktop/voltron-dashboard -I/home/voltron/Qt/5.12.1/gcc_64/include -I/home/voltron/Qt/5.12.1/gcc_64/include/QtWidgets -I/home/voltron/Qt/5.12.1/gcc_64/include/QtGui -I/home/voltron/Qt/5.12.1/gcc_64/include/QtNetwork -I/home/voltron/Qt/5.12.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Threads/CANThread.h -o moc_CANThread.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1974,6 +2073,8 @@ ui_mainwindow.h: ../mainwindow.ui \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qwidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -2109,6 +2210,8 @@ ui_mainwindow.h: ../mainwindow.ui \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qwidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -2258,6 +2361,8 @@ ui_mainwindow.h: ../mainwindow.ui \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
 		../Widgets/LidarRenderer.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QOpenGLWidget \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qopenglwidget.h \
@@ -2417,6 +2522,8 @@ main.o: ../main.cpp ../mainwindow.h \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QApplication \
@@ -2549,100 +2656,11 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h \
-		ui_mainwindow.h \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/QVariant \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qactiongroup.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QApplication \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qapplication.h \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/qcoreapplication.h \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/qeventloop.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qguiapplication.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QFrame \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qframe.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QHeaderView \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qheaderview.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractitemview.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/qabstractitemmodel.h \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/qitemselectionmodel.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qvalidator.h \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/qregularexpression.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qslider.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractslider.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qstyle.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtabbar.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qrubberband.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QLabel \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qlabel.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QMenu \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qmenu.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QMenuBar \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qmenubar.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QSplitter \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qsplitter.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QStatusBar \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qstatusbar.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QTabWidget \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QTableWidget \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtablewidget.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtableview.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QTextBrowser \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtextbrowser.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qtextedit.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qtextdocument.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qtextoption.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qtextcursor.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qtextformat.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qpen.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QVBoxLayout \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qboxlayout.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qlayout.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qgridlayout.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QWidget \
-		../Widgets/BatteryWidget.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QPushButton \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qpushbutton.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../Widgets/ConsoleWidget.h \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/QDateTime \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/qdatetime.h \
-		../Widgets/LidarWidget.h \
-		../Widgets/LidarRenderer.h \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QOpenGLWidget \
-		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qopenglwidget.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/QSurfaceFormat \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qsurfaceformat.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qopengl.h \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/qt_windows.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qopengles2ext.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qopenglext.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/QOpenGLFunctions \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qopenglfunctions.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qopenglcontext.h \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/QScopedPointer \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qopenglversionfunctions.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/QOpenGLBuffer \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qopenglbuffer.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/QOpenGLShaderProgram \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qopenglshaderprogram.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qvector3d.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qvector4d.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qmatrix4x4.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qquaternion.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/qgenericmatrix.h \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/QSemaphore \
-		../../../Qt/5.12.1/gcc_64/include/QtCore/qsemaphore.h \
-		../../../Qt/5.12.1/gcc_64/include/QtGui/QMouseEvent
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../mainwindow.cpp
 
 BatteryThread.o: ../Threads/BatteryThread.cpp ../Threads/BatteryThread.h \
@@ -2722,6 +2740,9 @@ BatteryThread.o: ../Threads/BatteryThread.cpp ../Threads/BatteryThread.h \
 		../CommunicationManager.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qdatastream.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BatteryThread.o ../Threads/BatteryThread.cpp
@@ -2868,7 +2889,9 @@ BatteryWidget.o: ../Widgets/BatteryWidget.cpp ../Widgets/BatteryWidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qnetworkinterface.h \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
-		../Threads/LidarThread.h
+		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BatteryWidget.o ../Widgets/BatteryWidget.cpp
 
 ConsoleThread.o: ../Threads/ConsoleThread.cpp ../Threads/ConsoleThread.h \
@@ -2948,6 +2971,9 @@ ConsoleThread.o: ../Threads/ConsoleThread.cpp ../Threads/ConsoleThread.h \
 		../CommunicationManager.h \
 		../Threads/BatteryThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qdatastream.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ConsoleThread.o ../Threads/ConsoleThread.cpp
@@ -3087,7 +3113,9 @@ ConsoleWidget.o: ../Widgets/ConsoleWidget.cpp ../Widgets/ConsoleWidget.h \
 		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qnetworkinterface.h \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
-		../Threads/LidarThread.h
+		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ConsoleWidget.o ../Widgets/ConsoleWidget.cpp
 
 CommunicationManager.o: ../CommunicationManager.cpp ../CommunicationManager.h \
@@ -3167,6 +3195,9 @@ CommunicationManager.o: ../CommunicationManager.cpp ../CommunicationManager.h \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qdatastream.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CommunicationManager.o ../CommunicationManager.cpp
@@ -3248,6 +3279,9 @@ LidarThread.o: ../Threads/LidarThread.cpp ../Threads/LidarThread.h \
 		../CommunicationManager.h \
 		../Threads/BatteryThread.h \
 		../Threads/ConsoleThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qdatastream.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LidarThread.o ../Threads/LidarThread.cpp
@@ -3402,6 +3436,8 @@ LidarWidget.o: ../Widgets/LidarWidget.cpp ../Widgets/LidarWidget.h \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
 		../Widgets/LidarRenderer.h \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QOpenGLWidget \
 		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qopenglwidget.h \
@@ -3573,10 +3609,96 @@ LidarRenderer.o: ../Widgets/LidarRenderer.cpp ../Widgets/LidarRenderer.h \
 		../Threads/Packets.h \
 		../Threads/ConsoleThread.h \
 		../Threads/LidarThread.h \
+		../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h \
 		../../../Qt/5.12.1/gcc_64/include/QtGui/QMatrix4x4
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LidarRenderer.o ../Widgets/LidarRenderer.cpp
+
+CANThread.o: ../Threads/CANThread.cpp ../Threads/CANThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QObject \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qobject.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qflags.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qnumeric.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qstring.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qchar.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qstringliteral.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qstringview.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qlist.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qpair.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qregexp.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/QUdpSocket \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qudpsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qvector.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qset.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qhostaddress.h \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/QNetworkInterface \
+		../../../Qt/5.12.1/gcc_64/include/QtNetwork/qnetworkinterface.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QDataStream \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qdatastream.h \
+		../Threads/Packets.h \
+		../CommunicationManager.h \
+		../Threads/BatteryThread.h \
+		../Threads/ConsoleThread.h \
+		../Threads/LidarThread.h \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/QThread \
+		../../../Qt/5.12.1/gcc_64/include/QtCore/qthread.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CANThread.o ../Threads/CANThread.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
@@ -3604,6 +3726,9 @@ moc_LidarWidget.o: moc_LidarWidget.cpp
 
 moc_LidarRenderer.o: moc_LidarRenderer.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_LidarRenderer.o moc_LidarRenderer.cpp
+
+moc_CANThread.o: moc_CANThread.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_CANThread.o moc_CANThread.cpp
 
 ####### Install
 

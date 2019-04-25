@@ -3,6 +3,7 @@
 BatteryThread* CommunicationManager::batteryThread;
 ConsoleThread* CommunicationManager::consoleThread;
 LidarThread* CommunicationManager::lidarThread;
+CANThread* CommunicationManager::canThread;
 
 bool CommunicationManager::loopbackFound = false;
 QNetworkInterface CommunicationManager::loopbackInterface;
@@ -52,6 +53,20 @@ void CommunicationManager::init()
     connect(lidarQThread, SIGNAL(finished()), lidarQThread, SLOT(deleteLater()));
 
     lidarQThread->start();
+
+    // Init and start CAN thread
+    QThread* CANQThread = new QThread;
+    canThread = new CANThread();
+    canThread->moveToThread(CANQThread);
+
+    // Connect the required signals for a QThread
+    QObject::connect(canThread, &CANThread::error, &CommunicationManager::printToConsole);
+    connect(CANQThread, SIGNAL(started()), canThread, SLOT(start()));
+    connect(canThread, SIGNAL(finished()), CANQThread, SLOT(quit()));
+    connect(canThread, SIGNAL(finished()), canThread, SLOT(deleteLater()));
+    connect(CANQThread, SIGNAL(finished()), CANQThread, SLOT(deleteLater()));
+
+    CANQThread->start();
 }
 
 QNetworkInterface CommunicationManager::getLoopbackInterface()

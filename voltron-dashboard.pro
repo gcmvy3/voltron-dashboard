@@ -36,7 +36,8 @@ SOURCES += \
     CommunicationManager.cpp \
     Threads/LidarThread.cpp \
     Widgets/LidarWidget.cpp \
-    Widgets/LidarRenderer.cpp
+    Widgets/LidarRenderer.cpp \
+    Threads/CANThread.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -48,7 +49,8 @@ HEADERS += \
     CommunicationManager.h \
     Threads/LidarThread.h \
     Widgets/LidarWidget.h \
-    Widgets/LidarRenderer.h
+    Widgets/LidarRenderer.h \
+    Threads/CANThread.h
 
 FORMS += \
         mainwindow.ui
