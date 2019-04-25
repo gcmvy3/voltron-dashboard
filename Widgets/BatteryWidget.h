@@ -16,11 +16,14 @@ public:
 
     const int NUM_CELLS = 20;
 
+    int widgetIndex = -1;
+
     QTableWidget *table;
-    QPushButton *readButton;
 
 protected:
     void showEvent( QShowEvent* event) override;
+    void hideEvent( QHideEvent* event) override;
+    void updateWidgetIndex();
 
 signals:
 

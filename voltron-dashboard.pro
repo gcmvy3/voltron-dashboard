@@ -24,6 +24,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
+LIBS += -lrt
+
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
@@ -32,6 +34,12 @@ SOURCES += \
     Threads/ConsoleThread.cpp \
     Widgets/ConsoleWidget.cpp \
     CommunicationManager.cpp \
+    Threads/LidarThread.cpp \
+    Widgets/LidarWidget.cpp \
+    Widgets/LidarRenderer.cpp \
+    Threads/CANThread.cpp \
+    Widgets/StereoWidget.cpp \
+    Threads/StereoThread.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,6 +49,12 @@ HEADERS += \
     Threads/ConsoleThread.h \
     Widgets/ConsoleWidget.h \
     CommunicationManager.h \
+    Threads/LidarThread.h \
+    Widgets/LidarWidget.h \
+    Widgets/LidarRenderer.h \
+    Threads/CANThread.h \
+    Widgets/StereoWidget.h \
+    Threads/StereoThread.h
 
 FORMS += \
         mainwindow.ui

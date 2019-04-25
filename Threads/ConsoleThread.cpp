@@ -1,8 +1,5 @@
-#include <iostream>
-#include <fstream>
 
 #include "ConsoleThread.h"
-#include "Packets.h"
 #include "CommunicationManager.h"
 
 using namespace std;
@@ -54,5 +51,13 @@ void ConsoleThread::processDatagram(QByteArray datagram)
 {
     ConsolePacket* consolePacket = (ConsolePacket*)datagram.data();
     ConsoleThread::latestPacket = consolePacket;
+    emit newPacket(*consolePacket);
+}
+
+void ConsoleThread::injectMessage(QString message)
+{
+    ConsolePacket* consolePacket = new ConsolePacket();
+    consolePacket->message = message.toStdString();
+    consolePacket->strLength = message.length();
     emit newPacket(*consolePacket);
 }

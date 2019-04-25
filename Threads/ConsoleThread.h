@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtNetwork/QUdpSocket>
 #include <QNetworkInterface>
+#include <iostream>
 
 #include "Threads/Packets.h"
 
@@ -17,6 +18,7 @@ public:
 public slots:
     void start();
     void readPendingDatagrams();
+    void injectMessage(QString message);
 
 signals:
     void finished();
