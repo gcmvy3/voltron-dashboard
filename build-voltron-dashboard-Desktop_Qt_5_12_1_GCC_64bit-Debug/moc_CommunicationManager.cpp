@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_CommunicationManager_t {
     QByteArrayData data[3];
-    char stringdata0[34];
+    char stringdata0[37];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,11 +32,12 @@ struct qt_meta_stringdata_CommunicationManager_t {
 static const qt_meta_stringdata_CommunicationManager_t qt_meta_stringdata_CommunicationManager = {
     {
 QT_MOC_LITERAL(0, 0, 20), // "CommunicationManager"
-QT_MOC_LITERAL(1, 21, 11), // "errorString"
-QT_MOC_LITERAL(2, 33, 0) // ""
+QT_MOC_LITERAL(1, 21, 14), // "printToConsole"
+QT_MOC_LITERAL(2, 36, 0) // ""
 
     },
-    "CommunicationManager\0errorString\0"
+    "CommunicationManager\0printToConsole\0"
+    ""
 };
 #undef QT_MOC_LITERAL
 
@@ -68,7 +69,7 @@ void CommunicationManager::qt_static_metacall(QObject *_o, QMetaObject::Call _c,
         auto *_t = static_cast<CommunicationManager *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->errorString((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 0: _t->printToConsole((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     }
