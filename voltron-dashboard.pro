@@ -32,8 +32,6 @@ SOURCES += \
     Threads/ConsoleThread.cpp \
     Widgets/ConsoleWidget.cpp \
     CommunicationManager.cpp \
-    Widgets/StereoWidget.cpp \
-    Threads/StereoThread.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,8 +41,6 @@ HEADERS += \
     Threads/ConsoleThread.h \
     Widgets/ConsoleWidget.h \
     CommunicationManager.h \
-    Widgets/StereoWidget.h \
-    Threads/StereoThread.h
 
 FORMS += \
         mainwindow.ui
