@@ -8,15 +8,9 @@
 using namespace std;
 
 // Constructor
-StereoThread::StereoThread()
+StereoThread::StereoThread(QObject *parent) : QObject(parent)
 {
     qRegisterMetaType<StereoPacket>("StereoPacket");
-}
-
-// Destructor
-StereoThread::~StereoThread()
-{
-
 }
 
 // Starts the thread
@@ -52,5 +46,5 @@ void StereoThread::processDatagram(QByteArray datagram)
 {
     StereoPacket* stereoPacket = (StereoPacket*)datagram.data();
     StereoThread::latestPacket = stereoPacket;
-    emit newPacket(*StereoPacket);
+    emit newPacket(*stereoPacket);
 }

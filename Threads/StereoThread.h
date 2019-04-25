@@ -11,17 +11,16 @@ class StereoThread : public QObject
 {
     Q_OBJECT
 public:
-    StereoThread();
-    ~StereoThread();
-
-public slots:
-    void start();
-    void readPendingDatagrams();
+    explicit StereoThread(QObject *parent = nullptr);
 
 signals:
     void finished();
     void error(QString error);
     void newPacket(StereoPacket packet);
+
+public slots:
+    void start();
+    void readPendingDatagrams();
 
 private:
 

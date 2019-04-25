@@ -6,6 +6,7 @@
 #include "Threads/ConsoleThread.h"
 #include "Threads/LidarThread.h"
 #include "Threads/CANThread.h"
+#include "Threads/StereoThread.h"
 #include <QThread>
 
 class CommunicationManager : QObject
@@ -19,6 +20,7 @@ public:
     static ConsoleThread* consoleThread;
     static LidarThread* lidarThread;
     static CANThread* canThread;
+    static StereoThread* stereoThread;
 
     static QHostAddress getUDPAddress(){return QHostAddress("224.0.0.155");}
 

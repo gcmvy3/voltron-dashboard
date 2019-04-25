@@ -39,7 +39,8 @@ SOURCES += \
     Widgets/LidarRenderer.cpp \
     Threads/CANThread.cpp \
     Widgets/StereoWidget.cpp \
-    Threads/StereoThread.cpp
+    Threads/StereoThread.cpp \
+    Widgets/StereoMemory.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -54,7 +55,8 @@ HEADERS += \
     Widgets/LidarRenderer.h \
     Threads/CANThread.h \
     Widgets/StereoWidget.h \
-    Threads/StereoThread.h
+    Threads/StereoThread.h \
+    Widgets/StereoMemory.h
 
 FORMS += \
         mainwindow.ui

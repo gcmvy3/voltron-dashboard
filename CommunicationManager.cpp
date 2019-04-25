@@ -67,6 +67,20 @@ void CommunicationManager::init()
     connect(CANQThread, SIGNAL(finished()), CANQThread, SLOT(deleteLater()));
 
     CANQThread->start();
+
+    // Init and start stereo thread
+    QThread* stereoQThread = new QThread;
+    CommunicationManager::stereoThread = new StereoThread();
+    stereoThread->moveToThread(stereoQThread);
+
+    // Connect the required signals for a QThread
+    QObject::connect(stereoThread, &StereoThread::error, &CommunicationManager::printToConsole);
+    connect(stereoQThread, SIGNAL(started()), stereoThread, SLOT(start()));
+    connect(stereoThread, SIGNAL(finished()), stereoQThread, SLOT(quit()));
+    connect(stereoThread, SIGNAL(finished()), stereoThread, SLOT(deleteLater()));
+    connect(stereoQThread, SIGNAL(finished()), stereoQThread, SLOT(deleteLater()));
+
+    stereoQThread->start();
 }
 
 QNetworkInterface CommunicationManager::getLoopbackInterface()
