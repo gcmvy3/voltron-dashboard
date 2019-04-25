@@ -4,8 +4,6 @@
 
 using namespace std;
 
-const QString udpAddress = "224.0.0.155";
-
 // Constructor
 ConsoleThread::ConsoleThread()
 {
@@ -42,7 +40,7 @@ void ConsoleThread::readPendingDatagrams()
             udpSocket->readDatagram(datagram.data(), datagram.size(),
                                     &sender, &senderPort);
 
-            ConsoleThread::processDatagram(datagram);
+            processDatagram(datagram);
      }
 }
 
@@ -50,7 +48,7 @@ void ConsoleThread::readPendingDatagrams()
 void ConsoleThread::processDatagram(QByteArray datagram)
 {
     ConsolePacket* consolePacket = (ConsolePacket*)datagram.data();
-    ConsoleThread::latestPacket = consolePacket;
+    latestPacket = consolePacket;
     emit newPacket(*consolePacket);
 }
 
@@ -59,5 +57,6 @@ void ConsoleThread::injectMessage(QString message)
     ConsolePacket* consolePacket = new ConsolePacket();
     consolePacket->message = message.toStdString();
     consolePacket->strLength = message.length();
+    latestPacket = consolePacket;
     emit newPacket(*consolePacket);
 }

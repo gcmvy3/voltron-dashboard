@@ -134,7 +134,10 @@ void LidarRenderer::setXRotation(int angle)
 
     if(angle != xRot)
     {
-        xRot = angle;
+        if(angle >= xRotMin && angle <= xRotMax)
+        {
+           xRot = angle;
+        }
     }
 }
 
@@ -148,7 +151,27 @@ void LidarRenderer::setYRotation(int angle)
 
     if(angle != yRot)
     {
-        yRot = angle;
+        if(angle >= yRotMin && angle <= yRotMax)
+        {
+           yRot = angle;
+        }
+    }
+}
+
+void LidarRenderer::setZRotation(int angle)
+{
+    //Normalize angle
+    while (angle < 0)
+        angle += 360 * 16;
+    while (angle > 360 * 16)
+        angle -= 360 * 16;
+
+    if(angle != zRot)
+    {
+        if(angle >= zRotMin && angle <= zRotMax)
+        {
+           zRot = angle;
+        }
     }
 }
 

@@ -19,11 +19,18 @@ public:
     LidarRenderer(QWidget* parent);
     void setXRotation(int angle);
     void setYRotation(int angle);
+    void setZRotation(int angle);
 
 private:
     int xRot;
-    int yRot;
+    int yRot = 90;
     int zRot;
+    int xRotMax = 360;
+    int xRotMin = 0;
+    int yRotMax = 360;
+    int yRotMin = 0;
+    int zRotMax = 360;
+    int zRotMin = 0;
 
 protected:
     void initializeGL() override;
