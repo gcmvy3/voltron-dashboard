@@ -1,0 +1,17 @@
+{
+	"Headlights On": 
+	{
+		"id": 1,
+		"sender": "1234ABCD",
+		"bitStart": 1,
+		"bitEnd" : 4			
+	},
+	"Headlights Off":
+	{
+		"id": 2,
+		"sender": "4321DCBA",
+		"bitStart": 1,
+		"bitEnd": 4
+	}
+}
+

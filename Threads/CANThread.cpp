@@ -48,18 +48,18 @@ void CANThread::processDatagram(QByteArray datagram)
     emit newPacket(*canPacket);
 }
 
-void CANThread::broadcastPacket(CANPacket packet)
+void CANThread::broadcastCANRequest(CANRequestPacket packet)
 {
-    QByteArray datagram = serializePacket(packet);
+    QByteArray datagram = serializeRequestPacket(packet);
     udpSocket->writeDatagram(datagram.data(), datagram.size(), CommunicationManager::getUDPAddress(), CAN_PORT);
 }
 
-QByteArray CANThread::serializePacket(CANPacket packet)
+QByteArray CANThread::serializeRequestPacket(CANRequestPacket packet)
 {
     QByteArray byteArray;
 
     QDataStream stream(&byteArray, QIODevice::WriteOnly);
-    stream << packet.id << packet.sender << packet.bitStart << packet.bitEnd;
+    stream << packet.id << packet.sender;
 
     return byteArray;
 }

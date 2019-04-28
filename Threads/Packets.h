@@ -25,8 +25,13 @@ struct CANPacket
 {
     int id;
     int sender;
-    int bitStart;
-    int bitEnd;
+    unsigned char data[8];
+};
+
+struct CANRequestPacket
+{
+    int id;
+    int sender;
 };
 
 #define LIDAR_MEMORY_NAME "/voltron_lidar_data"

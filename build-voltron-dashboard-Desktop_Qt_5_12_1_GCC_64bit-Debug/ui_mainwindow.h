@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFrame>
-#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -27,6 +26,7 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "Widgets/BatteryWidget.h"
+#include "Widgets/CANWidget.h"
 #include "Widgets/ConsoleWidget.h"
 #include "Widgets/LidarWidget.h"
 
@@ -35,8 +35,9 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *actionLoadCANCodes;
     QWidget *centralWidget;
-    QHBoxLayout *horizontalLayout;
+    QVBoxLayout *verticalLayout_11;
     QTabWidget *tabWidget;
     QWidget *tab;
     QVBoxLayout *verticalLayout_2;
@@ -57,7 +58,7 @@ public:
     QTextBrowser *consoleBrowser;
     QWidget *tab_2;
     QVBoxLayout *verticalLayout_7;
-    LidarWidget *widget;
+    LidarWidget *lidarWidget_2;
     QWidget *tab_3;
     QVBoxLayout *verticalLayout_6;
     BatteryWidget *batteryWidget_2;
@@ -68,6 +69,9 @@ public:
     QLabel *batteryLabel_2;
     QFrame *line_2;
     QTableWidget *batteryTable_2;
+    QWidget *tab_4;
+    QVBoxLayout *verticalLayout_12;
+    CANWidget *canWidget;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QStatusBar *statusBar;
@@ -77,13 +81,15 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(983, 604);
+        actionLoadCANCodes = new QAction(MainWindow);
+        actionLoadCANCodes->setObjectName(QString::fromUtf8("actionLoadCANCodes"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         centralWidget->setStyleSheet(QString::fromUtf8("background-color: rgb(211, 215, 207)"));
-        horizontalLayout = new QHBoxLayout(centralWidget);
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        verticalLayout_11 = new QVBoxLayout(centralWidget);
+        verticalLayout_11->setSpacing(6);
+        verticalLayout_11->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_11->setObjectName(QString::fromUtf8("verticalLayout_11"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
         tabWidget->setStyleSheet(QString::fromUtf8("QTabBar{font: 14pt;}\n"
@@ -223,10 +229,10 @@ public:
         verticalLayout_7->setSpacing(6);
         verticalLayout_7->setContentsMargins(11, 11, 11, 11);
         verticalLayout_7->setObjectName(QString::fromUtf8("verticalLayout_7"));
-        widget = new LidarWidget(tab_2);
-        widget->setObjectName(QString::fromUtf8("widget"));
+        lidarWidget_2 = new LidarWidget(tab_2);
+        lidarWidget_2->setObjectName(QString::fromUtf8("lidarWidget_2"));
 
-        verticalLayout_7->addWidget(widget);
+        verticalLayout_7->addWidget(lidarWidget_2);
 
         tabWidget->addTab(tab_2, QString());
         tab_3 = new QWidget();
@@ -294,8 +300,20 @@ public:
         verticalLayout_6->addWidget(batteryWidget_2);
 
         tabWidget->addTab(tab_3, QString());
+        tab_4 = new QWidget();
+        tab_4->setObjectName(QString::fromUtf8("tab_4"));
+        verticalLayout_12 = new QVBoxLayout(tab_4);
+        verticalLayout_12->setSpacing(6);
+        verticalLayout_12->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_12->setObjectName(QString::fromUtf8("verticalLayout_12"));
+        canWidget = new CANWidget(tab_4);
+        canWidget->setObjectName(QString::fromUtf8("canWidget"));
 
-        horizontalLayout->addWidget(tabWidget);
+        verticalLayout_12->addWidget(canWidget);
+
+        tabWidget->addTab(tab_4, QString());
+
+        verticalLayout_11->addWidget(tabWidget);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -309,10 +327,12 @@ public:
         MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menuFile->menuAction());
+        menuFile->addAction(actionLoadCANCodes);
 
         retranslateUi(MainWindow);
+        QObject::connect(actionLoadCANCodes, SIGNAL(triggered()), MainWindow, SLOT(chooseCANCodeFile()));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -321,6 +341,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Voltron Dashboard", nullptr));
+        actionLoadCANCodes->setText(QApplication::translate("MainWindow", "Load CAN Code File...", nullptr));
         batteryLabel->setText(QApplication::translate("MainWindow", "Battery Data", nullptr));
         QTableWidgetItem *___qtablewidgetitem = batteryTable->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "Cell Number", nullptr));
@@ -335,6 +356,7 @@ public:
         QTableWidgetItem *___qtablewidgetitem3 = batteryTable_2->horizontalHeaderItem(1);
         ___qtablewidgetitem3->setText(QApplication::translate("MainWindow", "Charge Level", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainWindow", "Battery", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("MainWindow", "CAN", nullptr));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 

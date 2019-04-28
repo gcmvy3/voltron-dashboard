@@ -37,7 +37,9 @@ SOURCES += \
     Threads/LidarThread.cpp \
     Widgets/LidarWidget.cpp \
     Widgets/LidarRenderer.cpp \
-    Threads/CANThread.cpp
+    Threads/CANThread.cpp \
+    Widgets/CANWidget.cpp \
+    CANCodeManager.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -50,7 +52,9 @@ HEADERS += \
     Threads/LidarThread.h \
     Widgets/LidarWidget.h \
     Widgets/LidarRenderer.h \
-    Threads/CANThread.h
+    Threads/CANThread.h \
+    Widgets/CANWidget.h \
+    CANCodeManager.h
 
 FORMS += \
         mainwindow.ui

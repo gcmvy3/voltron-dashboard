@@ -15,17 +15,6 @@ void ConsoleWidget::showEvent( QShowEvent* event )
     onStartReading();
 }
 
-/**
- * Called automatically when the widget is shown.
- * Disconnects the widget from the incoming data packets for better performance.
- **/
-void ConsoleWidget::hideEvent( QHideEvent* event )
-{
-    QWidget::hideEvent( event );
-    onStopReading();
-}
-
-
 void ConsoleWidget::onStartReading()
 {
     console = this->findChild<QTextBrowser*>("consoleBrowser");

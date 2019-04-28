@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileDialog>
 #include "CommunicationManager.h"
+#include "CANCodeManager.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +19,7 @@ public:
     ~MainWindow();
 
 private slots:
+    void chooseCANCodeFile();
 
 private:
     Ui::MainWindow *ui;

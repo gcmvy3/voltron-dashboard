@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_CANThread_t {
-    QByteArrayData data[10];
-    char stringdata0[96];
+    QByteArrayData data[12];
+    char stringdata0[125];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,12 +40,15 @@ QT_MOC_LITERAL(5, 36, 9), // "CANPacket"
 QT_MOC_LITERAL(6, 46, 6), // "packet"
 QT_MOC_LITERAL(7, 53, 5), // "start"
 QT_MOC_LITERAL(8, 59, 20), // "readPendingDatagrams"
-QT_MOC_LITERAL(9, 80, 15) // "broadcastPacket"
+QT_MOC_LITERAL(9, 80, 19), // "broadcastCANRequest"
+QT_MOC_LITERAL(10, 100, 16), // "CANRequestPacket"
+QT_MOC_LITERAL(11, 117, 7) // "request"
 
     },
     "CANThread\0finished\0\0error\0newPacket\0"
     "CANPacket\0packet\0start\0readPendingDatagrams\0"
-    "broadcastPacket"
+    "broadcastCANRequest\0CANRequestPacket\0"
+    "request"
 };
 #undef QT_MOC_LITERAL
 
@@ -80,7 +83,7 @@ static const uint qt_meta_data_CANThread[] = {
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 5,    6,
+    QMetaType::Void, 0x80000000 | 10,   11,
 
        0        // eod
 };
@@ -96,7 +99,7 @@ void CANThread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 2: _t->newPacket((*reinterpret_cast< CANPacket(*)>(_a[1]))); break;
         case 3: _t->start(); break;
         case 4: _t->readPendingDatagrams(); break;
-        case 5: _t->broadcastPacket((*reinterpret_cast< CANPacket(*)>(_a[1]))); break;
+        case 5: _t->broadcastCANRequest((*reinterpret_cast< CANRequestPacket(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

@@ -20,7 +20,7 @@ public:
 public slots:
     void start();
     void readPendingDatagrams();
-    void broadcastPacket(CANPacket packet);
+    void broadcastCANRequest(CANRequestPacket request);
 
 signals:
     void finished();
@@ -31,7 +31,7 @@ private:
     QUdpSocket* udpSocket;
     CANPacket* latestPacket;
     void processDatagram(QByteArray datagram);
-    QByteArray serializePacket(CANPacket packet);
+    QByteArray serializeRequestPacket(CANRequestPacket packet);
 };
 
 #endif // CANTHREAD_H
