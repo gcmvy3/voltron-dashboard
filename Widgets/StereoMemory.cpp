@@ -23,33 +23,11 @@ StereoMemory::StereoMemory(QObject *parent) : QObject(parent), semaphore(1)
 
 void StereoMemory::onPacket(StereoPacket packet)
 {
+
     semaphore.acquire(1);
-    dirtyBlocks.push_back(packet.updated);
+
+    frame = new QImage(memoryRegions[packet.updated].data, buffer.getHeight(), buffer.getWidth(), QImage::Format_ARGB32);
+    emit(newFrame(frame));
+
     semaphore.release(1);
-}
-
-void StereoMemory::createFrame()
-{
-    while(true)
-    {
-        if(semaphore.tryAcquire(1))
-        {
-            if(dirtyBlocks.size() > 0)
-            {
-                int newBlock = dirtyBlocks[0];
-                dirtyBlocks.erase(dirtyBlocks.begin());
-                semaphore.release(1);
-
-                renderBlock = newBlock;
-                buffer = &memoryRegions[newBlock];
-
-                frame[newBlock] = new QImage(buffer.getPtr<sl::uchar1>(MEM_CPU), buffer.getHeight(), buffer.getWidth(), QImage::Format_Grayscale8);
-
-                emit(onFrame(frame[newBlock]));
-
-            }
-            else
-                semaphore.release(1);
-        }
-    }
 }

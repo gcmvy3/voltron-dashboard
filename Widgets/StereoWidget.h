@@ -8,13 +8,15 @@
 
 #include "CommunicationManager.h"
 #include "Threads/Packets.h"
-#include "Widgets/StereoRenderer.h"
+#include "Widgets/StereoMemory.h"
 
 class StereoWidget : public QWidget
 {
     Q_OBJECT
 public:
     explicit StereoWidget(QWidget *parent = nullptr);
+
+    static StereoMemory* shmem;
 
     QLabel* title;
     QLabel* display;
@@ -28,7 +30,7 @@ signals:
 public slots:
     void onStartReading();
     void onStopReading();
-    void newPacket(StereoPacket packet); //Not sure if needed
+    void newFrame(QImage frame);
 };
 
 #endif // STEREOWIDGET_H

@@ -2,6 +2,10 @@
 
 StereoWidget::StereoWidget(QWidget *parent) : QWidget(parent)
 {
+    shmem = new StereoMemory(this);
+
+    connect(shmem, SIGNAL(newFrame(frame)), this, SLOT(newFrame(frame)));
+
     StereoWidget::title = new QLabel(this);
     title->setText("Stereoscopic View");
     title->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);

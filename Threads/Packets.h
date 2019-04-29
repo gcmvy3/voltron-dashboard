@@ -56,8 +56,9 @@ struct LidarPacket
 
 struct StereoData
 {
-    sl::Mat dataArray;
-}
+    //Needs to be defined
+    u_char *data;
+};
 
 struct StereoPacket
 {

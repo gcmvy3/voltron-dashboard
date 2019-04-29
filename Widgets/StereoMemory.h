@@ -15,7 +15,7 @@ public:
     StereoMemory(QObject *parent);
 
 protected:
-    QImage frame[STEREO_DATA_NUM_REGIONS];
+    QImage frame;
 
     int sharedMemoryFD;
     struct StereoData* memoryRegions;
@@ -25,6 +25,7 @@ protected:
     QSemaphore semaphore;
 
 signals:
+    void newFrame(QImage image);
 
 public slots:
     void onPacket(StereoPacket);
