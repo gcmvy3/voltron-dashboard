@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QPushButton>
+#include <QTableWidget>
 #include "DashboardUtils.h"
 #include "CANCodeManager.h"
 
@@ -19,10 +20,12 @@ protected:
 
     int widgetIndex = -1;
     QPushButton* loadCANFileButton;
+    QTableWidget* codesTable;
 
 signals:
 
 public slots:
+    void updateTable(QVector<CANCode*> newCodes);
 };
 
 #endif // CANWIDGET_H

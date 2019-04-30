@@ -7,10 +7,11 @@ class CANCode : public QObject
 {
     Q_OBJECT
 public:
-    CANCode(int id, QString name, int senderID, int bitStart, int bitEnd);
+    CANCode(int id, QString name, QString senderIDString, int senderID, int bitStart, int bitEnd);
 
     int id;
     QString name;
+    QString senderIDString;
     int senderID;
     int bitStart;
     int bitEnd;

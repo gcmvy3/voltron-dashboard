@@ -325,6 +325,15 @@ QTabBar::tab { height: 40%;}</string>
            </item>
            <item>
             <widget class="QTableWidget" name="CANCodesTable">
+             <property name="editTriggers">
+              <set>QAbstractItemView::NoEditTriggers</set>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
+             <attribute name="verticalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
              <column>
               <property name="text">
                <string>ID</string>
@@ -367,7 +376,7 @@ QTabBar::tab { height: 40%;}</string>
      <x>0</x>
      <y>0</y>
      <width>983</width>
-     <height>28</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

@@ -1,10 +1,15 @@
 #include "CANCodeManager.h"
 
-QVector<CANCode*> CANCodeManager::codes;
+CANCodeManager* CANCodeManager::instance = new CANCodeManager();
 
-CANCodeManager::CANCodeManager(QObject *parent) : QObject(parent)
+CANCodeManager::CANCodeManager()
 {
+    codes = QVector<CANCode*>();
+}
 
+CANCodeManager* CANCodeManager::getInstance()
+{
+    return instance;
 }
 
 void CANCodeManager::openCANFile()
@@ -49,11 +54,12 @@ void CANCodeManager::loadFromFile(QFile* file)
             int bitStart = objMap["bitStart"].toInt();
             int bitEnd = objMap["bitEnd"].toInt();
 
-            CANCode* code = new CANCode(id, name, senderID, bitStart, bitEnd);
+            CANCode* code = new CANCode(id, name, senderIDHex, senderID, bitStart, bitEnd);
 
             codes.append(code);
         }
         CommunicationManager::printToConsole(QString("Loaded ").append(QString(codes.size())).append(QString( " CAN codes from file.")));
+        emit newCodesLoaded(codes);
     }
 
     CommunicationManager::printToConsole(QString("ERROR: Invalid CAN code file: ").append(QString(file->fileName())));

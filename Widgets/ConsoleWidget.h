@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QThread>
 #include <QDateTime>
+#include <QTableWidget>
 #include "CommunicationManager.h"
 #include "Threads/Packets.h"
 

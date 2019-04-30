@@ -15,15 +15,20 @@
 class CANCodeManager : public QObject
 {
     Q_OBJECT
-public:
-    explicit CANCodeManager(QObject *parent = nullptr);
+private:
+    CANCodeManager();
+    static CANCodeManager* instance;
 
-protected:
-    static QVector<CANCode*> codes;
+public:
+    static CANCodeManager* getInstance();
+    QVector<CANCode*> codes;
 
 public slots:
-    static void openCANFile();
-    static void loadFromFile(QFile* file);
+    void openCANFile();
+    void loadFromFile(QFile* file);
+
+signals:
+    void newCodesLoaded(QVector<CANCode*> newCodes);
 };
 
 #endif // CANCODEMANAGER_H
