@@ -28,7 +28,7 @@ QTabBar::tab { height: 40%;}</string>
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -308,6 +308,16 @@ QTabBar::tab { height: 40%;}</string>
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>Stereo</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_11">
+        <item>
+         <widget class="StereoWidget" name="stereoWidget" native="true"/>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -318,7 +328,7 @@ QTabBar::tab { height: 40%;}</string>
      <x>0</x>
      <y>0</y>
      <width>983</width>
-     <height>22</height>
+     <height>28</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -354,6 +364,12 @@ QTabBar::tab { height: 40%;}</string>
    <class>LidarWidget</class>
    <extends>QWidget</extends>
    <header>Widgets/LidarWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>StereoWidget</class>
+   <extends>QWidget</extends>
+   <header>Widgets/StereoWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
