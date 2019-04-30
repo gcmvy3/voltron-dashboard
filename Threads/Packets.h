@@ -4,7 +4,8 @@
 #define CONSOLE_PORT 12000
 #define BATTERY_PORT 12001
 #define LIDAR_PORT 12002
-#define CAN_PORT 12003
+#define CAN_CONTROL_PORT 12003
+#define CAN_DATA_PORT 12004
 
 #include <string>
 
