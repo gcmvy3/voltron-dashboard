@@ -1,5 +1,7 @@
 #include "StereoWidget.h"
 
+StereoMemory* StereoWidget::shmem;
+
 StereoWidget::StereoWidget(QWidget *parent) : QWidget(parent)
 {
     shmem = new StereoMemory(this);

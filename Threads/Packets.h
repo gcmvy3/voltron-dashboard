@@ -8,11 +8,12 @@
 #define STEREO_PORT 12004
 
 #include <string>
+#define DEBUG_MAX_LENGTH 1024
 
-struct ConsolePacket
+struct DebugPacket
 {
     int strLength;
-    std::string message;
+    char str[DEBUG_MAX_LENGTH];
 };
 
 struct BatteryPacket

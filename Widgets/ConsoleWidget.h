@@ -29,7 +29,7 @@ signals:
 public slots:
     void onStartReading();
     void onStopReading();
-    void newPacket(ConsolePacket packet);
+    void newPacket(DebugPacket packet);
     void errorString(QString error);
 };
 

@@ -16,8 +16,6 @@
 
 using namespace std;
 
-const QString udpAddress = "224.0.0.155";
-
 // Constructor
 /*!
  * Constructs a ConsoleThread object for management of Console packets.
@@ -26,7 +24,7 @@ const QString udpAddress = "224.0.0.155";
  */
 ConsoleThread::ConsoleThread()
 {
-    qRegisterMetaType<ConsolePacket>("ConsolePacket");
+    qRegisterMetaType<DebugPacket>("DebugPacket");
 }
 
 // Destructor
@@ -78,22 +76,23 @@ void ConsoleThread::readPendingDatagrams()
 }
 
 /*!
- * Creates a ConsolePacket struct containing the data extracted from \a datagram and emits a signal containing this struct to be used by \l ConsoleWidget objects.
+ * Creates a DebugPacket struct containing the data extracted from \a datagram and emits a signal containing this struct to be used by \l ConsoleWidget objects.
  */
 void ConsoleThread::processDatagram(QByteArray datagram)
 {
-    ConsolePacket* consolePacket = (ConsolePacket*)datagram.data();
+    DebugPacket* consolePacket = (DebugPacket*)datagram.data();
     ConsoleThread::latestPacket = consolePacket;
+
     emit newPacket(*consolePacket);
 }
 
 /*!
- * Creates a ConsolePacket struct containing the provided \a message and its length and emits a signal containing this struct to be used by \l ConsoleWidget objects.
+ * Creates a DebugPacket struct containing the provided \a message and its length and emits a signal containing this struct to be used by \l ConsoleWidget objects.
  */
 void ConsoleThread::injectMessage(QString message)
 {
-    ConsolePacket* consolePacket = new ConsolePacket();
-    consolePacket->message = message.toStdString();
+    DebugPacket* consolePacket = new DebugPacket();
+    strcpy(consolePacket->str, message.toUtf8().constData());
     consolePacket->strLength = message.length();
     emit newPacket(*consolePacket);
 }

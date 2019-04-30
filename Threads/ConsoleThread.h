@@ -23,13 +23,13 @@ public slots:
 signals:
     void finished();
     void error(QString error);
-    void newPacket(ConsolePacket packet);
+    void newPacket(DebugPacket packet);
 
 private:
 
     QUdpSocket* udpSocket;
 
-    ConsolePacket* latestPacket;
+    DebugPacket* latestPacket;
 
     void processDatagram(QByteArray datagram);
 };

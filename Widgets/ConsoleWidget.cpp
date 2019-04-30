@@ -63,7 +63,7 @@ void ConsoleWidget::onStartReading()
         qDebug("ERROR: Console browser does not exist");
     }
 
-    connect(CommunicationManager::consoleThread, SIGNAL(newPacket(ConsolePacket)), this, SLOT(newPacket(ConsolePacket)));
+    connect(CommunicationManager::consoleThread, SIGNAL(newPacket(DebugPacket)), this, SLOT(newPacket(DebugPacket)));
 }
 
 /*!
@@ -71,7 +71,7 @@ void ConsoleWidget::onStartReading()
  */
 void ConsoleWidget::onStopReading()
 {
-    disconnect(CommunicationManager::consoleThread, SIGNAL(newPacket(ConsolePacket)), this, SLOT(newPacket(ConsolePacket)));
+    disconnect(CommunicationManager::consoleThread, SIGNAL(newPacket(DebugPacket)), this, SLOT(newPacket(DebugPacket)));
 }
 
 // Called when a new packet is read
@@ -82,15 +82,17 @@ void ConsoleWidget::onStopReading()
  * This QString is then displayed in the child \l QTextBrowser widget of the Console widget.
  * If the \a packet struct also flags its message as an error, it will be displayed in red.
  */
-void ConsoleWidget::newPacket(ConsolePacket packet)
+void ConsoleWidget::newPacket(DebugPacket packet)
 {
     // Append the message with its timestamp to the console TextBrowser
     QString timeStamp = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
-    QString message = QString("[" + timeStamp + "] " + QString::fromStdString(packet.message));
+    QString message = QString("[" + timeStamp + "] " + QString(packet.str));
 
     //console->setTextColor(Qt::red); Needed for error message text
 
-    console->append(message);
+    console->moveCursor (QTextCursor::End);
+    console->insertPlainText (message);
+    console->moveCursor (QTextCursor::End);
 }
 
 /*!

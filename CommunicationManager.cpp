@@ -4,6 +4,7 @@ BatteryThread* CommunicationManager::batteryThread;
 ConsoleThread* CommunicationManager::consoleThread;
 LidarThread* CommunicationManager::lidarThread;
 CANThread* CommunicationManager::canThread;
+StereoThread* CommunicationManager::stereoThread;
 
 bool CommunicationManager::loopbackFound = false;
 QNetworkInterface CommunicationManager::loopbackInterface;
