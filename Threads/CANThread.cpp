@@ -4,7 +4,8 @@
 // Constructor
 CANThread::CANThread()
 {
-    qRegisterMetaType<CANPacket>("CANPacket");
+    qRegisterMetaType<CANDataPacket>("CANDataPacket");
+    qRegisterMetaType<CANControlPacket>("CANControlPacket");
 }
 
 // Destructor
@@ -43,18 +44,18 @@ void CANThread::readPendingDatagrams()
 
 void CANThread::processDatagram(QByteArray datagram)
 {
-    CANPacket* canPacket = (CANPacket*)datagram.data();
+    CANDataPacket* canPacket = (CANDataPacket*)datagram.data();
     CANThread::latestPacket = canPacket;
     emit newPacket(*canPacket);
 }
 
-void CANThread::broadcastCANRequest(CANRequestPacket packet)
+void CANThread::broadcastCANRequest(CANControlPacket packet)
 {
     QByteArray datagram = serializeRequestPacket(packet);
     udpSocket->writeDatagram(datagram.data(), datagram.size(), CommunicationManager::getUDPAddress(), CAN_PORT);
 }
 
-QByteArray CANThread::serializeRequestPacket(CANRequestPacket packet)
+QByteArray CANThread::serializeRequestPacket(CANControlPacket packet)
 {
     QByteArray byteArray;
 

@@ -19,7 +19,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void chooseCANCodeFile();
 
 private:
     Ui::MainWindow *ui;

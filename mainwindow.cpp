@@ -14,14 +14,4 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::chooseCANCodeFile()
-{
-    QString fileName = QFileDialog::getOpenFileName(this, ("Open File"), QDir::currentPath(), ("JSON Files (*.json)"));
-    if(!fileName.isNull())
-    {
-        QFile* file = new QFile(fileName);
-        CANCodeManager::loadFromFile(file);
-    }
-}
-
 

@@ -314,7 +314,46 @@ QTabBar::tab { height: 40%;}</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_12">
         <item>
-         <widget class="CANWidget" name="canWidget" native="true"/>
+         <widget class="CANWidget" name="canWidget" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_13">
+           <item>
+            <widget class="QPushButton" name="loadCANFileButton">
+             <property name="text">
+              <string>Load CAN Code File</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="CANCodesTable">
+             <column>
+              <property name="text">
+               <string>ID</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Name</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Sender ID</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Start Bit</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>End Bit</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -328,23 +367,11 @@ QTabBar::tab { height: 40%;}</string>
      <x>0</x>
      <y>0</y>
      <width>983</width>
-     <height>22</height>
+     <height>28</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="actionLoadCANCodes"/>
-   </widget>
-   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionLoadCANCodes">
-   <property name="text">
-    <string>Load CAN Code File...</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -380,25 +407,5 @@ QTabBar::tab { height: 40%;}</string>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>actionLoadCANCodes</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>chooseCANCodeFile()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>491</x>
-     <y>301</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
- <slots>
-  <slot>chooseCANCodeFile()</slot>
- </slots>
+ <connections/>
 </ui>

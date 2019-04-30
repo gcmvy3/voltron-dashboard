@@ -21,14 +21,14 @@ struct BatteryPacket
     float charge;
 };
 
-struct CANPacket
+struct CANDataPacket
 {
     int id;
     int sender;
     unsigned char data[8];
 };
 
-struct CANRequestPacket
+struct CANControlPacket
 {
     int id;
     int sender;
