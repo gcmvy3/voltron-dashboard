@@ -3,7 +3,7 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 
-StereoMemory::StereoMemory(QObject *parent) : QObject(parent), semaphore(1)
+StereoMemory::StereoMemory(QWidget *parent) : QLabel(parent), semaphore(1)
 {
     connect(CommunicationManager::stereoThread, SIGNAL(newPacket(StereoPacket)), this, SLOT(onPacket(StereoPacket)));
 
@@ -19,16 +19,21 @@ StereoMemory::StereoMemory(QObject *parent) : QObject(parent), semaphore(1)
     {
         CommunicationManager::printToConsole("ERROR: STEREO shared memory was established, but could not be mapped");
     }
+
+    for (int i = 0; i < CAM_NUM_IMAGES; i++)
+    {
+        memReg = (unsigned char*)&memoryRegions[i].rgbImage;
+        frame[i] = QImage(memReg, CAM_WIDTH*2, CAM_HEIGHT, QImage::Format_ARGB32);
+    }
+
 }
 
 void StereoMemory::onPacket(StereoPacket packet)
 {
 
     semaphore.acquire(1);
-    const unsigned char* memReg = (unsigned char*)&memoryRegions[packet.updated].rgbImage;
-
-    frame = QImage(memReg, CAM_WIDTH*2, CAM_HEIGHT, QImage::Format_ARGB32);
-    emit(newFrame(frame));
+    this->setAlignment(Qt::AlignCenter);
+    this->setPixmap(QPixmap::fromImage(frame[packet.updated]).scaled(this->size(), Qt::KeepAspectRatio, Qt::FastTransformation));
 
     semaphore.release(1);
 }

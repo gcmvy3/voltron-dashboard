@@ -1,16 +1,12 @@
 #include "StereoWidget.h"
 
-StereoMemory* StereoWidget::shmem;
-
 StereoWidget::StereoWidget(QWidget *parent) : QWidget(parent)
 {
-    shmem = new StereoMemory(this);
-
     StereoWidget::title = new QLabel(this);
     title->setText("Stereoscopic View");
     title->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
-    StereoWidget::display = new QLabel(this);
+    StereoWidget::display = new StereoMemory(this);
     display->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout* layout = new QVBoxLayout();
@@ -41,12 +37,12 @@ void StereoWidget::hideEvent( QHideEvent* event )
 
 void StereoWidget::onStartReading()
 {
-    connect(shmem, SIGNAL(newFrame(QImage)), this, SLOT(newFrame(QImage)));
+    //connect(shmem, SIGNAL(newFrame(QImage)), this, SLOT(newFrame(QImage)));
 }
 
 void StereoWidget::onStopReading()
 {
-    disconnect(shmem, SIGNAL(newFrame(QImage)), this, SLOT(newFrame(QImage)));
+    //disconnect(shmem, SIGNAL(newFrame(QImage)), this, SLOT(newFrame(QImage)));
 }
 
 // Called when a new packet is read
