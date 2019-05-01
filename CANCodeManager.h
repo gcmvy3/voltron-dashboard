@@ -28,6 +28,7 @@ public slots:
     void loadFromFile(QFile* file);
 
 signals:
+    void newCodesFileSelected(QString filePath);
     void newCodesLoaded(QVector<CANCode*> newCodes);
 };
 

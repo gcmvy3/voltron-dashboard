@@ -47,7 +47,8 @@ SOURCES += \
     CANCode.cpp \
     LoggingManager.cpp \
     Widgets/LoggingWidget.cpp \
-    Threads/LoggingThread.cpp
+    Threads/LoggingThread.cpp \
+    SettingsManager.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -70,7 +71,8 @@ HEADERS += \
     CANCode.h \
     LoggingManager.h \
     Widgets/LoggingWidget.h \
-    Threads/LoggingThread.h
+    Threads/LoggingThread.h \
+    SettingsManager.h
 
 FORMS += \
         mainwindow.ui

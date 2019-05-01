@@ -1,6 +1,7 @@
 #include "CANCodeManager.h"
+#include "SettingsManager.h"
 
-CANCodeManager* CANCodeManager::instance = new CANCodeManager();
+CANCodeManager* CANCodeManager::instance = nullptr;
 
 CANCodeManager::CANCodeManager()
 {
@@ -9,6 +10,13 @@ CANCodeManager::CANCodeManager()
 
 CANCodeManager* CANCodeManager::getInstance()
 {
+    if(instance == nullptr)
+    {
+        instance = new CANCodeManager();
+        QObject::connect(SettingsManager::getInstance(), &SettingsManager::onSettingsLoaded, instance, &CANCodeManager::loadFromFile);
+        SettingsManager::getInstance()->loadSettings();
+    }
+
     return instance;
 }
 
@@ -24,46 +32,59 @@ void CANCodeManager::openCANFile()
 
 void CANCodeManager::loadFromFile(QFile* file)
 {
-    file->open(QFile::ReadOnly);
-    QJsonDocument document = QJsonDocument::fromJson(file->readAll());
-    file->close();
+    qDebug() << "Trying to load CAN codes file";
 
-    if(!document.isNull() || !document.isObject())
+    if(file != nullptr)
     {
-        CommunicationManager::printToConsole(QString("Loading CAN code file: ").append(QString(file->fileName())));
-        QJsonObject obj = document.object();
+        qDebug() << "Found CAN codes file";
 
-        //Read the array of CAN codes
-        QJsonArray codesArr = obj["codes"].toArray();
+        file->open(QFile::ReadOnly);
+        QJsonDocument document = QJsonDocument::fromJson(file->readAll());
+        file->close();
 
-        //For each code, parse it into a CANCode object
-        for(int i = 0; i < codesArr.size(); i++)
+        if(!document.isNull() || !document.isObject())
         {
-            QJsonObject codeObj = codesArr[i].toObject();
-            QVariantMap objMap = codeObj.toVariantMap();
-            int id = i;
+            qDebug() << "CAN codes file is valid";
 
-            QString name = objMap["name"].toString();
+            QString filePath = file->fileName();
+            emit newCodesFileSelected(filePath);
 
-            QString senderIDHex = objMap["senderID"].toString();
-            bool success;
-            int senderID = senderIDHex.toInt(&success, 16);
-            if(!success)
+            CommunicationManager::printToConsole(QString("Loading CAN code file: ").append(QString(file->fileName())));
+            QJsonObject obj = document.object();
+
+            //Read the array of CAN codes
+            QJsonArray codesArr = obj["codes"].toArray();
+
+            //For each code, parse it into a CANCode object
+            for(int i = 0; i < codesArr.size(); i++)
             {
-                qDebug() << "ERROR: Could not convert CAN sender ID to int";
-            }
-            else
-            {
-                int bitStart = objMap["bitStart"].toInt();
-                int bitEnd = objMap["bitEnd"].toInt();
+                QJsonObject codeObj = codesArr[i].toObject();
+                QVariantMap objMap = codeObj.toVariantMap();
+                int id = i;
 
-                CANCode* code = new CANCode(id, name, senderIDHex, senderID, bitStart, bitEnd);
+                QString name = objMap["name"].toString();
 
-                codes.append(code);
+                QString senderIDHex = objMap["senderID"].toString();
+                bool success;
+                int senderID = senderIDHex.toInt(&success, 16);
+                if(!success)
+                {
+                    qDebug() << "ERROR: Could not convert CAN sender ID to int";
+                }
+                else
+                {
+                    int bitStart = objMap["bitStart"].toInt();
+                    int bitEnd = objMap["bitEnd"].toInt();
+
+                    CANCode* code = new CANCode(id, name, senderIDHex, senderID, bitStart, bitEnd);
+
+                    codes.append(code);
+                }
             }
+            CommunicationManager::printToConsole(QString("Loaded ").append(QString(codes.size())).append(QString( " CAN codes from file.")));
+            emit newCodesLoaded(codes);
+            return;
         }
-        CommunicationManager::printToConsole(QString("Loaded ").append(QString(codes.size())).append(QString( " CAN codes from file.")));
-        emit newCodesLoaded(codes);
     }
 
     CommunicationManager::printToConsole(QString("ERROR: Invalid CAN code file: ").append(QString(file->fileName())));
