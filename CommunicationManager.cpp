@@ -5,6 +5,7 @@ ConsoleThread* CommunicationManager::consoleThread;
 LidarThread* CommunicationManager::lidarThread;
 CANThread* CommunicationManager::canThread;
 StereoThread* CommunicationManager::stereoThread;
+LoggingControlThread* CommunicationManager::loggingControlThread;
 
 bool CommunicationManager::loopbackFound = false;
 QNetworkInterface CommunicationManager::loopbackInterface;
@@ -82,6 +83,20 @@ void CommunicationManager::init()
     connect(stereoQThread, SIGNAL(finished()), stereoQThread, SLOT(deleteLater()));
 
     stereoQThread->start();
+
+    // Init and start logging control thread
+    QThread* loggingQThread = new QThread;
+    CommunicationManager::loggingControlThread = new LoggingControlThread();
+    loggingControlThread->moveToThread(loggingQThread);
+
+    // Connect the required signals for a QThread
+    QObject::connect(loggingControlThread, &LoggingControlThread::error, &CommunicationManager::printToConsole);
+    connect(loggingQThread, SIGNAL(started()), loggingControlThread, SLOT(start()));
+    connect(loggingControlThread, SIGNAL(finished()), loggingQThread, SLOT(quit()));
+    connect(loggingControlThread, SIGNAL(finished()), loggingControlThread, SLOT(deleteLater()));
+    connect(loggingQThread, SIGNAL(finished()), loggingQThread, SLOT(deleteLater()));
+
+    loggingQThread->start();
 }
 
 QNetworkInterface CommunicationManager::getLoopbackInterface()
