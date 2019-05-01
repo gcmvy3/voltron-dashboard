@@ -4,8 +4,9 @@
 #define CONSOLE_PORT 12000
 #define BATTERY_PORT 12001
 #define LIDAR_PORT 12002
-#define CAN_PORT 12003
-#define STEREO_PORT 12004
+#define CAN_CONTROL_PORT 12003
+#define CAN_DATA_PORT 12004
+#define STEREO_PORT 12006
 
 #include <string>
 #define DEBUG_MAX_LENGTH 1024
@@ -23,12 +24,17 @@ struct BatteryPacket
     float charge;
 };
 
-struct CANPacket
+struct CANDataPacket
 {
     int id;
     int sender;
-    int bitStart;
-    int bitEnd;
+    unsigned char data[8];
+};
+
+struct CANControlPacket
+{
+    int id;
+    int sender;
 };
 
 #define LIDAR_MEMORY_NAME "/voltron_lidar_data"

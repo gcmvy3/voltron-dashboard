@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QThread>
 #include <QDateTime>
+#include <QTableWidget>
 #include "CommunicationManager.h"
 #include "Threads/Packets.h"
 
@@ -22,7 +23,6 @@ public:
 
 protected:
     void showEvent( QShowEvent* event) override;
-    void hideEvent( QHideEvent* event) override;
 
 signals:
 

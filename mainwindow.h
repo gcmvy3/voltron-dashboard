@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileDialog>
 #include "CommunicationManager.h"
+#include "CANCodeManager.h"
 
 namespace Ui {
 class MainWindow;

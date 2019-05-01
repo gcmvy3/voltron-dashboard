@@ -17,7 +17,7 @@
    <property name="styleSheet">
     <string notr="true">background-color: rgb(211, 215, 207)</string>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_11">
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="styleSheet">
@@ -28,7 +28,7 @@ QTabBar::tab { height: 40%;}</string>
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -215,7 +215,7 @@ QTabBar::tab { height: 40%;}</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
-         <widget class="LidarWidget" name="widget" native="true"/>
+         <widget class="LidarWidget" name="lidarWidget_2" native="true"/>
         </item>
        </layout>
       </widget>
@@ -308,6 +308,67 @@ QTabBar::tab { height: 40%;}</string>
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>CAN</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_12">
+        <item>
+         <widget class="CANWidget" name="canWidget" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_13">
+           <item>
+            <widget class="QPushButton" name="loadCANFileButton">
+             <property name="text">
+              <string>Load CAN Code File</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="CANCodesTable">
+             <property name="editTriggers">
+              <set>QAbstractItemView::NoEditTriggers</set>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
+             <attribute name="horizontalHeaderStretchLastSection">
+              <bool>true</bool>
+             </attribute>
+             <attribute name="verticalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>ID</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Name</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Sender ID</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Start Bit</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>End Bit</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -321,12 +382,6 @@ QTabBar::tab { height: 40%;}</string>
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-   </widget>
-   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
@@ -354,6 +409,12 @@ QTabBar::tab { height: 40%;}</string>
    <class>LidarWidget</class>
    <extends>QWidget</extends>
    <header>Widgets/LidarWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CANWidget</class>
+   <extends>QWidget</extends>
+   <header>Widgets/CANWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

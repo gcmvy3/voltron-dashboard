@@ -61,6 +61,7 @@ void ConsoleThread::start()
  */
 void ConsoleThread::readPendingDatagrams()
 {
+    /*
     while (udpSocket->hasPendingDatagrams())
     {
             QByteArray datagram;
@@ -73,6 +74,7 @@ void ConsoleThread::readPendingDatagrams()
 
             ConsoleThread::processDatagram(datagram);
      }
+     */
 }
 
 /*!

@@ -1,0 +1,17 @@
+{
+	"codes":[
+	{
+		"name": "Headlights On",
+		"senderID": "1234ABCD",
+		"bitStart": 1,
+		"bitEnd" : 4			
+	},
+	{
+		"name": "Headlights Off",
+		"senderID": "4321DCBA",
+		"bitStart": 1,
+		"bitEnd": 4
+	}
+	]	
+}
+

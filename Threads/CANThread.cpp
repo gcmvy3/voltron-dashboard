@@ -4,7 +4,8 @@
 // Constructor
 CANThread::CANThread()
 {
-    qRegisterMetaType<CANPacket>("CANPacket");
+    qRegisterMetaType<CANDataPacket>("CANDataPacket");
+    qRegisterMetaType<CANControlPacket>("CANControlPacket");
 }
 
 // Destructor
@@ -16,25 +17,41 @@ CANThread::~CANThread()
 // Starts the thread
 void CANThread::start()
 {
-    udpSocket = new QUdpSocket();
-    udpSocket->bind(QHostAddress::AnyIPv4, CAN_PORT, QUdpSocket::ShareAddress);
+    // Initialize data socket
+    dataSocket = new QUdpSocket();
+    dataSocket->bind(QHostAddress::AnyIPv4, CAN_DATA_PORT, QUdpSocket::ShareAddress);
 
-    udpSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
+    dataSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
 
-    connect(udpSocket, SIGNAL(readyRead()),
+    connect(dataSocket, SIGNAL(readyRead()),
                 this, SLOT(readPendingDatagrams()));
+
+    // Initialize control socket
+    controlSocket = new QUdpSocket();
+    controlSocket->bind(QHostAddress::AnyIPv4, CAN_CONTROL_PORT, QUdpSocket::ShareAddress);
+
+    controlSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
+
+    CANControlPacket testPacket;
+    testPacket.id = 0;
+
+    bool success;
+    int senderID = QString("0CFF6600").toInt(&success, 16);
+
+    testPacket.sender = senderID;
+    broadcastCANRequest(testPacket);
 }
 
 void CANThread::readPendingDatagrams()
 {
-    while (udpSocket->hasPendingDatagrams())
+    while (dataSocket->hasPendingDatagrams())
     {
             QByteArray datagram;
-            datagram.resize(udpSocket->pendingDatagramSize());
+            datagram.resize(dataSocket->pendingDatagramSize());
             QHostAddress sender;
             quint16 senderPort;
 
-            udpSocket->readDatagram(datagram.data(), datagram.size(),
+            dataSocket->readDatagram(datagram.data(), datagram.size(),
                                     &sender, &senderPort);
 
             CANThread::processDatagram(datagram);
@@ -43,23 +60,26 @@ void CANThread::readPendingDatagrams()
 
 void CANThread::processDatagram(QByteArray datagram)
 {
-    CANPacket* canPacket = (CANPacket*)datagram.data();
+    CANDataPacket* canPacket = (CANDataPacket*)datagram.data();
     CANThread::latestPacket = canPacket;
+
+    qDebug() << "Received CAN data:\nSender ID: " << canPacket->sender << "\nCode ID: " << canPacket->id << "\nData: " << canPacket->data;
+
     emit newPacket(*canPacket);
 }
 
-void CANThread::broadcastPacket(CANPacket packet)
+void CANThread::broadcastCANRequest(CANControlPacket packet)
 {
-    QByteArray datagram = serializePacket(packet);
-    udpSocket->writeDatagram(datagram.data(), datagram.size(), CommunicationManager::getUDPAddress(), CAN_PORT);
+    QByteArray datagram = QByteArray::fromRawData((char *)&packet, sizeof(packet));
+    controlSocket->writeDatagram(datagram.data(), datagram.size(), CommunicationManager::getUDPAddress(), CAN_CONTROL_PORT);
 }
 
-QByteArray CANThread::serializePacket(CANPacket packet)
+QByteArray CANThread::serializeRequestPacket(CANControlPacket packet)
 {
     QByteArray byteArray;
 
     QDataStream stream(&byteArray, QIODevice::WriteOnly);
-    stream << packet.id << packet.sender << packet.bitStart << packet.bitEnd;
+    stream << packet.id << packet.sender;
 
     return byteArray;
 }
