@@ -28,7 +28,7 @@ QTabBar::tab { height: 40%;}</string>
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -433,6 +433,11 @@ QTabBar::tab { height: 40%;}</string>
           <layout class="QVBoxLayout" name="verticalLayout_13">
            <item>
             <widget class="QPushButton" name="loadCANFileButton">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>Load CAN Code File</string>
              </property>
@@ -440,12 +445,23 @@ QTabBar::tab { height: 40%;}</string>
            </item>
            <item>
             <widget class="QTableWidget" name="CANCodesTable">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
              <property name="editTriggers">
               <set>QAbstractItemView::NoEditTriggers</set>
              </property>
              <property name="selectionBehavior">
               <enum>QAbstractItemView::SelectRows</enum>
              </property>
+             <property name="columnCount">
+              <number>6</number>
+             </property>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>124</number>
+             </attribute>
              <attribute name="horizontalHeaderStretchLastSection">
               <bool>true</bool>
              </attribute>
@@ -456,25 +472,60 @@ QTabBar::tab { height: 40%;}</string>
               <property name="text">
                <string>ID</string>
               </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Name</string>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
               </property>
              </column>
              <column>
               <property name="text">
                <string>Sender ID</string>
               </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Start Bit</string>
               </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>End Bit</string>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Value</string>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
               </property>
              </column>
             </widget>

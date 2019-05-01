@@ -409,25 +409,37 @@ public:
         verticalLayout_13->setObjectName(QString::fromUtf8("verticalLayout_13"));
         loadCANFileButton = new QPushButton(canWidget);
         loadCANFileButton->setObjectName(QString::fromUtf8("loadCANFileButton"));
+        loadCANFileButton->setFont(font);
 
         verticalLayout_13->addWidget(loadCANFileButton);
 
         CANCodesTable = new QTableWidget(canWidget);
-        if (CANCodesTable->columnCount() < 5)
-            CANCodesTable->setColumnCount(5);
+        if (CANCodesTable->columnCount() < 6)
+            CANCodesTable->setColumnCount(6);
         QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        __qtablewidgetitem2->setFont(font);
         CANCodesTable->setHorizontalHeaderItem(0, __qtablewidgetitem2);
         QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        __qtablewidgetitem3->setFont(font);
         CANCodesTable->setHorizontalHeaderItem(1, __qtablewidgetitem3);
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        __qtablewidgetitem4->setFont(font);
         CANCodesTable->setHorizontalHeaderItem(2, __qtablewidgetitem4);
         QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        __qtablewidgetitem5->setFont(font);
         CANCodesTable->setHorizontalHeaderItem(3, __qtablewidgetitem5);
         QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        __qtablewidgetitem6->setFont(font);
         CANCodesTable->setHorizontalHeaderItem(4, __qtablewidgetitem6);
+        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
+        __qtablewidgetitem7->setFont(font);
+        CANCodesTable->setHorizontalHeaderItem(5, __qtablewidgetitem7);
         CANCodesTable->setObjectName(QString::fromUtf8("CANCodesTable"));
+        CANCodesTable->setFont(font);
         CANCodesTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
         CANCodesTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+        CANCodesTable->setColumnCount(6);
+        CANCodesTable->horizontalHeader()->setDefaultSectionSize(124);
         CANCodesTable->horizontalHeader()->setStretchLastSection(true);
         CANCodesTable->verticalHeader()->setVisible(false);
 
@@ -454,7 +466,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -495,6 +507,8 @@ public:
         ___qtablewidgetitem5->setText(QApplication::translate("MainWindow", "Start Bit", nullptr));
         QTableWidgetItem *___qtablewidgetitem6 = CANCodesTable->horizontalHeaderItem(4);
         ___qtablewidgetitem6->setText(QApplication::translate("MainWindow", "End Bit", nullptr));
+        QTableWidgetItem *___qtablewidgetitem7 = CANCodesTable->horizontalHeaderItem(5);
+        ___qtablewidgetitem7->setText(QApplication::translate("MainWindow", "Value", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("MainWindow", "CAN", nullptr));
     } // retranslateUi
 

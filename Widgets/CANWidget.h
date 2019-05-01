@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QTableWidget>
+#include <QVariant>
 #include "DashboardUtils.h"
 #include "CANCodeManager.h"
 
@@ -26,6 +27,7 @@ signals:
 
 public slots:
     void updateTable(QVector<CANCode*> newCodes);
+    void updateValue(CANDataPacket packet);
 };
 
 #endif // CANWIDGET_H

@@ -2,9 +2,8 @@
 
 CANWidget::CANWidget(QWidget *parent) : QWidget(parent)
 {
-
+    QObject::connect(CommunicationManager::canThread, &CANThread::newPacket, this, &CANWidget::updateValue);
 }
-
 
 /**
  * Called automatically when the widget is shown.
@@ -45,6 +44,10 @@ void CANWidget::showEvent( QShowEvent* event )
     QObject::connect(CANCodeManager::getInstance(), &CANCodeManager::newCodesLoaded, this, &CANWidget::updateTable);
 }
 
+/**
+ * @brief CANWidget::updateTable Clears the table then populates it with one row for every CAN code.
+ * @param newCodes A vector of CANCode objects representing the new set of CAN codes.
+ */
 void CANWidget::updateTable(QVector<CANCode*> newCodes)
 {
     codesTable->clearContents();
@@ -62,6 +65,59 @@ void CANWidget::updateTable(QVector<CANCode*> newCodes)
         codesTable->setItem(rowIndex, 2, new QTableWidgetItem(code->senderIDString));
         codesTable->setItem(rowIndex, 3, new QTableWidgetItem(QString::number(code->bitStart)));
         codesTable->setItem(rowIndex, 4, new QTableWidgetItem(QString::number(code->bitEnd)));
+        codesTable->setItem(rowIndex, 5, new QTableWidgetItem(QString("No data")));
     }
+}
 
+/**
+ * @brief CANWidget::updateValue Updates a single value in the table based on a CANDataPacket. Discards the packet if the sender ID does not match the existing entry
+ * (happens if new codes have been loaded).
+ * @param packet A packet containing the new data.
+ */
+void CANWidget::updateValue(CANDataPacket packet)
+{
+    QTableWidgetItem* entry = codesTable->item(packet.id, 5);
+    if(entry != nullptr)
+    {
+        // Check existing sender ID
+        QTableWidgetItem* senderIDItem = codesTable->item(packet.id, 2);
+        if(senderIDItem != nullptr && !senderIDItem->text().isNull())
+        {
+            int existingSenderID = senderIDItem->text().toInt();
+            // If sender IDs match, update the table with the new value
+            if(existingSenderID == packet.sender)
+            {
+                int startBit = codesTable->item(packet.id, 3)->text().toInt();
+                int endBit = codesTable->item(packet.id, 4)->text().toInt();
+                if(startBit >=0 && endBit <= 63)
+                {
+                    // Extract the designated bits from the chars
+                    QVector<bool> bits = QVector<bool>();
+                    for(int i = startBit; i <= endBit; i++)
+                    {
+                        int byteIndex = i / 8;
+                        char c = packet.data[byteIndex];
+                        bool bitValue = c & (1 << i % 8);
+                        bits.append(bitValue);
+                    }
+                    // Convert the bit string to a QString for display
+                    QString valueString = QString();
+                    for(int i = 0; i < bits.size(); i++)
+                    {
+                        if(bits[i])
+                        {
+                            valueString.append(QString("1"));
+                        }
+                        else
+                        {
+                            valueString.append(QString("0"));
+                        }
+                    }
+
+                    // Display the value in the table
+                    entry->setText(valueString);
+                }
+            }
+        }
+    }
 }

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <QDataStream>
 
+#include "CANCode.h"
 #include "Threads/Packets.h"
 
 class CANThread : public QObject
@@ -21,6 +22,7 @@ public slots:
     void start();
     void readPendingDatagrams();
     void broadcastCANRequest(CANControlPacket request);
+    void onNewCANCodesLoaded(QVector<CANCode*> codes);
 
 signals:
     void finished();

@@ -1,11 +1,15 @@
 #include "CANThread.h"
 #include "CommunicationManager.h"
+#include "CANCodeManager.h"
 
 // Constructor
 CANThread::CANThread()
 {
     qRegisterMetaType<CANDataPacket>("CANDataPacket");
     qRegisterMetaType<CANControlPacket>("CANControlPacket");
+    qRegisterMetaType<QVector<CANCode*>>("QVector<CANCode*>>");
+
+    QObject::connect(CANCodeManager::getInstance() , &CANCodeManager::newCodesLoaded, this, &CANThread::onNewCANCodesLoaded);
 }
 
 // Destructor
@@ -31,34 +35,6 @@ void CANThread::start()
     controlSocket->bind(QHostAddress::AnyIPv4, CAN_CONTROL_PORT, QUdpSocket::ShareAddress);
 
     controlSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
-
-    CANControlPacket testPacket;
-    testPacket.id = 0;
-
-    bool success;
-    int senderID = QString("0x0CFF6600").toInt(&success, 16);
-    if(!success)
-    {
-        qDebug() << "ERROR: Could not convert hex string to int";
-    }
-
-    qDebug() << "Sender ID: " << senderID;
-    testPacket.sender = senderID;
-    broadcastCANRequest(testPacket);
-
-    CANControlPacket testPacket2;
-    testPacket2.id = 1;
-
-    bool success2;
-    int senderID2 = QString("0x08FF07EF").toInt(&success2, 16);
-    if(!success2)
-    {
-        qDebug() << "ERROR: Could not convert hex string to int";
-    }
-
-    qDebug() << "Sender ID: " << senderID2;
-    testPacket2.sender = senderID2;
-    broadcastCANRequest(testPacket2);
 }
 
 void CANThread::readPendingDatagrams()
@@ -93,11 +69,24 @@ void CANThread::processDatagram(QByteArray datagram)
     emit newPacket(*canPacket);
 }
 
+void CANThread::onNewCANCodesLoaded(QVector<CANCode*> codes)
+{
+    for(int i = 0; i < codes.size(); i++)
+    {
+        CANCode* code = codes.at(i);
+
+        CANControlPacket request = CANControlPacket();
+
+        request.id = code->id;
+        request.sender = code->senderID;
+        broadcastCANRequest(request);
+    }
+}
+
 void CANThread::broadcastCANRequest(CANControlPacket packet)
 {
     QByteArray datagram = QByteArray::fromRawData((char *)&packet, sizeof(packet));
     controlSocket->writeDatagram(datagram.data(), datagram.size(), CommunicationManager::getUDPAddress(), CAN_CONTROL_PORT);
-    qDebug("Broadcast CAN request");
 }
 
 QByteArray CANThread::serializeRequestPacket(CANControlPacket packet)

@@ -71,7 +71,7 @@ void LoggingWidget::updateButtonStatus()
 
     if(LoggingManager::isRecordingCAN())
     {
-        canRecordButton->setText("Stop Recording");
+        canRecordButton->setText(" Stop Recording");
     }
     else
     {
@@ -80,7 +80,7 @@ void LoggingWidget::updateButtonStatus()
 
     if(LoggingManager::isRecordingGPS())
     {
-        gpsRecordButton->setText("Stop Recording");
+        gpsRecordButton->setText(" Stop Recording");
     }
     else
     {
@@ -89,7 +89,7 @@ void LoggingWidget::updateButtonStatus()
 
     if(LoggingManager::isRecordingLidar())
     {
-        lidarRecordButton->setText("Stop Recording");
+        lidarRecordButton->setText(" Stop Recording");
     }
     else
     {
@@ -98,7 +98,7 @@ void LoggingWidget::updateButtonStatus()
 
     if(LoggingManager::isRecordingCamera())
     {
-        cameraRecordButton->setText("Stop Recording");
+        cameraRecordButton->setText(" Stop Recording");
     }
     else
     {
@@ -144,7 +144,7 @@ void LoggingWidget::onCANRecordButtonPressed()
     else
     {
         LoggingManager::setRecordingCAN(true);
-        canRecordButton->setText("Stop Recording");
+        canRecordButton->setText(" Stop Recording");
     }
 }
 
@@ -158,7 +158,7 @@ void LoggingWidget::onGPSRecordButtonPressed()
     else
     {
         LoggingManager::setRecordingGPS(true);
-        gpsRecordButton->setText("Stop Recording");
+        gpsRecordButton->setText(" Stop Recording");
     }
 }
 
@@ -172,7 +172,7 @@ void LoggingWidget::onLidarRecordButtonPressed()
     else
     {
         LoggingManager::setRecordingLidar(true);
-        lidarRecordButton->setText("Stop Recording");
+        lidarRecordButton->setText(" Stop Recording");
     }
 }
 
@@ -186,6 +186,6 @@ void LoggingWidget::onCameraRecordButtonPressed()
     else
     {
         LoggingManager::setRecordingCamera(true);
-        cameraRecordButton->setText("Stop Recording");
+        cameraRecordButton->setText(" Stop Recording");
     }
 }

@@ -36,8 +36,6 @@ void CANCodeManager::loadFromFile(QFile* file)
         //Read the array of CAN codes
         QJsonArray codesArr = obj["codes"].toArray();
 
-        //codes = new QVector<CANCode*>(codesArr.size());
-
         //For each code, parse it into a CANCode object
         for(int i = 0; i < codesArr.size(); i++)
         {
@@ -50,13 +48,19 @@ void CANCodeManager::loadFromFile(QFile* file)
             QString senderIDHex = objMap["senderID"].toString();
             bool success;
             int senderID = senderIDHex.toInt(&success, 16);
+            if(!success)
+            {
+                qDebug() << "ERROR: Could not convert CAN sender ID to int";
+            }
+            else
+            {
+                int bitStart = objMap["bitStart"].toInt();
+                int bitEnd = objMap["bitEnd"].toInt();
 
-            int bitStart = objMap["bitStart"].toInt();
-            int bitEnd = objMap["bitEnd"].toInt();
+                CANCode* code = new CANCode(id, name, senderIDHex, senderID, bitStart, bitEnd);
 
-            CANCode* code = new CANCode(id, name, senderIDHex, senderID, bitStart, bitEnd);
-
-            codes.append(code);
+                codes.append(code);
+            }
         }
         CommunicationManager::printToConsole(QString("Loaded ").append(QString(codes.size())).append(QString( " CAN codes from file.")));
         emit newCodesLoaded(codes);
