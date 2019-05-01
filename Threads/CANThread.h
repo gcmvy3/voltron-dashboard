@@ -28,7 +28,8 @@ signals:
     void newPacket(CANDataPacket packet);
 
 private:
-    QUdpSocket* udpSocket;
+    QUdpSocket* controlSocket;
+    QUdpSocket* dataSocket;
     CANDataPacket* latestPacket;
     void processDatagram(QByteArray datagram);
     QByteArray serializeRequestPacket(CANControlPacket packet);

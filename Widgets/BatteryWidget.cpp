@@ -65,7 +65,7 @@ void BatteryWidget::newPacket(BatteryPacket packet)
     // Put the charge value in the appropriate table cell
     int row = packet.cellNum;
 
-    table->item(row, 1)->setText(QString::number(packet.charge));
+    table->item(row, 1)->setText(QString::number(packet.charge).append(" (Mock data)"));
 }
 
 void BatteryWidget::errorString(QString error)
