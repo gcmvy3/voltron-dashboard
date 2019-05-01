@@ -45,8 +45,9 @@ SOURCES += \
     CANCodeManager.cpp \
     DashboardUtils.cpp \
     CANCode.cpp \
-    Threads/LoggingControlThread.cpp \
-    Widgets/LoggingControlWidget.cpp
+    LoggingManager.cpp \
+    Widgets/LoggingWidget.cpp \
+    Threads/LoggingThread.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -67,8 +68,9 @@ HEADERS += \
     CANCodeManager.h \
     DashboardUtils.h \
     CANCode.h \
-    Threads/LoggingControlThread.h \
-    Widgets/LoggingControlWidget.h
+    LoggingManager.h \
+    Widgets/LoggingWidget.h \
+    Threads/LoggingThread.h
 
 FORMS += \
         mainwindow.ui

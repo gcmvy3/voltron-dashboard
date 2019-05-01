@@ -70,7 +70,7 @@ QTabBar::tab { height: 40%;}</string>
              </sizepolicy>
             </property>
            </widget>
-           <widget class="LoggingControlWidget" name="loggingControlWidget" native="true">
+           <widget class="LoggingWidget" name="loggingWidget" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -100,7 +100,7 @@ QTabBar::tab { height: 40%;}</string>
                 <enum>QLayout::SetDefaultConstraint</enum>
                </property>
                <item>
-                <widget class="QPushButton" name="pushButton_2">
+                <widget class="QPushButton" name="endDriveButton">
                  <property name="enabled">
                   <bool>false</bool>
                  </property>
@@ -110,18 +110,30 @@ QTabBar::tab { height: 40%;}</string>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>40</height>
+                  </size>
+                 </property>
                  <property name="text">
                   <string>End Drive</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton">
+                <widget class="QPushButton" name="startDriveButton">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>40</height>
+                  </size>
                  </property>
                  <property name="text">
                   <string>Start Drive</string>
@@ -161,7 +173,7 @@ QTabBar::tab { height: 40%;}</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="pushButton_3">
+                   <widget class="QPushButton" name="canRecordButton">
                     <property name="enabled">
                      <bool>false</bool>
                     </property>
@@ -185,7 +197,7 @@ QTabBar::tab { height: 40%;}</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="pushButton_4">
+                   <widget class="QPushButton" name="lidarRecordButton">
                     <property name="enabled">
                      <bool>false</bool>
                     </property>
@@ -209,7 +221,7 @@ QTabBar::tab { height: 40%;}</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="pushButton_5">
+                   <widget class="QPushButton" name="gpsRecordButton">
                     <property name="enabled">
                      <bool>false</bool>
                     </property>
@@ -233,7 +245,7 @@ QTabBar::tab { height: 40%;}</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="pushButton_6">
+                   <widget class="QPushButton" name="cameraRecordButton">
                     <property name="enabled">
                      <bool>false</bool>
                     </property>
@@ -243,6 +255,19 @@ QTabBar::tab { height: 40%;}</string>
                    </widget>
                   </item>
                  </layout>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                </layout>
               </widget>
@@ -508,9 +533,9 @@ QTabBar::tab { height: 40%;}</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>LoggingControlWidget</class>
+   <class>LoggingWidget</class>
    <extends>QWidget</extends>
-   <header>Widgets/LoggingControlWidget.h</header>
+   <header>Widgets/LoggingWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -7,7 +7,7 @@
 #include "Threads/LidarThread.h"
 #include "Threads/CANThread.h"
 #include "Threads/StereoThread.h"
-#include "Threads/LoggingControlThread.h"
+#include "Threads/LoggingThread.h"
 #include <QThread>
 
 class CommunicationManager : QObject
@@ -22,7 +22,7 @@ public:
     static LidarThread* lidarThread;
     static CANThread* canThread;
     static StereoThread* stereoThread;
-    static LoggingControlThread* loggingControlThread;
+    static LoggingThread* loggingThread;
 
     static QHostAddress getUDPAddress(){return QHostAddress(MULTICAST_GROUP);}
 

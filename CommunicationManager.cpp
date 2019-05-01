@@ -5,7 +5,7 @@ ConsoleThread* CommunicationManager::consoleThread;
 LidarThread* CommunicationManager::lidarThread;
 CANThread* CommunicationManager::canThread;
 StereoThread* CommunicationManager::stereoThread;
-LoggingControlThread* CommunicationManager::loggingControlThread;
+LoggingThread* CommunicationManager::loggingThread;
 
 bool CommunicationManager::loopbackFound = false;
 QNetworkInterface CommunicationManager::loopbackInterface;
@@ -84,16 +84,16 @@ void CommunicationManager::init()
 
     stereoQThread->start();
 
-    // Init and start logging control thread
+    // Init and start logging  thread
     QThread* loggingQThread = new QThread;
-    CommunicationManager::loggingControlThread = new LoggingControlThread();
-    loggingControlThread->moveToThread(loggingQThread);
+    CommunicationManager::loggingThread = new LoggingThread();
+    loggingThread->moveToThread(loggingQThread);
 
     // Connect the required signals for a QThread
-    QObject::connect(loggingControlThread, &LoggingControlThread::error, &CommunicationManager::printToConsole);
-    connect(loggingQThread, SIGNAL(started()), loggingControlThread, SLOT(start()));
-    connect(loggingControlThread, SIGNAL(finished()), loggingQThread, SLOT(quit()));
-    connect(loggingControlThread, SIGNAL(finished()), loggingControlThread, SLOT(deleteLater()));
+    QObject::connect(loggingThread, &LoggingThread::error, &CommunicationManager::printToConsole);
+    connect(loggingQThread, SIGNAL(started()), loggingThread, SLOT(start()));
+    connect(loggingThread, SIGNAL(finished()), loggingQThread, SLOT(quit()));
+    connect(loggingThread, SIGNAL(finished()), loggingThread, SLOT(deleteLater()));
     connect(loggingQThread, SIGNAL(finished()), loggingQThread, SLOT(deleteLater()));
 
     loggingQThread->start();
