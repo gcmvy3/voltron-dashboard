@@ -6,8 +6,6 @@ StereoWidget::StereoWidget(QWidget *parent) : QWidget(parent)
 {
     shmem = new StereoMemory(this);
 
-    connect(shmem, SIGNAL(newFrame(frame)), this, SLOT(newFrame(frame)));
-
     StereoWidget::title = new QLabel(this);
     title->setText("Stereoscopic View");
     title->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
@@ -43,12 +41,12 @@ void StereoWidget::hideEvent( QHideEvent* event )
 
 void StereoWidget::onStartReading()
 {
-    connect(CommunicationManager::lidarThread, SIGNAL(newPacket(StereoPacket)), this, SLOT(newPacket(StereoPacket)));
+    connect(shmem, SIGNAL(newFrame(QImage)), this, SLOT(newFrame(QImage)));
 }
 
 void StereoWidget::onStopReading()
 {
-    disconnect(CommunicationManager::lidarThread, SIGNAL(newPacket(StereoPacket)), this, SLOT(newPacket(StereoPacket)));
+    disconnect(shmem, SIGNAL(newFrame(QImage)), this, SLOT(newFrame(QImage)));
 }
 
 // Called when a new packet is read

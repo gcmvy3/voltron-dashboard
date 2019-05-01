@@ -25,8 +25,9 @@ void StereoMemory::onPacket(StereoPacket packet)
 {
 
     semaphore.acquire(1);
+    unsigned char* memReg = (unsigned char*)&memoryRegions[packet.updated].rgbImage;
 
-    frame = new QImage((const unsigned char*)memoryRegions[packet.updated].rgbImage, CAM_HEIGHT, CAM_WIDTH*2, QImage::Format_ARGB32);
+    frame = QImage(memReg, CAM_HEIGHT, CAM_WIDTH*2, QImage::Format_ARGB32);
     emit(newFrame(frame));
 
     semaphore.release(1);
