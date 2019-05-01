@@ -28,7 +28,7 @@ struct CANDataPacket
 {
     int id;
     int sender;
-    unsigned char data[8];
+    char data[8];
 };
 
 struct CANControlPacket

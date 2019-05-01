@@ -36,10 +36,29 @@ void CANThread::start()
     testPacket.id = 0;
 
     bool success;
-    int senderID = QString("0CFF6600").toInt(&success, 16);
+    int senderID = QString("0x0CFF6600").toInt(&success, 16);
+    if(!success)
+    {
+        qDebug() << "ERROR: Could not convert hex string to int";
+    }
 
+    qDebug() << "Sender ID: " << senderID;
     testPacket.sender = senderID;
     broadcastCANRequest(testPacket);
+
+    CANControlPacket testPacket2;
+    testPacket2.id = 1;
+
+    bool success2;
+    int senderID2 = QString("0x08FF07EF").toInt(&success2, 16);
+    if(!success2)
+    {
+        qDebug() << "ERROR: Could not convert hex string to int";
+    }
+
+    qDebug() << "Sender ID: " << senderID2;
+    testPacket2.sender = senderID2;
+    broadcastCANRequest(testPacket2);
 }
 
 void CANThread::readPendingDatagrams()
@@ -63,7 +82,13 @@ void CANThread::processDatagram(QByteArray datagram)
     CANDataPacket* canPacket = (CANDataPacket*)datagram.data();
     CANThread::latestPacket = canPacket;
 
-    qDebug() << "Received CAN data:\nSender ID: " << canPacket->sender << "\nCode ID: " << canPacket->id << "\nData: " << canPacket->data;
+    QString data = "";
+    for(int i = 0; i < 8; i++)
+    {
+        data.append(QString::number(canPacket->data[i]));
+    }
+
+    qDebug() << "Received CAN data:\nSender ID: " << canPacket->sender << "\nCode ID: " << canPacket->id << "\nData: " << data;
 
     emit newPacket(*canPacket);
 }
@@ -72,6 +97,7 @@ void CANThread::broadcastCANRequest(CANControlPacket packet)
 {
     QByteArray datagram = QByteArray::fromRawData((char *)&packet, sizeof(packet));
     controlSocket->writeDatagram(datagram.data(), datagram.size(), CommunicationManager::getUDPAddress(), CAN_CONTROL_PORT);
+    qDebug("Broadcast CAN request");
 }
 
 QByteArray CANThread::serializeRequestPacket(CANControlPacket packet)
