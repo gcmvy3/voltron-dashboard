@@ -26,8 +26,21 @@ StereoWidget::StereoWidget(QWidget *parent) : QWidget(parent)
     StereoWidget::display = new StereoMemory(this);
     display->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
+    StereoWidget::typeSelector = new QComboBox(this);
+    typeSelector->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+    typeSelector->addItem("Stereo", QString::number(StereoMemory::DisplayType::STEREO));
+    typeSelector->addItem("Depth", QString::number(StereoMemory::DisplayType::DEPTH));
+
     QVBoxLayout* layout = new QVBoxLayout();
     layout->addWidget(title);
     layout->addWidget(display);
+    layout->addWidget(typeSelector);
     setLayout(layout);
+
+    connect(typeSelector, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(onTypeChanged()));
+}
+
+void StereoWidget::onTypeChanged()
+{
+    display->setDisplayType(typeSelector->currentIndex());
 }

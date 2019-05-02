@@ -107,8 +107,6 @@ void LidarRenderer::paintGL()
             semaphore.release(1);
     }
 
-
-
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     makeCurrent();
 
@@ -186,4 +184,24 @@ void LidarRenderer::mouseMoveEvent(QMouseEvent *event)
 void LidarRenderer::mouseReleaseEvent(QMouseEvent* event)
 {
     lastTouchedPos = QPoint(-1,-1);
+}
+
+/**
+ * Called automatically when the widget is shown.
+ * Connects the widget to the incoming data packets.
+ **/
+void LidarRenderer::showEvent( QShowEvent* event )
+{
+    QWidget::showEvent( event );
+    connect(CommunicationManager::lidarThread, SIGNAL(newPacket(LidarPacket)), this, SLOT(onPacket(LidarPacket)));
+}
+
+/**
+ * Called automatically when the widget is shown.
+ * Disconnects the widget from the incoming data packets for better performance.
+ **/
+void LidarRenderer::hideEvent( QHideEvent* event )
+{
+    QWidget::hideEvent( event );
+    disconnect(CommunicationManager::lidarThread, SIGNAL(newPacket(LidarPacket)), this, SLOT(onPacket(LidarPacket)));
 }

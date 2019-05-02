@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QThread>
 #include <QVBoxLayout>
+#include <QComboBox>
 
 #include "CommunicationManager.h"
 #include "Threads/Packets.h"
@@ -18,12 +19,14 @@ public:
 
     QLabel* title;
     StereoMemory* display;
+    QComboBox* typeSelector;
 
 protected:
 
 signals:
 
 public slots:
+    void onTypeChanged();
 };
 
 #endif // STEREOWIDGET_H

@@ -42,12 +42,28 @@ StereoMemory::StereoMemory(QWidget *parent) : QLabel(parent), semaphore(1)
         CommunicationManager::printToConsole("ERROR: STEREO shared memory was established, but could not be mapped");
     }
 
-    for (int i = 0; i < CAM_NUM_IMAGES; i++)
-    {
-        memReg = (unsigned char*)&memoryRegions[i].rgbImage;
-        frame[i] = QImage(memReg, CAM_WIDTH*2, CAM_HEIGHT, QImage::Format_ARGB32);
-    }
+    setDisplayType(DisplayType::DEPTH);
+}
 
+void StereoMemory::setDisplayType(int type)
+{
+    displayType = type;
+    if(displayType == DisplayType::DEPTH)
+    {
+        for (int i = 0; i < CAM_NUM_IMAGES; i++)
+        {
+            memReg = (unsigned char*)&memoryRegions[i].depth;
+            frame[i] = QImage(memReg, CAM_WIDTH, CAM_HEIGHT, QImage::Format_ARGB32);
+        }
+    }
+    else if(displayType == DisplayType::STEREO)
+    {
+        for (int i = 0; i < CAM_NUM_IMAGES; i++)
+        {
+            memReg = (unsigned char*)&memoryRegions[i].rgbImage;
+            frame[i] = QImage(memReg, CAM_WIDTH*2, CAM_HEIGHT, QImage::Format_ARGB32);
+        }
+    }
 }
 
 /*!
@@ -57,7 +73,6 @@ StereoMemory::StereoMemory(QWidget *parent) : QLabel(parent), semaphore(1)
  */
 void StereoMemory::onPacket(StereoPacket packet)
 {
-
     semaphore.acquire(1);
     this->setAlignment(Qt::AlignCenter);
     this->setPixmap(QPixmap::fromImage(frame[packet.updated]).scaled(this->size(), Qt::KeepAspectRatio, Qt::FastTransformation));

@@ -21,15 +21,10 @@ public:
     LidarRenderer* renderer;
 
 protected:
-    void showEvent( QShowEvent* event) override;
-    void hideEvent( QHideEvent* event) override;
 
 signals:
 
 public slots:
-    void onStartReading();
-    void onStopReading();
-    void newPacket(LidarPacket packet);
 };
 
 #endif // LIDARWIDGET_H

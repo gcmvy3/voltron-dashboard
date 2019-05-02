@@ -11,8 +11,17 @@
 class StereoMemory : public QLabel
 {
     Q_OBJECT
-public:
+public:    
     StereoMemory(QWidget *parent);
+    void setDisplayType(int type);
+
+    enum DisplayType
+    {
+        STEREO = 0,
+        DEPTH = 1
+    };
+
+    int displayType;
 
 protected:
     QImage frame[CAM_NUM_IMAGES];
