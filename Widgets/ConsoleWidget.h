@@ -3,11 +3,10 @@
 
 #include <QWidget>
 #include <QTextBrowser>
-#include <QPushButton>
 #include <QThread>
 #include <QDateTime>
-#include <QTableWidget>
 #include "CommunicationManager.h"
+#include "DashboardUtils.h"
 #include "Threads/Packets.h"
 
 class ConsoleWidget : public QWidget
@@ -16,8 +15,9 @@ class ConsoleWidget : public QWidget
 public:
     explicit ConsoleWidget(QWidget *parent = nullptr);
 
+    int widgetIndex = -1;
+
     QTextBrowser *console;
-    QPushButton *readButton;
 
     ConsoleThread *consoleThread;
 

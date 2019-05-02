@@ -41,7 +41,15 @@ void ConsoleWidget::showEvent( QShowEvent* event )
  */
 void ConsoleWidget::onStartReading()
 {
-    console = this->findChild<QTextBrowser*>("consoleBrowser");
+    widgetIndex = DashboardUtils::getWidgetIndex(this);
+
+    QString idSuffix = "";
+    if(widgetIndex != -1)
+    {
+        idSuffix = QString("_").append(QString::number(widgetIndex));
+    }
+
+    console = this->findChild<QTextBrowser*>("consoleBrowser" + idSuffix);
 
     if(console == nullptr)
     {
