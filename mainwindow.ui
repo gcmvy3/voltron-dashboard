@@ -17,7 +17,7 @@
    <property name="styleSheet">
     <string notr="true">background-color: rgb(211, 215, 207)</string>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_11">
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="styleSheet">
@@ -28,7 +28,7 @@ QTabBar::tab { height: 40%;}</string>
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -46,113 +46,228 @@ QTabBar::tab { height: 40%;}</string>
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
-          <property name="handleWidth">
-           <number>12</number>
-          </property>
           <property name="childrenCollapsible">
            <bool>false</bool>
           </property>
           <widget class="QSplitter" name="splitter">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
-             <verstretch>6</verstretch>
+             <verstretch>10</verstretch>
             </sizepolicy>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::RightToLeft</enum>
            </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="handleWidth">
-            <number>12</number>
-           </property>
-           <property name="childrenCollapsible">
-            <bool>false</bool>
-           </property>
            <widget class="LidarWidget" name="lidarWidget" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-              <horstretch>8</horstretch>
-              <verstretch>0</verstretch>
+              <horstretch>4</horstretch>
+              <verstretch>5</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+           <widget class="LoggingWidget" name="loggingWidget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>5</verstretch>
              </sizepolicy>
             </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(238, 238, 236)</string>
             </property>
-           </widget>
-           <widget class="BatteryWidget" name="batteryWidget" native="true">
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>200</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_4">
+            <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
-              <widget class="QFrame" name="frame">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(238, 238, 236)</string>
+              <widget class="QLabel" name="label_6">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
+               <property name="text">
+                <string>Drive Controls</string>
                </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
+               <property name="sizeConstraint">
+                <enum>QLayout::SetDefaultConstraint</enum>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_5">
+               <item>
+                <widget class="QPushButton" name="endDriveButton">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>End Drive</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="startDriveButton">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Start Drive</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="layoutDirection">
+                <enum>Qt::LeftToRight</enum>
+               </property>
+               <property name="title">
+                <string>Recordings</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_4">
                 <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_3">
+                 <layout class="QHBoxLayout" name="horizontalLayout">
                   <item>
-                   <widget class="QLabel" name="batteryLabel">
-                    <property name="font">
-                     <font>
-                      <pointsize>14</pointsize>
-                     </font>
+                   <widget class="QLabel" name="label_2">
+                    <property name="layoutDirection">
+                     <enum>Qt::LeftToRight</enum>
                     </property>
-                    <property name="autoFillBackground">
+                    <property name="text">
+                     <string>CAN Messages</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="canRecordButton">
+                    <property name="enabled">
                      <bool>false</bool>
                     </property>
                     <property name="text">
-                     <string>Battery Data</string>
+                     <string>Start Recording</string>
                     </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="Line" name="line">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QTableWidget" name="batteryTable">
-                    <property name="columnCount">
-                     <number>2</number>
-                    </property>
-                    <attribute name="horizontalHeaderStretchLastSection">
-                     <bool>true</bool>
-                    </attribute>
-                    <attribute name="verticalHeaderVisible">
-                     <bool>false</bool>
-                    </attribute>
-                    <column>
-                     <property name="text">
-                      <string>Cell Number</string>
-                     </property>
-                    </column>
-                    <column>
-                     <property name="text">
-                      <string>Charge Level</string>
-                     </property>
-                    </column>
                    </widget>
                   </item>
                  </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_2">
+                  <item>
+                   <widget class="QLabel" name="label_3">
+                    <property name="text">
+                     <string>LIDAR</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="lidarRecordButton">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="text">
+                     <string>Start Recording</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_3">
+                  <item>
+                   <widget class="QLabel" name="label_4">
+                    <property name="text">
+                     <string>GPS</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="gpsRecordButton">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="text">
+                     <string>Start Recording</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_4">
+                  <item>
+                   <widget class="QLabel" name="label_5">
+                    <property name="text">
+                     <string>Depth Camera</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="cameraRecordButton">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="text">
+                     <string>Start Recording</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                </layout>
               </widget>
@@ -215,7 +330,7 @@ QTabBar::tab { height: 40%;}</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
-         <widget class="LidarWidget" name="widget" native="true"/>
+         <widget class="LidarWidget" name="lidarWidget_2" native="true"/>
         </item>
        </layout>
       </widget>
@@ -308,6 +423,118 @@ QTabBar::tab { height: 40%;}</string>
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>CAN</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_12">
+        <item>
+         <widget class="CANWidget" name="canWidget" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_13">
+           <item>
+            <widget class="QPushButton" name="loadCANFileButton">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Load CAN Code File</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="CANCodesTable">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="editTriggers">
+              <set>QAbstractItemView::NoEditTriggers</set>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
+             <property name="columnCount">
+              <number>6</number>
+             </property>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>124</number>
+             </attribute>
+             <attribute name="horizontalHeaderStretchLastSection">
+              <bool>true</bool>
+             </attribute>
+             <attribute name="verticalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>ID</string>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Name</string>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Sender ID</string>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Start Bit</string>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>End Bit</string>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Value</string>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -321,12 +548,6 @@ QTabBar::tab { height: 40%;}</string>
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-   </widget>
-   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
@@ -356,7 +577,25 @@ QTabBar::tab { height: 40%;}</string>
    <header>Widgets/LidarWidget.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>CANWidget</class>
+   <extends>QWidget</extends>
+   <header>Widgets/CANWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LoggingWidget</class>
+   <extends>QWidget</extends>
+   <header>Widgets/LoggingWidget.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>batteryTable_2</tabstop>
+  <tabstop>loadCANFileButton</tabstop>
+  <tabstop>CANCodesTable</tabstop>
+  <tabstop>tabWidget</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

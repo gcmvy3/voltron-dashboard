@@ -58,7 +58,7 @@ void BatteryWidget::hideEvent( QHideEvent* event )
  */
 void BatteryWidget::onStartReading()
 {
-    updateWidgetIndex();
+    widgetIndex = DashboardUtils::getWidgetIndex(this);
 
     QString idSuffix = "";
     if(widgetIndex != -1)
@@ -104,7 +104,7 @@ void BatteryWidget::newPacket(BatteryPacket packet)
     // Put the charge value in the appropriate table cell
     int row = packet.cellNum;
 
-    table->item(row, 1)->setText(QString::number(packet.charge));
+    table->item(row, 1)->setText(QString::number(packet.charge).append(" (Mock data)"));
 }
 
 /*!
@@ -115,25 +115,4 @@ void BatteryWidget::newPacket(BatteryPacket packet)
 void BatteryWidget::errorString(QString error)
 {
     qCritical("%s \n", qPrintable(error));
-}
-
-/**
- * Reads the numerical suffix appended to the widgetID and sets it as the widgetIndex attribute.
- * This allows us to find children by name when we have an arbitrary number of instances.
- */
-void BatteryWidget::updateWidgetIndex()
-{
-    QString widgetID = this->objectName();
-
-    if(widgetID.contains("_"))
-    {
-        QString indexString = widgetID.split("_").last();
-        if(!indexString.isEmpty())
-        {
-            widgetIndex = indexString.toInt();
-            return;
-        }
-    }
-
-    widgetIndex = -1;
 }

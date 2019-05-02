@@ -37,20 +37,6 @@ void ConsoleWidget::showEvent( QShowEvent* event )
 }
 
 /*!
- * \overload hideEvent( QHideEvent* event )
- *
- * This function is called automatically when the widget is shown.
- * Disconnects the widget from the incoming data packets for better performance.
- *
- * \sa QWidget::hideEvent( QHideEvent* event )
- */
-void ConsoleWidget::hideEvent( QHideEvent* event )
-{
-    QWidget::hideEvent( event );
-    onStopReading();
-}
-
-/*!
  * Connect the widget to the incoming data packets.
  */
 void ConsoleWidget::onStartReading()

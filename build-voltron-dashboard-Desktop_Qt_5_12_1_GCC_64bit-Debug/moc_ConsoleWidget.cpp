@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ConsoleWidget_t {
     QByteArrayData data[9];
-    char stringdata0[93];
+    char stringdata0[91];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,14 +36,14 @@ QT_MOC_LITERAL(1, 14, 14), // "onStartReading"
 QT_MOC_LITERAL(2, 29, 0), // ""
 QT_MOC_LITERAL(3, 30, 13), // "onStopReading"
 QT_MOC_LITERAL(4, 44, 9), // "newPacket"
-QT_MOC_LITERAL(5, 54, 13), // "ConsolePacket"
-QT_MOC_LITERAL(6, 68, 6), // "packet"
-QT_MOC_LITERAL(7, 75, 11), // "errorString"
-QT_MOC_LITERAL(8, 87, 5) // "error"
+QT_MOC_LITERAL(5, 54, 11), // "DebugPacket"
+QT_MOC_LITERAL(6, 66, 6), // "packet"
+QT_MOC_LITERAL(7, 73, 11), // "errorString"
+QT_MOC_LITERAL(8, 85, 5) // "error"
 
     },
     "ConsoleWidget\0onStartReading\0\0"
-    "onStopReading\0newPacket\0ConsolePacket\0"
+    "onStopReading\0newPacket\0DebugPacket\0"
     "packet\0errorString\0error"
 };
 #undef QT_MOC_LITERAL
@@ -84,7 +84,7 @@ void ConsoleWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         switch (_id) {
         case 0: _t->onStartReading(); break;
         case 1: _t->onStopReading(); break;
-        case 2: _t->newPacket((*reinterpret_cast< ConsolePacket(*)>(_a[1]))); break;
+        case 2: _t->newPacket((*reinterpret_cast< DebugPacket(*)>(_a[1]))); break;
         case 3: _t->errorString((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }

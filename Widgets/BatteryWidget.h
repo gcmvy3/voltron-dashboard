@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QThread>
 #include "CommunicationManager.h"
+#include "DashboardUtils.h"
 #include "Threads/Packets.h"
 
 class BatteryWidget : public QWidget

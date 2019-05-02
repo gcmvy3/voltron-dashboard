@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ConsoleThread_t {
     QByteArrayData data[11];
-    char stringdata0[110];
+    char stringdata0[108];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,18 +36,17 @@ QT_MOC_LITERAL(1, 14, 8), // "finished"
 QT_MOC_LITERAL(2, 23, 0), // ""
 QT_MOC_LITERAL(3, 24, 5), // "error"
 QT_MOC_LITERAL(4, 30, 9), // "newPacket"
-QT_MOC_LITERAL(5, 40, 13), // "ConsolePacket"
-QT_MOC_LITERAL(6, 54, 6), // "packet"
-QT_MOC_LITERAL(7, 61, 5), // "start"
-QT_MOC_LITERAL(8, 67, 20), // "readPendingDatagrams"
-QT_MOC_LITERAL(9, 88, 13), // "injectMessage"
-QT_MOC_LITERAL(10, 102, 7) // "message"
+QT_MOC_LITERAL(5, 40, 11), // "DebugPacket"
+QT_MOC_LITERAL(6, 52, 6), // "packet"
+QT_MOC_LITERAL(7, 59, 5), // "start"
+QT_MOC_LITERAL(8, 65, 20), // "readPendingDatagrams"
+QT_MOC_LITERAL(9, 86, 13), // "injectMessage"
+QT_MOC_LITERAL(10, 100, 7) // "message"
 
     },
     "ConsoleThread\0finished\0\0error\0newPacket\0"
-    "ConsolePacket\0packet\0start\0"
-    "readPendingDatagrams\0injectMessage\0"
-    "message"
+    "DebugPacket\0packet\0start\0readPendingDatagrams\0"
+    "injectMessage\0message"
 };
 #undef QT_MOC_LITERAL
 
@@ -95,7 +94,7 @@ void ConsoleThread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         switch (_id) {
         case 0: _t->finished(); break;
         case 1: _t->error((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 2: _t->newPacket((*reinterpret_cast< ConsolePacket(*)>(_a[1]))); break;
+        case 2: _t->newPacket((*reinterpret_cast< DebugPacket(*)>(_a[1]))); break;
         case 3: _t->start(); break;
         case 4: _t->readPendingDatagrams(); break;
         case 5: _t->injectMessage((*reinterpret_cast< QString(*)>(_a[1]))); break;
@@ -118,7 +117,7 @@ void ConsoleThread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
             }
         }
         {
-            using _t = void (ConsoleThread::*)(ConsolePacket );
+            using _t = void (ConsoleThread::*)(DebugPacket );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ConsoleThread::newPacket)) {
                 *result = 2;
                 return;
@@ -181,7 +180,7 @@ void ConsoleThread::error(QString _t1)
 }
 
 // SIGNAL 2
-void ConsoleThread::newPacket(ConsolePacket _t1)
+void ConsoleThread::newPacket(DebugPacket _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 2, _a);

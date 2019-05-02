@@ -40,7 +40,14 @@ SOURCES += \
     Threads/CANThread.cpp \
     Widgets/StereoWidget.cpp \
     Threads/StereoThread.cpp \
-    Widgets/StereoMemory.cpp
+    Widgets/StereoMemory.cpp \
+    Widgets/CANWidget.cpp \
+    CANCodeManager.cpp \
+    DashboardUtils.cpp \
+    CANCode.cpp \
+    LoggingManager.cpp \
+    Widgets/LoggingWidget.cpp \
+    Threads/LoggingThread.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -56,7 +63,14 @@ HEADERS += \
     Threads/CANThread.h \
     Widgets/StereoWidget.h \
     Threads/StereoThread.h \
-    Widgets/StereoMemory.h
+    Widgets/StereoMemory.h \
+    Widgets/CANWidget.h \
+    CANCodeManager.h \
+    DashboardUtils.h \
+    CANCode.h \
+    LoggingManager.h \
+    Widgets/LoggingWidget.h \
+    Threads/LoggingThread.h
 
 FORMS += \
         mainwindow.ui

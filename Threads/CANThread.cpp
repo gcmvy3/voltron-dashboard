@@ -14,6 +14,7 @@
 
 #include "CANThread.h"
 #include "CommunicationManager.h"
+#include "CANCodeManager.h"
 
 // Constructor
 /*!
@@ -23,7 +24,11 @@
  */
 CANThread::CANThread()
 {
-    qRegisterMetaType<CANPacket>("CANPacket");
+    qRegisterMetaType<CANDataPacket>("CANDataPacket");
+    qRegisterMetaType<CANControlPacket>("CANControlPacket");
+    qRegisterMetaType<QVector<CANCode*>>("QVector<CANCode*>>");
+
+    QObject::connect(CANCodeManager::getInstance() , &CANCodeManager::newCodesLoaded, this, &CANThread::onNewCANCodesLoaded);
 }
 
 // Destructor
@@ -44,13 +49,20 @@ CANThread::~CANThread()
  */
 void CANThread::start()
 {
-    udpSocket = new QUdpSocket();
-    udpSocket->bind(QHostAddress::AnyIPv4, CAN_PORT, QUdpSocket::ShareAddress);
+    // Initialize data socket
+    dataSocket = new QUdpSocket();
+    dataSocket->bind(QHostAddress::AnyIPv4, CAN_DATA_PORT, QUdpSocket::ShareAddress);
 
-    udpSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
+    dataSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
 
-    connect(udpSocket, SIGNAL(readyRead()),
+    connect(dataSocket, SIGNAL(readyRead()),
                 this, SLOT(readPendingDatagrams()));
+
+    // Initialize control socket
+    controlSocket = new QUdpSocket();
+    controlSocket->bind(QHostAddress::AnyIPv4, CAN_CONTROL_PORT, QUdpSocket::ShareAddress);
+
+    controlSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
 }
 
 /*!
@@ -60,14 +72,14 @@ void CANThread::start()
  */
 void CANThread::readPendingDatagrams()
 {
-    while (udpSocket->hasPendingDatagrams())
+    while (dataSocket->hasPendingDatagrams())
     {
             QByteArray datagram;
-            datagram.resize(udpSocket->pendingDatagramSize());
+            datagram.resize(dataSocket->pendingDatagramSize());
             QHostAddress sender;
             quint16 senderPort;
 
-            udpSocket->readDatagram(datagram.data(), datagram.size(),
+            dataSocket->readDatagram(datagram.data(), datagram.size(),
                                     &sender, &senderPort);
 
             CANThread::processDatagram(datagram);
@@ -79,29 +91,55 @@ void CANThread::readPendingDatagrams()
  */
 void CANThread::processDatagram(QByteArray datagram)
 {
-    CANPacket* canPacket = (CANPacket*)datagram.data();
+    CANDataPacket* canPacket = (CANDataPacket*)datagram.data();
     CANThread::latestPacket = canPacket;
+
+    QString data = "";
+    for(int i = 0; i < 8; i++)
+    {
+        data.append(QString::number(canPacket->data[i]));
+    }
+
+    qDebug() << "Received CAN data:\nSender ID: " << canPacket->sender << "\nCode ID: " << canPacket->id << "\nData: " << data;
+
     emit newPacket(*canPacket);
 }
 
 /*!
  * ...
  */
-void CANThread::broadcastPacket(CANPacket packet)
+void CANThread::onNewCANCodesLoaded(QVector<CANCode*> codes)
 {
-    QByteArray datagram = serializePacket(packet);
-    udpSocket->writeDatagram(datagram.data(), datagram.size(), CommunicationManager::getUDPAddress(), CAN_PORT);
+    for(int i = 0; i < codes.size(); i++)
+    {
+        CANCode* code = codes.at(i);
+
+        CANControlPacket request = CANControlPacket();
+
+        request.id = code->id;
+        request.sender = code->senderID;
+        broadcastCANRequest(request);
+    }
 }
 
 /*!
  * ...
  */
-QByteArray CANThread::serializePacket(CANPacket packet)
+void CANThread::broadcastCANRequest(CANControlPacket packet)
+{
+    QByteArray datagram = QByteArray::fromRawData((char *)&packet, sizeof(packet));
+    controlSocket->writeDatagram(datagram.data(), datagram.size(), CommunicationManager::getUDPAddress(), CAN_CONTROL_PORT);
+}
+
+/*!
+ * ...
+ */
+QByteArray CANThread::serializeRequestPacket(CANControlPacket packet)
 {
     QByteArray byteArray;
 
     QDataStream stream(&byteArray, QIODevice::WriteOnly);
-    stream << packet.id << packet.sender << packet.bitStart << packet.bitEnd;
+    stream << packet.id << packet.sender;
 
     return byteArray;
 }
