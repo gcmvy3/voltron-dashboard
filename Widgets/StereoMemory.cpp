@@ -1,8 +1,30 @@
+/*!
+   \class StereoMemory
+   \inherits QLabel
+   \brief The StereoMemory class is a custom widget which manages interactions with shared memory for the purpose of displaying Stereoscopic depth video data from the Voltron Core process.
+
+   \ingroup voltron
+   \ingroup vstereo
+
+   This widget establishes access to shared memory set up by the Voltron Core process and waits for packets from \l StereoThread.
+   These packets are used to determine where new video frames have been placed in shared memory.
+   Upon receiving a packet, the widget updates what \l QImage it is displaying based on this information.
+
+   \sa StereoThread, StereoWidget
+*/
+
+
 #include "StereoMemory.h"
 
 #include <fcntl.h>
 #include <sys/mman.h>
 
+/*!
+ * Constructs a StereoMemory label. Connects the widget to incoming packets from \l SteroThread.
+ * Additionally, attempts to establish access to shared memory reserved for StereoWidget display data.
+ * If this connection is successful, then the data in shared memory is cast into an array of StereoData structs.
+ * An array of \l QImage objects are then defined using video data from these structs, with each object pointing to one of these structs in shared memory.
+ */
 StereoMemory::StereoMemory(QWidget *parent) : QLabel(parent), semaphore(1)
 {
     connect(CommunicationManager::stereoThread, SIGNAL(newPacket(StereoPacket)), this, SLOT(onPacket(StereoPacket)));
@@ -28,6 +50,11 @@ StereoMemory::StereoMemory(QWidget *parent) : QLabel(parent), semaphore(1)
 
 }
 
+/*!
+ * Executed when a \l StereoThread object signals a new Stereo packet to be processed.
+ *
+ * Updates which \l QImage is being displayed by the StereoMemory label based on the index provided by \a packet.
+ */
 void StereoMemory::onPacket(StereoPacket packet)
 {
 

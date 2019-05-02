@@ -7,7 +7,9 @@
    \ingroup vconsole
 
    A single ConsoleThread object is used to read all packets containing output and error messages from the Voltron Core process.
-   The data from these packets are extracted and sent to the corresponding \l ConsoleWidget object.
+   The data from these packets are extracted and sent to the corresponding \l ConsoleWidget object(s).
+
+   \sa ConsoleWidget
 */
 
 

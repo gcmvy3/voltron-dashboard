@@ -1,3 +1,16 @@
+/*!
+   \class CommunicationManager
+   \inherits QWidget
+   \brief The CommunicationManager class is a custom class which manages all the \l QThreads and thread objects being used to communicate with the Voltron Core process.
+
+   \ingroup voltron
+
+   This class instantiates the various thread objects handling the different packets being sent by the Voltron Core process and moves each to its own \l QThread.
+   Connections are established to enable communication between the thread objects and the \l QThreads they have been moved to, and each \l QThread is started.
+
+   \sa QThread
+*/
+
 #include "CommunicationManager.h"
 
 BatteryThread* CommunicationManager::batteryThread;
@@ -9,6 +22,12 @@ StereoThread* CommunicationManager::stereoThread;
 bool CommunicationManager::loopbackFound = false;
 QNetworkInterface CommunicationManager::loopbackInterface;
 
+
+/*!
+ * Instantiates the various thread objects handling the different packets being sent by the Voltron Core process and moves each to its own \l QThread.
+ * Connections are established to enable communication between the thread objects and the \l QThreads they have been moved to, and each \l QThread is started.
+ * Connections are also established between the CommunicationManager and each thread object so that errors from these objects can be displayed by the dashboard.
+ */
 void CommunicationManager::init()
 {
     // Init and start battery thread
@@ -84,6 +103,9 @@ void CommunicationManager::init()
     stereoQThread->start();
 }
 
+/*!
+ * ...
+ */
 QNetworkInterface CommunicationManager::getLoopbackInterface()
 {
     if(CommunicationManager::loopbackFound)
@@ -108,6 +130,9 @@ QNetworkInterface CommunicationManager::getLoopbackInterface()
     }
 }
 
+/*!
+ * Has the consoleThread object emit a packet with \a error as its message, so that it is displayed by any \l ConsoleWidget objects.
+ */
 void CommunicationManager::printToConsole(QString error)
 {
     consoleThread->injectMessage(error);

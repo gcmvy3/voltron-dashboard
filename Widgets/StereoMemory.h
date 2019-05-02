@@ -21,8 +21,6 @@ protected:
     struct StereoData* memoryRegions;
     const unsigned char* memReg;
 
-    int renderBlock = 0;
-    std::vector<int> dirtyBlocks;
     QSemaphore semaphore;
 
 signals:

@@ -1,3 +1,17 @@
+/*!
+   \class LidarRenderer
+   \inherits QOpenGLWidget
+   \brief The LidarRenderer class is a custom widget which manages interactions with shared memory for the purpose of displaying 3-d point-cloud visual data from the Voltron Core process.
+
+   \ingroup voltron
+   \ingroup vlidar
+
+   This widget establishes access to shared memory set up by the Voltron Core process and waits for packets from \l LidarThread.
+   These packets are used to determine ...
+
+   \sa LidarThread, LidarWidget
+*/
+
 #include "LidarRenderer.h"
 
 #include <iostream>
