@@ -42,7 +42,7 @@ LoggingThread::~LoggingThread()
  */
 void LoggingThread::start()
 {
-    udpSocket = new QUdpSocket();
+    udpSocket = new QUdpSocket(this);
     udpSocket->bind(QHostAddress::AnyIPv4, LOGGING_CONTROL_PORT, QUdpSocket::ShareAddress);
 
     udpSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());

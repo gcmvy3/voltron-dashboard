@@ -11,7 +11,7 @@ class BatteryThread : public QObject
 {
     Q_OBJECT
 public:
-    BatteryThread();
+    explicit BatteryThread(QObject *parent = nullptr);
     ~BatteryThread();
 
 public slots:

@@ -41,7 +41,7 @@ StereoThread::StereoThread(QObject *parent) : QObject(parent)
  */
 void StereoThread::start()
 {
-    udpSocket = new QUdpSocket();
+    udpSocket = new QUdpSocket(this);
     udpSocket->bind(QHostAddress::AnyIPv4, STEREO_PORT, QUdpSocket::ShareAddress);
 
     udpSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());

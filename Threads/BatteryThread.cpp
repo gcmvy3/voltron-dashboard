@@ -26,7 +26,7 @@ using namespace std;
  *
  * Objects from this class must be moved into a \l QThread.
  */
-BatteryThread::BatteryThread()
+BatteryThread::BatteryThread(QObject* parent)
 {
     qRegisterMetaType<BatteryPacket>("BatteryPacket");
 }
@@ -37,7 +37,6 @@ BatteryThread::BatteryThread()
  */
 BatteryThread::~BatteryThread()
 {
-
 }
 
 // Starts the thread
@@ -49,7 +48,7 @@ BatteryThread::~BatteryThread()
  */
 void BatteryThread::start()
 {
-    udpSocket = new QUdpSocket();
+    udpSocket = new QUdpSocket(this);
     udpSocket->bind(QHostAddress::AnyIPv4, BATTERY_PORT, QUdpSocket::ShareAddress);
 
     udpSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());

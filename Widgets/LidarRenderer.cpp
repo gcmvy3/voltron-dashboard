@@ -69,7 +69,7 @@ void LidarRenderer::initializeGL()
     buffer->bind();
     buffer->allocate(sizeof(LIDARData) * LIDAR_DATA_NUM_REGIONS);
 
-    program = new QOpenGLShaderProgram();
+    program = new QOpenGLShaderProgram(this);
     program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
     program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
     program->link();

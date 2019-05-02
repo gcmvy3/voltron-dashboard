@@ -37,7 +37,6 @@ CANThread::CANThread()
  */
 CANThread::~CANThread()
 {
-
 }
 
 // Starts the thread
@@ -50,7 +49,7 @@ CANThread::~CANThread()
 void CANThread::start()
 {
     // Initialize data socket
-    dataSocket = new QUdpSocket();
+    dataSocket = new QUdpSocket(this);
     dataSocket->bind(QHostAddress::AnyIPv4, CAN_DATA_PORT, QUdpSocket::ShareAddress);
 
     dataSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
@@ -59,7 +58,7 @@ void CANThread::start()
                 this, SLOT(readPendingDatagrams()));
 
     // Initialize control socket
-    controlSocket = new QUdpSocket();
+    controlSocket = new QUdpSocket(this);
     controlSocket->bind(QHostAddress::AnyIPv4, CAN_CONTROL_PORT, QUdpSocket::ShareAddress);
 
     controlSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
