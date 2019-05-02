@@ -41,8 +41,6 @@ StereoMemory::StereoMemory(QWidget *parent) : QLabel(parent), semaphore(1)
     {
         CommunicationManager::printToConsole("ERROR: STEREO shared memory was established, but could not be mapped");
     }
-
-    setDisplayType(DisplayType::DEPTH);
 }
 
 void StereoMemory::setDisplayType(int type)
