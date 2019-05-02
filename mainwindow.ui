@@ -308,16 +308,6 @@ QTabBar::tab { height: 40%;}</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_4">
-       <attribute name="title">
-        <string>Stereo</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_11">
-        <item>
-         <widget class="StereoWidget" name="stereoWidget" native="true"/>
-        </item>
-       </layout>
-      </widget>
      </widget>
     </item>
    </layout>
@@ -364,12 +354,6 @@ QTabBar::tab { height: 40%;}</string>
    <class>LidarWidget</class>
    <extends>QWidget</extends>
    <header>Widgets/LidarWidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>StereoWidget</class>
-   <extends>QWidget</extends>
-   <header>Widgets/StereoWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
