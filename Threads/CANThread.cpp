@@ -9,7 +9,7 @@
    A single CANThread object is used to read all packets containing CAN code data from the Voltron Core process.
    The data from these packets are extracted ...
 
-   \sa ...
+   \sa CANWidget, CANCode, CANCodeManager
 */
 
 #include "CANThread.h"
@@ -123,7 +123,7 @@ void CANThread::onNewCANCodesLoaded(QVector<CANCode*> codes)
 }
 
 /*!
- * ...
+ * Converts the packet \a packet into a QByteArray and broadcasts it to the Core process through the corresponding UDP socket.
  */
 void CANThread::broadcastCANRequest(CANControlPacket packet)
 {

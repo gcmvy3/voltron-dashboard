@@ -37,6 +37,7 @@ void ConsoleWidget::showEvent( QShowEvent* event )
 }
 
 /*!
+ * Sets up the child \l QTextBrowser widget.
  * Connect the widget to the incoming data packets.
  */
 void ConsoleWidget::onStartReading()
