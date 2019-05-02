@@ -46,7 +46,7 @@ ConsoleThread::~ConsoleThread()
 void ConsoleThread::start()
 {
     udpSocket = new QUdpSocket();
-    udpSocket->bind(QHostAddress::AnyIPv4, CONSOLE_PORT, QUdpSocket::ShareAddress);
+    udpSocket->bind(QHostAddress::AnyIPv4, DEBUG_PORT, QUdpSocket::ShareAddress);
 
     udpSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
 

@@ -3,7 +3,7 @@
 
 #define MULTICAST_GROUP "224.0.0.155"
 
-#define CONSOLE_PORT 12000
+#define DEBUG_PORT 12000
 #define BATTERY_PORT 12001
 #define LIDAR_PORT 12002
 #define CAN_CONTROL_PORT 12003
@@ -61,13 +61,16 @@ struct LidarPacket
     int updated;
 };
 
-#define STEREO_MEMORY_NAME "/voltron_stereo_data"
-#define STEREO_DATA_NUM_REGIONS 4
+#define CAM_MEMORY_NAME "/voltron_camera_data"
+
+#define CAM_WIDTH 1280
+#define CAM_HEIGHT 720
+#define CAM_NUM_IMAGES 4
 
 struct StereoData
 {
-    //Needs to be defined
-    u_char *data;
+    char rgbImage[CAM_WIDTH * 2][CAM_HEIGHT][4];
+    float depth[CAM_WIDTH][CAM_HEIGHT];
 };
 
 struct StereoPacket

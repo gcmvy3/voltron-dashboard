@@ -1,24 +1,25 @@
 #ifndef STEREOMEMORY_H
 #define STEREOMEMORY_H
 
-#include <QObject>
+#include <QLabel>
 #include <QImage>
 #include <QSemaphore>
 
 #include "CommunicationManager.h"
 #include "Threads/Packets.h"
 
-class StereoMemory : public QObject
+class StereoMemory : public QLabel
 {
     Q_OBJECT
 public:
-    StereoMemory(QObject *parent);
+    StereoMemory(QWidget *parent);
 
 protected:
-    QImage frame;
+    QImage frame[CAM_NUM_IMAGES];
 
     int sharedMemoryFD;
     struct StereoData* memoryRegions;
+    const unsigned char* memReg;
 
     int renderBlock = 0;
     std::vector<int> dirtyBlocks;

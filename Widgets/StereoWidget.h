@@ -16,20 +16,15 @@ class StereoWidget : public QWidget
 public:
     explicit StereoWidget(QWidget *parent = nullptr);
 
-    static StereoMemory* shmem;
 
     QLabel* title;
-    QLabel* display;
+    StereoMemory* display;
 
 protected:
-    void showEvent( QShowEvent* event) override;
-    void hideEvent( QHideEvent* event) override;
 
 signals:
 
 public slots:
-    void onStartReading();
-    void onStopReading();
     void newFrame(QImage frame);
 };
 
