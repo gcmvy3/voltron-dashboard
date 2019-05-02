@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QThread>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QComboBox>
 
 #include "CommunicationManager.h"

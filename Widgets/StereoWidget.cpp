@@ -33,9 +33,17 @@ StereoWidget::StereoWidget(QWidget *parent) : QWidget(parent)
     typeSelector->addItem("Depth", QString::number(StereoMemory::DisplayType::DEPTH));
     typeSelector->setCurrentIndex(StereoMemory::DisplayType::STEREO);
 
+    QFont font;
+    font.setPointSize(font.pointSize() + 4);
+    typeSelector->setFont(font);
+
+    QHBoxLayout* hLayout = new QHBoxLayout();
+    hLayout->setAlignment(Qt::AlignLeft);
+    hLayout->addWidget(title);
+    hLayout->addWidget(typeSelector);
+
     QVBoxLayout* layout = new QVBoxLayout();
-    layout->addWidget(title);
-    layout->addWidget(typeSelector);
+    layout->addLayout(hLayout);
     layout->addWidget(display);
     setLayout(layout);
 
