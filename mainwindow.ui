@@ -28,7 +28,7 @@ QTabBar::tab { height: 40%;}</string>
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -334,7 +334,7 @@ QTabBar::tab { height: 40%;}</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_5">
+      <widget class="QWidget" name="tab_3">
        <attribute name="title">
         <string>Depth Camera</string>
        </attribute>
@@ -344,7 +344,7 @@ QTabBar::tab { height: 40%;}</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_3">
+      <widget class="QWidget" name="tab_4">
        <attribute name="title">
         <string>Battery</string>
        </attribute>
@@ -433,7 +433,7 @@ QTabBar::tab { height: 40%;}</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_4">
+      <widget class="QWidget" name="tab_5">
        <attribute name="title">
         <string>CAN</string>
        </attribute>
@@ -545,6 +545,16 @@ QTabBar::tab { height: 40%;}</string>
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_6">
+       <attribute name="title">
+        <string>Camera</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_18">
+        <item>
+         <widget class="StereoWidget" name="widget" native="true"/>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -588,12 +598,6 @@ QTabBar::tab { height: 40%;}</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>StereoWidget</class>
-   <extends>QWidget</extends>
-   <header>Widgets/StereoWidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>CANWidget</class>
    <extends>QWidget</extends>
    <header>Widgets/CANWidget.h</header>
@@ -603,6 +607,12 @@ QTabBar::tab { height: 40%;}</string>
    <class>LoggingWidget</class>
    <extends>QWidget</extends>
    <header>Widgets/LoggingWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>StereoWidget</class>
+   <extends>QWidget</extends>
+   <header>Widgets/StereoWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

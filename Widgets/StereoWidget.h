@@ -19,7 +19,11 @@ public:
     QLabel* title;
     StereoMemory* display;
 
+protected:
+
 signals:
+
+public slots:
 };
 
 #endif // STEREOWIDGET_H
