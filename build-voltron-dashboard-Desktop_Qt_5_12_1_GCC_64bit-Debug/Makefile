@@ -4420,7 +4420,12 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../../../Qt/5.12.1/gcc_64/include/QtCore/qsemaphore.h \
 		../../../Qt/5.12.1/gcc_64/include/QtGui/QMouseEvent \
 		../Widgets/LoggingWidget.h \
-		../LoggingManager.h
+		../LoggingManager.h \
+		../Widgets/StereoWidget.h \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/QComboBox \
+		../../../Qt/5.12.1/gcc_64/include/QtWidgets/qcombobox.h \
+		../Widgets/StereoMemory.h \
+		../../../Qt/5.12.1/gcc_64/include/QtGui/QImage
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../mainwindow.cpp
 
 BatteryThread.o: ../Threads/BatteryThread.cpp ../Threads/BatteryThread.h \
