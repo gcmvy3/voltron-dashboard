@@ -13,6 +13,7 @@ class LidarThread : public QObject
     Q_OBJECT
 public:
     explicit LidarThread(QObject *parent = nullptr);
+    ~LidarThread();
 
 signals:
     void finished();

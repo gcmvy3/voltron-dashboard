@@ -1,27 +1,35 @@
 #ifndef STEREOMEMORY_H
 #define STEREOMEMORY_H
 
-#include <QObject>
+#include <QLabel>
 #include <QImage>
 #include <QSemaphore>
 
 #include "CommunicationManager.h"
 #include "Threads/Packets.h"
 
-class StereoMemory : public QObject
+class StereoMemory : public QLabel
 {
     Q_OBJECT
-public:
-    StereoMemory(QObject *parent);
+public:    
+    StereoMemory(QWidget *parent);
+    void setDisplayType(int type);
+
+    enum DisplayType
+    {
+        STEREO = 0,
+        DEPTH = 1
+    };
+
+    int displayType;
 
 protected:
-    QImage frame;
+    QImage frame[CAM_NUM_IMAGES];
 
     int sharedMemoryFD;
     struct StereoData* memoryRegions;
+    const unsigned char* memReg;
 
-    int renderBlock = 0;
-    std::vector<int> dirtyBlocks;
     QSemaphore semaphore;
 
 signals:

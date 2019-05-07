@@ -7,7 +7,6 @@
    \ingroup vconsole
 
    This widget contains a \l QTextBrowser child widget, which displays the messages sent to the ConsoleWidget via signals.
-   Console packets sent to this widget can also mark its contents as an error message, which will be displayed in red.
    All messages are displayed with a time stamp of when the message was received by the ConsoleWidget.
 
    \sa ConsoleThread
@@ -38,11 +37,20 @@ void ConsoleWidget::showEvent( QShowEvent* event )
 }
 
 /*!
+ * Sets up the child \l QTextBrowser widget.
  * Connect the widget to the incoming data packets.
  */
 void ConsoleWidget::onStartReading()
 {
-    console = this->findChild<QTextBrowser*>("consoleBrowser");
+    widgetIndex = DashboardUtils::getWidgetIndex(this);
+
+    QString idSuffix = "";
+    if(widgetIndex != -1)
+    {
+        idSuffix = QString("_").append(QString::number(widgetIndex));
+    }
+
+    console = this->findChild<QTextBrowser*>("consoleBrowser" + idSuffix);
 
     if(console == nullptr)
     {
@@ -66,15 +74,12 @@ void ConsoleWidget::onStopReading()
  *
  * Generates a \l QString composed of a time stamp followed by the message stored in the \a packet struct.
  * This QString is then displayed in the child \l QTextBrowser widget of the Console widget.
- * If the \a packet struct also flags its message as an error, it will be displayed in red.
  */
 void ConsoleWidget::newPacket(DebugPacket packet)
 {
     // Append the message with its timestamp to the console TextBrowser
     QString timeStamp = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
     QString message = QString("[" + timeStamp + "] " + QString(packet.str));
-
-    //console->setTextColor(Qt::red); Needed for error message text
 
     console->moveCursor (QTextCursor::End);
     console->insertPlainText (message);

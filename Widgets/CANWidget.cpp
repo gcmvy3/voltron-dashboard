@@ -1,5 +1,21 @@
+/*!
+   \class CANWidget
+   \inherits QWidget
+   \brief The CANWidget class is a custom widget which ...
+
+   \ingroup voltron
+   \ingroup vCAN
+
+   This widget contains ...
+
+   \sa CANThread, CANCode, CANCodeManager
+*/
+
 #include "CANWidget.h"
 
+/*!
+ * Constructs a CAN widget and connects the widget to...
+ */
 CANWidget::CANWidget(QWidget *parent) : QWidget(parent)
 {
     QObject::connect(CommunicationManager::canThread, &CANThread::newPacket, this, &CANWidget::updateValue);

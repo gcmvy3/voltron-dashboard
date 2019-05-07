@@ -5,6 +5,8 @@
 #include <QLabel>
 #include <QThread>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QComboBox>
 
 #include "CommunicationManager.h"
 #include "Threads/Packets.h"
@@ -16,21 +18,16 @@ class StereoWidget : public QWidget
 public:
     explicit StereoWidget(QWidget *parent = nullptr);
 
-    static StereoMemory* shmem;
-
     QLabel* title;
-    QLabel* display;
+    StereoMemory* display;
+    QComboBox* typeSelector;
 
 protected:
-    void showEvent( QShowEvent* event) override;
-    void hideEvent( QHideEvent* event) override;
 
 signals:
 
 public slots:
-    void onStartReading();
-    void onStopReading();
-    void newFrame(QImage frame);
+    void onTypeChanged();
 };
 
 #endif // STEREOWIDGET_H
