@@ -13,7 +13,7 @@ StereoWidget::StereoWidget(QWidget *parent) : QWidget(parent)
     title->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     StereoWidget::display = new QLabel(this);
-    display->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    display->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 
     QVBoxLayout* layout = new QVBoxLayout();
     layout->addWidget(title);
