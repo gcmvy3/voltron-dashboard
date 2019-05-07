@@ -7,7 +7,9 @@
    \ingroup vconsole
 
    A single ConsoleThread object is used to read all packets containing output and error messages from the Voltron Core process.
-   The data from these packets are extracted and sent to the corresponding \l ConsoleWidget object.
+   The data from these packets are extracted and sent to the corresponding \l ConsoleWidget object(s).
+
+   \sa ConsoleWidget
 */
 
 
@@ -33,7 +35,7 @@ ConsoleThread::ConsoleThread()
  */
 ConsoleThread::~ConsoleThread()
 {
-
+    delete udpSocket;
 }
 
 // Starts the thread
@@ -45,8 +47,8 @@ ConsoleThread::~ConsoleThread()
  */
 void ConsoleThread::start()
 {
-    udpSocket = new QUdpSocket();
-    udpSocket->bind(QHostAddress::AnyIPv4, CONSOLE_PORT, QUdpSocket::ShareAddress);
+    udpSocket = new QUdpSocket(this);
+    udpSocket->bind(QHostAddress::AnyIPv4, DEBUG_PORT, QUdpSocket::ShareAddress);
 
     udpSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
 

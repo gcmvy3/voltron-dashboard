@@ -1,13 +1,33 @@
+/*!
+   \class LoggingWidget
+   \inherits QWidget
+   \brief The LoggingWidget class is a custom widget which allows the user to control how data is recorded by the Voltron Logging process.
+
+   \ingroup voltron
+   \ingroup vlogging
+
+   This widget contains multiple \l QPushButton child widgets, which when pressed will result in the \l LoggingThread sending a packet to the Logging process, telling it to start or stop
+   recording the corresponding data from the Core process.
+
+   \sa LoggingThread, LoggingManager
+*/
+
 #include "LoggingWidget.h"
 
+/*!
+ * Constructs a Logging widget.
+ */
 LoggingWidget::LoggingWidget(QWidget *parent) : QWidget(parent)
 {
 
 }
 
-/**
+/*!
+ * \overload showEvent( QShowEvent* event )
+ *
  * Called automatically when the widget is shown.
- **/
+ * Initializes the child \l QPushButtons widgets if necessary, updates their status.
+ */
 void LoggingWidget::showEvent( QShowEvent* event )
 {
     QWidget::showEvent( event );
@@ -19,6 +39,9 @@ void LoggingWidget::showEvent( QShowEvent* event )
     updateButtonStatus();
 }
 
+/*!
+ * Sets up the child \l QPushButton widgets and connects them to functions used to communicate with the \l LoggingManager.
+ */
 void LoggingWidget::initialize()
 {
     widgetIndex = DashboardUtils::getWidgetIndex(this);
@@ -46,7 +69,7 @@ void LoggingWidget::initialize()
     initialized = true;
 }
 
-/*
+/*!
  * Updates status of buttons in case the logging status was changed off-screen
  */
 void LoggingWidget::updateButtonStatus()
@@ -106,6 +129,12 @@ void LoggingWidget::updateButtonStatus()
     }
 }
 
+/*!
+ * Executed when the startDriveButton \l QPushButton widget is pressed.
+ *
+ * Relays input to the \l LoggingManager, which will send a corresponding packet to the Logging process.
+ * Updates all affected buttons to appropriate state for button pressed.
+ */
 void LoggingWidget::onStartDriveButtonPressed()
 {
     LoggingManager::setIsDriving(true);
@@ -118,6 +147,12 @@ void LoggingWidget::onStartDriveButtonPressed()
     lidarRecordButton->setEnabled(true);
 }
 
+/*!
+ * Executed when the endDriveButton \l QPushButton widget is pressed.
+ *
+ * Relays input to the \l LoggingManager, which will send a corresponding packet to the Logging process.
+ * Updates all affected buttons to appropriate state for button pressed.
+ */
 void LoggingWidget::onEndDriveButtonPressed()
 {
     LoggingManager::setIsDriving(false);
@@ -134,6 +169,12 @@ void LoggingWidget::onEndDriveButtonPressed()
     lidarRecordButton->setEnabled(false);
 }
 
+/*!
+ * Executed when the canRecordButton \l QPushButton widget is pressed.
+ *
+ * Relays input to the \l LoggingManager, which will send a corresponding packet to the Logging process.
+ * Updates all affected buttons to appropriate state for button pressed.
+ */
 void LoggingWidget::onCANRecordButtonPressed()
 {
     if(LoggingManager::isRecordingCAN())
@@ -148,6 +189,12 @@ void LoggingWidget::onCANRecordButtonPressed()
     }
 }
 
+/*!
+ * Executed when the gpsRecordButton \l QPushButton widget is pressed.
+ *
+ * Relays input to the \l LoggingManager, which will send a corresponding packet to the Logging process.
+ * Updates all affected buttons to appropriate state for button pressed.
+ */
 void LoggingWidget::onGPSRecordButtonPressed()
 {
     if(LoggingManager::isRecordingGPS())
@@ -162,6 +209,12 @@ void LoggingWidget::onGPSRecordButtonPressed()
     }
 }
 
+/*!
+ * Executed when the lidarRecordButton \l QPushButton widget is pressed.
+ *
+ * Relays input to the \l LoggingManager, which will send a corresponding packet to the Logging process.
+ * Updates all affected buttons to appropriate state for button pressed.
+ */
 void LoggingWidget::onLidarRecordButtonPressed()
 {
     if(LoggingManager::isRecordingLidar())
@@ -176,6 +229,12 @@ void LoggingWidget::onLidarRecordButtonPressed()
     }
 }
 
+/*!
+ * Executed when the cameraRecordButton \l QPushButton widget is pressed.
+ *
+ * Relays input to the \l LoggingManager, which will send a corresponding packet to the Logging process.
+ * Updates all affected buttons to appropriate state for button pressed.
+ */
 void LoggingWidget::onCameraRecordButtonPressed()
 {
     if(LoggingManager::isRecordingCamera())

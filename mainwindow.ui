@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>983</width>
-    <height>604</height>
+    <height>611</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,7 +28,7 @@ QTabBar::tab { height: 40%;}</string>
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -336,6 +336,16 @@ QTabBar::tab { height: 40%;}</string>
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
+        <string>Depth Camera</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="StereoWidget" name="stereoWidget" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
         <string>Battery</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -423,7 +433,7 @@ QTabBar::tab { height: 40%;}</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_4">
+      <widget class="QWidget" name="tab_5">
        <attribute name="title">
         <string>CAN</string>
        </attribute>
@@ -545,7 +555,7 @@ QTabBar::tab { height: 40%;}</string>
      <x>0</x>
      <y>0</y>
      <width>983</width>
-     <height>22</height>
+     <height>28</height>
     </rect>
    </property>
   </widget>
@@ -587,6 +597,12 @@ QTabBar::tab { height: 40%;}</string>
    <class>LoggingWidget</class>
    <extends>QWidget</extends>
    <header>Widgets/LoggingWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>StereoWidget</class>
+   <extends>QWidget</extends>
+   <header>Widgets/StereoWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

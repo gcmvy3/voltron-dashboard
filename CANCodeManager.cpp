@@ -1,3 +1,14 @@
+/*!
+   \class CANCodeManager
+   \inherits QObject
+   \brief The CommunicationManager class is a singleton that maintains a unified list of CANCodes. It is also used to load CAN codes from a JSON file.
+
+   \ingroup voltron
+
+   This class is used to load CAN codes from a JSON file and maintain a list of all current codes. See the example JSON file included in the project to learn how to format the JSON file.
+*/
+
+
 #include "CANCodeManager.h"
 #include "SettingsManager.h"
 
@@ -8,6 +19,9 @@ CANCodeManager::CANCodeManager()
     codes = QVector<CANCode*>();
 }
 
+/*!
+ * Returns the single instance of the singleton class.
+ */
 CANCodeManager* CANCodeManager::getInstance()
 {
     if(instance == nullptr)
@@ -20,6 +34,9 @@ CANCodeManager* CANCodeManager::getInstance()
     return instance;
 }
 
+/*!
+ * Opens a QFileDialog for choosing a JSON file on the computer. Once a file is selected, the CAN codes defined within are loaded into the program.
+ */
 void CANCodeManager::openCANFile()
 {
     QString fileName = QFileDialog::getOpenFileName(nullptr, ("Open File"), QDir::currentPath(), ("JSON Files (*.json)"));
@@ -30,6 +47,9 @@ void CANCodeManager::openCANFile()
     }
 }
 
+/*!
+ * Takes in a QFile and attempts to load CANCodes from it. The QFile should be properly formatted JSON.
+ */
 void CANCodeManager::loadFromFile(QFile* file)
 {
     qDebug() << "Trying to load CAN codes file";

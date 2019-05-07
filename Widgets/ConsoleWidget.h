@@ -3,11 +3,10 @@
 
 #include <QWidget>
 #include <QTextBrowser>
-#include <QPushButton>
 #include <QThread>
 #include <QDateTime>
-#include <QTableWidget>
 #include "CommunicationManager.h"
+#include "DashboardUtils.h"
 #include "Threads/Packets.h"
 
 class ConsoleWidget : public QWidget
@@ -16,10 +15,9 @@ class ConsoleWidget : public QWidget
 public:
     explicit ConsoleWidget(QWidget *parent = nullptr);
 
-    QTextBrowser *console;
-    QPushButton *readButton;
+    int widgetIndex = -1;
 
-    ConsoleThread *consoleThread;
+    QTextBrowser *console;
 
 protected:
     void showEvent( QShowEvent* event) override;
@@ -29,7 +27,7 @@ signals:
 public slots:
     void onStartReading();
     void onStopReading();
-    void newPacket(DebugPacket packet);
+    void onPacket(DebugPacket packet);
     void errorString(QString error);
 };
 

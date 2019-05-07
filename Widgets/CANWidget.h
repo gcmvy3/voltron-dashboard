@@ -27,7 +27,7 @@ signals:
 
 public slots:
     void updateTable(QVector<CANCode*> newCodes);
-    void updateValue(CANDataPacket packet);
+    void onPacket(CANDataPacket packet);
 };
 
 #endif // CANWIDGET_H

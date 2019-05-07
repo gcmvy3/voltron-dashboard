@@ -24,14 +24,13 @@ public:
 protected:
     void showEvent( QShowEvent* event) override;
     void hideEvent( QHideEvent* event) override;
-    void updateWidgetIndex();
 
 signals:
 
 public slots:
     void onStartReading();
     void onStopReading();
-    void newPacket(BatteryPacket packet);
+    void onPacket(BatteryPacket packet);
     void errorString(QString error);
 };
 
