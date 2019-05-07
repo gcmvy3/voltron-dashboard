@@ -1,13 +1,14 @@
 /*!
    \class LidarRenderer
    \inherits QOpenGLWidget
-   \brief The LidarRenderer class is a custom widget which manages interactions with shared memory for the purpose of displaying 3-d point-cloud visual data from the Voltron Core process.
+   \brief The LidarRenderer class is a custom widget which reads in LIDAR data from shared memory and renders it in 3D space using OpenGL.
 
    \ingroup voltron
    \ingroup vlidar
 
    This widget establishes access to shared memory set up by the Voltron Core process and waits for packets from \l LidarThread.
-   These packets are used to determine ...
+   These packets do not contain actual lidar data - The lidar data is placed directly into shared memory. The LidarPackets simply alert the dashboard program when there is fresh
+   data to be rendered.
 
    \sa LidarThread, LidarWidget
 */
@@ -84,12 +85,18 @@ void LidarRenderer::initializeGL()
     zRot = 0;
 }
 
+/*!
+ * A callback function that is activated when the widget is resized.
+ */
 void LidarRenderer::resizeGL(int w, int h)
 {
     aspect = std::max(w, h) / std::min(w, h);
     glViewport(0, 0, w, h);
 }
 
+/*!
+ * This function renders the LIDAR points in 3D space using OpenGL.
+ */
 void LidarRenderer::paintGL()
 {
     if (semaphore.tryAcquire(1))
@@ -129,6 +136,9 @@ void LidarRenderer::paintGL()
     update();
 }
 
+/*!
+ * Called automatically when a new LidarPacket is received. Adds the new data to the list of points to be rendered.
+ */
 void LidarRenderer::onPacket(LidarPacket packet)
 {
     semaphore.acquire(1);
@@ -136,6 +146,9 @@ void LidarRenderer::onPacket(LidarPacket packet)
     semaphore.release(1);
 }
 
+/*!
+ * Sets the X rotation of the camera within 3D space.
+ */
 void LidarRenderer::setXRotation(int angle)
 {
     //Normalize angle
@@ -150,6 +163,9 @@ void LidarRenderer::setXRotation(int angle)
     }
 }
 
+/*!
+ * Sets the Y rotation of the camera within 3D space.
+ */
 void LidarRenderer::setYRotation(int angle)
 {
     //Normalize angle
@@ -164,6 +180,9 @@ void LidarRenderer::setYRotation(int angle)
     }
 }
 
+/*!
+ * Automatically called when the cursor is clicked and dragged over the OpenGL window. Used to rotate the camera view.
+ */
 void LidarRenderer::mouseMoveEvent(QMouseEvent *event)
 {
     if(lastTouchedPos != QPoint(-1, -1))
@@ -181,6 +200,9 @@ void LidarRenderer::mouseMoveEvent(QMouseEvent *event)
     lastTouchedPos = event->pos();
 }
 
+/*!
+ * Automatically called when the mouse is released over the widget. Ends any rotation that was occurring.
+ */
 void LidarRenderer::mouseReleaseEvent(QMouseEvent* event)
 {
     lastTouchedPos = QPoint(-1,-1);

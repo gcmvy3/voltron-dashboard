@@ -34,7 +34,6 @@ private:
     QUdpSocket* dataSocket;
     CANDataPacket* latestPacket;
     void processDatagram(QByteArray datagram);
-    QByteArray serializeRequestPacket(CANControlPacket packet);
 };
 
 #endif // CANTHREAD_H

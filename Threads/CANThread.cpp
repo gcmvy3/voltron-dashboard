@@ -1,13 +1,15 @@
 /*!
    \class CANThread
    \inherits QObject
-   \brief The CANThread class is a custom class which ....
+   \brief The CANThread class is a custom class which receives CAN data from the Voltron Core program.
 
    \ingroup voltron
    \ingroup vCAN
 
    A single CANThread object is used to read all packets containing CAN code data from the Voltron Core process.
-   The data from these packets are extracted ...
+   The thread first broadcasts a CANControlPacket for each CAN code it wants to subscribe to. The core program receives these
+   control packets and begins to broadcast the corresponding CAN code value in real time. These arrive as CANDataPackets,
+   which are received by the CANThread object.
 
    \sa CANWidget, CANCode, CANCodeManager
 */
@@ -105,7 +107,7 @@ void CANThread::processDatagram(QByteArray datagram)
 }
 
 /*!
- * ...
+ * A convenience function for requesting several CANControlPackets at once. Is called when a new CAN code file is loaded by the dashboard.
  */
 void CANThread::onNewCANCodesLoaded(QVector<CANCode*> codes)
 {
@@ -130,15 +132,3 @@ void CANThread::broadcastCANRequest(CANControlPacket packet)
     controlSocket->writeDatagram(datagram.data(), datagram.size(), CommunicationManager::getUDPAddress(), CAN_CONTROL_PORT);
 }
 
-/*!
- * ...
- */
-QByteArray CANThread::serializeRequestPacket(CANControlPacket packet)
-{
-    QByteArray byteArray;
-
-    QDataStream stream(&byteArray, QIODevice::WriteOnly);
-    stream << packet.id << packet.sender;
-
-    return byteArray;
-}
