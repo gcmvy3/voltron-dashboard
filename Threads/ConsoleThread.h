@@ -14,6 +14,7 @@ class ConsoleThread : public QObject
 public:
     ConsoleThread();
     ~ConsoleThread();
+    DebugPacket* latestPacket;
 
 public slots:
     void start();
@@ -26,11 +27,7 @@ signals:
     void newPacket(DebugPacket packet);
 
 private:
-
     QUdpSocket* udpSocket;
-
-    DebugPacket* latestPacket;
-
     void processDatagram(QByteArray datagram);
 };
 

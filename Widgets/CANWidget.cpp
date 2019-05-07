@@ -18,7 +18,7 @@
  */
 CANWidget::CANWidget(QWidget *parent) : QWidget(parent)
 {
-    QObject::connect(CommunicationManager::canThread, &CANThread::newPacket, this, &CANWidget::updateValue);
+    QObject::connect(CommunicationManager::canThread, &CANThread::newPacket, this, &CANWidget::onPacket);
 }
 
 /**
@@ -90,7 +90,7 @@ void CANWidget::updateTable(QVector<CANCode*> newCodes)
  * (happens if new codes have been loaded).
  * @param packet A packet containing the new data.
  */
-void CANWidget::updateValue(CANDataPacket packet)
+void CANWidget::onPacket(CANDataPacket packet)
 {
     QTableWidgetItem* entry = codesTable->item(packet.id, 5);
     if(entry != nullptr)

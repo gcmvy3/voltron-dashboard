@@ -12,6 +12,7 @@ class StereoThread : public QObject
     Q_OBJECT
 public:
     explicit StereoThread(QObject *parent = nullptr);
+    StereoPacket* latestPacket;
 
 signals:
     void finished();
@@ -23,11 +24,7 @@ public slots:
     void readPendingDatagrams();
 
 private:
-
     QUdpSocket* udpSocket;
-
-    StereoPacket* latestPacket;
-
     void processDatagram(QByteArray datagram);
 };
 

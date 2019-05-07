@@ -17,6 +17,7 @@ class CANThread : public QObject
 public:
     CANThread();
     ~CANThread();
+    CANDataPacket* latestPacket;
 
 public slots:
     void start();
@@ -32,7 +33,6 @@ signals:
 private:
     QUdpSocket* controlSocket;
     QUdpSocket* dataSocket;
-    CANDataPacket* latestPacket;
     void processDatagram(QByteArray datagram);
 };
 

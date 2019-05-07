@@ -57,7 +57,7 @@ void ConsoleWidget::onStartReading()
         qDebug("ERROR: Console browser does not exist");
     }
 
-    connect(CommunicationManager::consoleThread, SIGNAL(newPacket(DebugPacket)), this, SLOT(newPacket(DebugPacket)));
+    connect(CommunicationManager::consoleThread, SIGNAL(newPacket(DebugPacket)), this, SLOT(onPacket(DebugPacket)));
 }
 
 /*!
@@ -65,7 +65,7 @@ void ConsoleWidget::onStartReading()
  */
 void ConsoleWidget::onStopReading()
 {
-    disconnect(CommunicationManager::consoleThread, SIGNAL(newPacket(DebugPacket)), this, SLOT(newPacket(DebugPacket)));
+    disconnect(CommunicationManager::consoleThread, SIGNAL(newPacket(DebugPacket)), this, SLOT(onPacket(DebugPacket)));
 }
 
 // Called when a new packet is read
@@ -75,7 +75,7 @@ void ConsoleWidget::onStopReading()
  * Generates a \l QString composed of a time stamp followed by the message stored in the \a packet struct.
  * This QString is then displayed in the child \l QTextBrowser widget of the Console widget.
  */
-void ConsoleWidget::newPacket(DebugPacket packet)
+void ConsoleWidget::onPacket(DebugPacket packet)
 {
     // Append the message with its timestamp to the console TextBrowser
     QString timeStamp = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");

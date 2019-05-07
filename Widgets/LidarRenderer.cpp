@@ -186,6 +186,7 @@ void LidarRenderer::setYRotation(int angle)
 void LidarRenderer::mouseMoveEvent(QMouseEvent *event)
 {
     if(lastTouchedPos != QPoint(-1, -1))
+        ConsoleThread *consoleThread;
     {
         int dx = event->x() - lastTouchedPos.x();
         int dy = event->y() - lastTouchedPos.y();
