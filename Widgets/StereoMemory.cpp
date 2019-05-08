@@ -70,7 +70,7 @@ void StereoMemory::onPacket(StereoPacket packet)
         for (int i = 0; i < CAM_WIDTH; i++)
             for (int j = 0; j < CAM_HEIGHT; j++)
             {
-                depthMemory[i + j * CAM_WIDTH] = (unsigned char)(memoryRegions[packet.updated].depth[i][j] * 255);
+                depthMemory[j + i * CAM_HEIGHT] = static_cast<unsigned char>((1.0 - memoryRegions[packet.updated].depth[i][j] / 20000.0)  * 255);
             }
 
         this->setPixmap(QPixmap::fromImage(depthFrame).scaled(this->size(), Qt::KeepAspectRatio, Qt::FastTransformation));
