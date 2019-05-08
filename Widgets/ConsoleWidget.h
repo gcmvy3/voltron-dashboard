@@ -5,6 +5,7 @@
 #include <QTextBrowser>
 #include <QThread>
 #include <QDateTime>
+#include <QEvent>
 #include "CommunicationManager.h"
 #include "DashboardUtils.h"
 #include "Threads/Packets.h"
@@ -20,7 +21,7 @@ public:
     QTextBrowser *console;
 
 protected:
-    void showEvent( QShowEvent* event) override;
+    bool event(QEvent *event) override;
 
 signals:
 

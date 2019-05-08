@@ -63,22 +63,27 @@ void StereoMemory::setDisplayType(int type)
  */
 void StereoMemory::onPacket(StereoPacket packet)
 {
-    semaphore.acquire(1);
-    this->setAlignment(Qt::AlignCenter);
-    if(displayType == DisplayType::DEPTH)
+    if(semaphore.tryAcquire(1))
     {
-        for (int i = 0; i < CAM_WIDTH; i++)
-            for (int j = 0; j < CAM_HEIGHT; j++)
-            {
-                depthMemory[j + i * CAM_HEIGHT] = static_cast<unsigned char>((1.0 - memoryRegions[packet.updated].depth[i][j] / 20000.0)  * 255);
-            }
+        if(displayType == DisplayType::DEPTH)
+        {
+            for (int i = 0; i < CAM_WIDTH; i++)
+                for (int j = 0; j < CAM_HEIGHT; j++)
+                {
+                    depthMemory[j + i * CAM_HEIGHT] = static_cast<unsigned char>((1.0 - memoryRegions[packet.updated].depth[i][j] / 20000.0)  * 255);
+                }
 
-        this->setPixmap(QPixmap::fromImage(depthFrame).scaled(this->size(), Qt::KeepAspectRatio, Qt::FastTransformation));
+            this->setPixmap(QPixmap::fromImage(depthFrame).scaled(this->size(), Qt::KeepAspectRatio, Qt::FastTransformation));
+        }
+        else if(displayType == DisplayType::STEREO)
+        {
+            this->setPixmap(QPixmap::fromImage(stereoFrames[packet.updated]).scaled(this->size(), Qt::KeepAspectRatio, Qt::FastTransformation));
+        }
+
+        semaphore.release(1);
     }
-    else if(displayType == DisplayType::STEREO)
+    else
     {
-        this->setPixmap(QPixmap::fromImage(stereoFrames[packet.updated]).scaled(this->size(), Qt::KeepAspectRatio, Qt::FastTransformation));
+        qDebug() << "Failed to acquire semaphore";
     }
-
-    semaphore.release(1);
 }
