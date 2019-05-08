@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- LidarRenderer.cpp -->
+  <title>LidarRenderer Class | Qt </title>
+</head>
+<body>
+<li>LidarRenderer</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-variables">Public Variables</a></li>
+<li class="level1"><a href="#protected-functions">Protected Functions</a></li>
+<li class="level1"><a href="#protected-variables">Protected Variables</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">LidarRenderer Class</h1>
+<!-- $$$LidarRenderer-brief -->
+<p>The <a href="lidarrenderer.html">LidarRenderer</a> class is a custom widget which reads in LIDAR data from shared memory and renders it in 3D space using OpenGL. <a href="#details">More...</a></p>
+<!-- @@@LidarRenderer -->
+<ul>
+<li><a href="lidarrenderer-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-variables"></a>
+<h2 id="public-variables">Public Variables</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#Avar"></a></b></td></tr>
+</table></div>
+<a name="protected-functions"></a>
+<h2 id="protected-functions">Protected Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#hideEvent">hideEvent</a></b>(int *<i>event</i>) override</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#initializeGL">initializeGL</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#mouseMoveEvent">mouseMoveEvent</a></b>(int *<i>event</i>) override</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#mouseReleaseEvent">mouseReleaseEvent</a></b>(int *<i>event</i>) override</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#paintGL">paintGL</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#resizeGL">resizeGL</a></b>(int <i>w</i>, int <i>h</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#showEvent">showEvent</a></b>(int *<i>event</i>) override</td></tr>
+</table></div>
+<a name="protected-variables"></a>
+<h2 id="protected-variables">Protected Variables</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> float </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#aspect-var">aspect</a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int *</td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#buffer-var">buffer</a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> uint </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#colLoc-var">colLoc</a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#dirtyBlocks-var">dirtyBlocks</a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#lastTouchedPos-var">lastTouchedPos</a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> struct LIDARData *</td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#memoryRegions-var">memoryRegions</a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> uint </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#posLoc-var">posLoc</a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int *</td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#program-var">program</a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#renderBlock-var">renderBlock</a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#semaphore-var">semaphore</a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#sharedMemoryFD-var">sharedMemoryFD</a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="lidarrenderer.html#transformLoc-var">transformLoc</a></b></td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$LidarRenderer-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The <a href="lidarrenderer.html">LidarRenderer</a> class is a custom widget which reads in LIDAR data from shared memory and renders it in 3D space using OpenGL.</p>
+<p>This widget establishes access to shared memory set up by the Voltron Core process and waits for packets from <a href="lidarthread.html">LidarThread</a>. These packets do not contain actual lidar data - The lidar data is placed directly into shared memory. The LidarPackets simply alert the dashboard program when there is fresh data to be rendered.</p>
+</div>
+<p><b>See also </b><a href="lidarthread.html">LidarThread</a> and <a href="lidarwidget.html">LidarWidget</a>.</p>
+<!-- @@@LidarRenderer -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$hideEvent[overload1]$$$hideEventint* -->
+<h3 class="fn" id="hideEvent"><a name="hideEvent"></a><code>[protected] </code><span class="type">void</span> LidarRenderer::<span class="name">hideEvent</span>(<span class="type">int</span> *<i>event</i>)</h3>
+<!-- @@@hideEvent -->
+<!-- $$$initializeGL[overload1]$$$initializeGL -->
+<h3 class="fn" id="initializeGL"><a name="initializeGL"></a><code>[protected] </code><span class="type">void</span> LidarRenderer::<span class="name">initializeGL</span>()</h3>
+<!-- @@@initializeGL -->
+<!-- $$$mouseMoveEvent[overload1]$$$mouseMoveEventint* -->
+<h3 class="fn" id="mouseMoveEvent"><a name="mouseMoveEvent"></a><code>[protected] </code><span class="type">void</span> LidarRenderer::<span class="name">mouseMoveEvent</span>(<span class="type">int</span> *<i>event</i>)</h3>
+<p>Automatically called when the cursor is clicked and dragged over the OpenGL window. Used to rotate the camera view.</p>
+<!-- @@@mouseMoveEvent -->
+<!-- $$$mouseReleaseEvent[overload1]$$$mouseReleaseEventint* -->
+<h3 class="fn" id="mouseReleaseEvent"><a name="mouseReleaseEvent"></a><code>[protected] </code><span class="type">void</span> LidarRenderer::<span class="name">mouseReleaseEvent</span>(<span class="type">int</span> *<i>event</i>)</h3>
+<p>Automatically called when the mouse is released over the widget. Ends any rotation that was occurring.</p>
+<!-- @@@mouseReleaseEvent -->
+<!-- $$$paintGL[overload1]$$$paintGL -->
+<h3 class="fn" id="paintGL"><a name="paintGL"></a><code>[protected] </code><span class="type">void</span> LidarRenderer::<span class="name">paintGL</span>()</h3>
+<p>This function renders the LIDAR points in 3D space using OpenGL.</p>
+<!-- @@@paintGL -->
+<!-- $$$resizeGL[overload1]$$$resizeGLintint -->
+<h3 class="fn" id="resizeGL"><a name="resizeGL"></a><code>[protected] </code><span class="type">void</span> LidarRenderer::<span class="name">resizeGL</span>(<span class="type">int</span> <i>w</i>, <span class="type">int</span> <i>h</i>)</h3>
+<p>A callback function that is activated when the widget is resized.</p>
+<!-- @@@resizeGL -->
+<!-- $$$showEvent[overload1]$$$showEventint* -->
+<h3 class="fn" id="showEvent"><a name="showEvent"></a><code>[protected] </code><span class="type">void</span> LidarRenderer::<span class="name">showEvent</span>(<span class="type">int</span> *<i>event</i>)</h3>
+<!-- @@@showEvent -->
+</div>
+</body>
+</html>

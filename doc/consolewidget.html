@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- ConsoleWidget.cpp -->
+  <title>ConsoleWidget Class | Qt </title>
+</head>
+<body>
+<li>ConsoleWidget</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#protected-functions">Protected Functions</a></li>
+<li class="level1"><a href="#protected-variables">Protected Variables</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">ConsoleWidget Class</h1>
+<!-- $$$ConsoleWidget-brief -->
+<p>The <a href="consolewidget.html">ConsoleWidget</a> class is a custom widget which displays messages sent to it in Console packets. <a href="#details">More...</a></p>
+<!-- @@@ConsoleWidget -->
+<ul>
+<li><a href="consolewidget-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="protected-functions"></a>
+<h2 id="protected-functions">Protected Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="consolewidget.html#errorString">errorString</a></b>(int <i>error</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="consolewidget.html#onPacket">onPacket</a></b>(DebugPacket <i>packet</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="consolewidget.html#onStopReading">onStopReading</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="consolewidget.html#showEvent">showEvent</a></b>(int *<i>event</i>) override</td></tr>
+</table></div>
+<a name="protected-variables"></a>
+<h2 id="protected-variables">Protected Variables</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="consolewidget.html#Avar"></a></b></td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$ConsoleWidget-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The <a href="consolewidget.html">ConsoleWidget</a> class is a custom widget which displays messages sent to it in Console packets.</p>
+<p>This widget contains a QTextBrowser child widget, which displays the messages sent to the <a href="consolewidget.html">ConsoleWidget</a> via signals. All messages are displayed with a time stamp of when the message was received by the <a href="consolewidget.html">ConsoleWidget</a>.</p>
+</div>
+<p><b>See also </b><a href="consolethread.html">ConsoleThread</a>.</p>
+<!-- @@@ConsoleWidget -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$errorString[overload1]$$$errorStringint -->
+<h3 class="fn" id="errorString"><a name="errorString"></a><code>[protected] </code><span class="type">void</span> ConsoleWidget::<span class="name">errorString</span>(<span class="type">int</span> <i>error</i>)</h3>
+<p>Calls the message handler with the critical error <i>error</i>.</p>
+<p><b>See also </b>qCritical().</p>
+<!-- @@@errorString -->
+<!-- $$$onPacket[overload1]$$$onPacketDebugPacket -->
+<h3 class="fn" id="onPacket"><a name="onPacket"></a><code>[protected] </code><span class="type">void</span> ConsoleWidget::<span class="name">onPacket</span>(<span class="type">DebugPacket</span> <i>packet</i>)</h3>
+<p>Executed when a <a href="consolethread.html">ConsoleThread</a> object signals a new Console packet to be processed.</p>
+<p>Generates a QString composed of a time stamp followed by the message stored in the <i>packet</i> struct. This QString is then displayed in the child QTextBrowser widget of the Console widget.</p>
+<!-- @@@onPacket -->
+<!-- $$$onStopReading[overload1]$$$onStopReading -->
+<h3 class="fn" id="onStopReading"><a name="onStopReading"></a><code>[protected] </code><span class="type">void</span> ConsoleWidget::<span class="name">onStopReading</span>()</h3>
+<p>Disconnects the widget from the incoming data packets for better performance.</p>
+<!-- @@@onStopReading -->
+<!-- $$$showEvent[overload1]$$$showEventint* -->
+<h3 class="fn" id="showEvent"><a name="showEvent"></a><code>[protected] </code><span class="type">void</span> ConsoleWidget::<span class="name">showEvent</span>(<span class="type">int</span> *<i>event</i>)</h3>
+<p>This function overloads showEvent( QShowEvent* event ).</p>
+<p>This function is automatically called when the widget is shown. Connects the widget to the incoming data packets.</p>
+<p><b>See also </b>QWidget::showEvent( QShowEvent* event ).</p>
+<!-- @@@showEvent -->
+</div>
+</body>
+</html>

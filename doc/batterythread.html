@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- BatteryThread.cpp -->
+  <title>BatteryThread Class | Qt </title>
+</head>
+<body>
+<li>BatteryThread</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#public-variables">Public Variables</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">BatteryThread Class</h1>
+<!-- $$$BatteryThread-brief -->
+<p>The <a href="batterythread.html">BatteryThread</a> class is a custom class which manages packets for the Battery Widget. <a href="#details">More...</a></p>
+<!-- @@@BatteryThread -->
+<ul>
+<li><a href="batterythread-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="batterythread.html#error">error</a></b>(int <i>error</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="batterythread.html#newPacket">newPacket</a></b>(BatteryPacket <i>packet</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="batterythread.html#readPendingDatagrams">readPendingDatagrams</a></b>()</td></tr>
+</table></div>
+<a name="public-variables"></a>
+<h2 id="public-variables">Public Variables</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="batterythread.html#Avar"></a></b></td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$BatteryThread-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The <a href="batterythread.html">BatteryThread</a> class is a custom class which manages packets for the Battery Widget.</p>
+<p>A single <a href="batterythread.html">BatteryThread</a> object is used to read all packets containing battery data from the Voltron Core process. The data from these packets are extracted and sent to the corresponding <a href="batterywidget.html">BatteryWidget</a> object(s).</p>
+<p><b>Note: </b>While this and the <a href="batterywidget.html">BatteryWidget</a> classes are fully implemented, the Voltron Core process, at present, does not send true battery data.</p></div>
+<p><b>See also </b><a href="batterywidget.html">BatteryWidget</a>.</p>
+<!-- @@@BatteryThread -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$error[overload1]$$$errorint -->
+<h3 class="fn" id="error"><a name="error"></a><span class="type">void</span> BatteryThread::<span class="name">error</span>(<span class="type">int</span> <i>error</i>)</h3>
+<!-- @@@error -->
+<!-- $$$newPacket[overload1]$$$newPacketBatteryPacket -->
+<h3 class="fn" id="newPacket"><a name="newPacket"></a><span class="type">void</span> BatteryThread::<span class="name">newPacket</span>(<span class="type">BatteryPacket</span> <i>packet</i>)</h3>
+<!-- @@@newPacket -->
+<!-- $$$readPendingDatagrams[overload1]$$$readPendingDatagrams -->
+<h3 class="fn" id="readPendingDatagrams"><a name="readPendingDatagrams"></a><span class="type">void</span> BatteryThread::<span class="name">readPendingDatagrams</span>()</h3>
+<p>Executed when the UDP socket associated with this class signals that there is data to be read from the Voltron Core process.</p>
+<p>Upon execution, the available data is read into a QByteArray from the UDP socket and passed to the processDatagram(QByteArray datagram) function.</p>
+<!-- @@@readPendingDatagrams -->
+</div>
+</body>
+</html>

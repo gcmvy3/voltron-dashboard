@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- CANThread.cpp -->
+  <title>CANThread Class | Qt </title>
+</head>
+<body>
+<li>CANThread</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#public-variables">Public Variables</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">CANThread Class</h1>
+<!-- $$$CANThread-brief -->
+<p>The <a href="canthread.html">CANThread</a> class is a custom class which receives CAN data from the Voltron Core program. <a href="#details">More...</a></p>
+<!-- @@@CANThread -->
+<ul>
+<li><a href="canthread-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="canthread.html#broadcastCANRequest">broadcastCANRequest</a></b>(CANControlPacket <i>request</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="canthread.html#error">error</a></b>(int <i>error</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="canthread.html#newPacket">newPacket</a></b>(CANDataPacket <i>packet</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="canthread.html#onNewCANCodesLoaded">onNewCANCodesLoaded</a></b>(int <i>codes</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="canthread.html#readPendingDatagrams">readPendingDatagrams</a></b>()</td></tr>
+</table></div>
+<a name="public-variables"></a>
+<h2 id="public-variables">Public Variables</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="canthread.html#Avar"></a></b></td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$CANThread-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The <a href="canthread.html">CANThread</a> class is a custom class which receives CAN data from the Voltron Core program.</p>
+<p>A single <a href="canthread.html">CANThread</a> object is used to read all packets containing CAN code data from the Voltron Core process. The thread first broadcasts a CANControlPacket for each CAN code it wants to subscribe to. The core program receives these control packets and begins to broadcast the corresponding CAN code value in real time. These arrive as CANDataPackets, which are received by the <a href="canthread.html">CANThread</a> object.</p>
+</div>
+<p><b>See also </b><a href="canwidget.html">CANWidget</a>, <a href="cancode.html">CANCode</a>, and <a href="cancodemanager.html">CANCodeManager</a>.</p>
+<!-- @@@CANThread -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$broadcastCANRequest[overload1]$$$broadcastCANRequestCANControlPacket -->
+<h3 class="fn" id="broadcastCANRequest"><a name="broadcastCANRequest"></a><span class="type">void</span> CANThread::<span class="name">broadcastCANRequest</span>(<span class="type">CANControlPacket</span> <i>request</i>)</h3>
+<!-- @@@broadcastCANRequest -->
+<!-- $$$error[overload1]$$$errorint -->
+<h3 class="fn" id="error"><a name="error"></a><span class="type">void</span> CANThread::<span class="name">error</span>(<span class="type">int</span> <i>error</i>)</h3>
+<!-- @@@error -->
+<!-- $$$newPacket[overload1]$$$newPacketCANDataPacket -->
+<h3 class="fn" id="newPacket"><a name="newPacket"></a><span class="type">void</span> CANThread::<span class="name">newPacket</span>(<span class="type">CANDataPacket</span> <i>packet</i>)</h3>
+<!-- @@@newPacket -->
+<!-- $$$onNewCANCodesLoaded[overload1]$$$onNewCANCodesLoadedint -->
+<h3 class="fn" id="onNewCANCodesLoaded"><a name="onNewCANCodesLoaded"></a><span class="type">void</span> CANThread::<span class="name">onNewCANCodesLoaded</span>(<span class="type">int</span> <i>codes</i>)</h3>
+<!-- @@@onNewCANCodesLoaded -->
+<!-- $$$readPendingDatagrams[overload1]$$$readPendingDatagrams -->
+<h3 class="fn" id="readPendingDatagrams"><a name="readPendingDatagrams"></a><span class="type">void</span> CANThread::<span class="name">readPendingDatagrams</span>()</h3>
+<p>Executed when the UDP socket associated with this class signals that there is data to be read from the Voltron Core process.</p>
+<p>Upon execution, the available data is read into a QByteArray from the UDP socket and passed to the processDatagram(QByteArray datagram) function.</p>
+<!-- @@@readPendingDatagrams -->
+</div>
+</body>
+</html>

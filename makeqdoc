@@ -1,0 +1,2 @@
+#!/bin/bash
+/home/voltron/Qt/5.12.1/gcc_64/bin/qdoc dashboard.qdocconf

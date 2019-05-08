@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- ConsoleThread.cpp -->
+  <title>ConsoleThread Class | Qt </title>
+</head>
+<body>
+<li>ConsoleThread</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#public-variables">Public Variables</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">ConsoleThread Class</h1>
+<!-- $$$ConsoleThread-brief -->
+<p>The <a href="consolethread.html">ConsoleThread</a> class is a custom class which manages packets for the Console Widget. <a href="#details">More...</a></p>
+<!-- @@@ConsoleThread -->
+<ul>
+<li><a href="consolethread-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="consolethread.html#error">error</a></b>(int <i>error</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="consolethread.html#injectMessage">injectMessage</a></b>(int <i>message</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="consolethread.html#newPacket">newPacket</a></b>(DebugPacket <i>packet</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="consolethread.html#readPendingDatagrams">readPendingDatagrams</a></b>()</td></tr>
+</table></div>
+<a name="public-variables"></a>
+<h2 id="public-variables">Public Variables</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="consolethread.html#Avar"></a></b></td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$ConsoleThread-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The <a href="consolethread.html">ConsoleThread</a> class is a custom class which manages packets for the Console Widget.</p>
+<p>A single <a href="consolethread.html">ConsoleThread</a> object is used to read all packets containing output and error messages from the Voltron Core process. The data from these packets are extracted and sent to the corresponding <a href="consolewidget.html">ConsoleWidget</a> object(s).</p>
+</div>
+<p><b>See also </b><a href="consolewidget.html">ConsoleWidget</a>.</p>
+<!-- @@@ConsoleThread -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$error[overload1]$$$errorint -->
+<h3 class="fn" id="error"><a name="error"></a><span class="type">void</span> ConsoleThread::<span class="name">error</span>(<span class="type">int</span> <i>error</i>)</h3>
+<!-- @@@error -->
+<!-- $$$injectMessage[overload1]$$$injectMessageint -->
+<h3 class="fn" id="injectMessage"><a name="injectMessage"></a><span class="type">void</span> ConsoleThread::<span class="name">injectMessage</span>(<span class="type">int</span> <i>message</i>)</h3>
+<p>Creates a DebugPacket struct containing the provided <i>message</i> and its length and emits a signal containing this struct to be used by <a href="consolewidget.html">ConsoleWidget</a> objects.</p>
+<!-- @@@injectMessage -->
+<!-- $$$newPacket[overload1]$$$newPacketDebugPacket -->
+<h3 class="fn" id="newPacket"><a name="newPacket"></a><span class="type">void</span> ConsoleThread::<span class="name">newPacket</span>(<span class="type">DebugPacket</span> <i>packet</i>)</h3>
+<!-- @@@newPacket -->
+<!-- $$$readPendingDatagrams[overload1]$$$readPendingDatagrams -->
+<h3 class="fn" id="readPendingDatagrams"><a name="readPendingDatagrams"></a><span class="type">void</span> ConsoleThread::<span class="name">readPendingDatagrams</span>()</h3>
+<p>Executed when the UDP socket associated with this class signals that there is data to be read from the Voltron Core process.</p>
+<p>Upon execution, the available data is read into a QByteArray from the UDP socket and passed to the processDatagram(QByteArray datagram) function.</p>
+<!-- @@@readPendingDatagrams -->
+</div>
+</body>
+</html>
