@@ -41,7 +41,7 @@ StereoMemory::StereoMemory(QWidget *parent) : QLabel(parent), semaphore(1)
     }
 
     depthMemory = (unsigned char*)malloc(CAM_WIDTH * CAM_HEIGHT);
-    depthFrames = QImage((const unsigned char*)depthMemory, CAM_WIDTH, CAM_HEIGHT, QImage::Format_Grayscale8);
+    depthFrame = QImage((const unsigned char*)depthMemory, CAM_WIDTH, CAM_HEIGHT, QImage::Format_Grayscale8);
 
     for (int i = 0; i < CAM_NUM_IMAGES; i++)
     {
