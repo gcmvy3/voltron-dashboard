@@ -67,7 +67,7 @@ void CANWidget::showEvent( QShowEvent* event )
  */
 void CANWidget::updateTable(QVector<CANCode*> newCodes)
 {
-    codesTable->clearContents();
+    clearTable();
 
     //Add a row to the table for every new can code
     for(int i = 0; i < newCodes.size(); i++)
@@ -83,6 +83,15 @@ void CANWidget::updateTable(QVector<CANCode*> newCodes)
         codesTable->setItem(rowIndex, 3, new QTableWidgetItem(QString::number(code->bitStart)));
         codesTable->setItem(rowIndex, 4, new QTableWidgetItem(QString::number(code->bitEnd)));
         codesTable->setItem(rowIndex, 5, new QTableWidgetItem(QString("No data")));
+    }
+}
+
+void CANWidget::clearTable()
+{
+    if(codesTable != nullptr)
+    {
+        codesTable->clear();
+        codesTable->setRowCount(0);
     }
 }
 
