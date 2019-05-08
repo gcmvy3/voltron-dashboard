@@ -22,6 +22,7 @@ private:
 public:
     static CANCodeManager* getInstance();
     QVector<CANCode*> codes;
+    void clearCodes();
 
 public slots:
     void openCANFile();
@@ -29,6 +30,7 @@ public slots:
 
 signals:
     void newCodesLoaded(QVector<CANCode*> newCodes);
+    void codesCleared();
 };
 
 #endif // CANCODEMANAGER_H

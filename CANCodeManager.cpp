@@ -34,6 +34,7 @@ void CANCodeManager::openCANFile()
     QString fileName = QFileDialog::getOpenFileName(nullptr, ("Open File"), QDir::currentPath(), ("JSON Files (*.json)"));
     if(!fileName.isNull())
     {
+        clearCodes();
         QFile* file = new QFile(fileName);
         loadFromFile(file);
     }
@@ -87,4 +88,10 @@ void CANCodeManager::loadFromFile(QFile* file)
     }
 
     CommunicationManager::printToConsole(QString("ERROR: Invalid CAN code file: ").append(QString(file->fileName())));
+}
+
+void CANCodeManager::clearCodes()
+{
+    codes.clear();
+    emit codesCleared();
 }
