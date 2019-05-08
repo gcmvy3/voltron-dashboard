@@ -43,6 +43,7 @@ struct CANControlPacket
 #define LIDAR_MEMORY_NAME "/voltron_lidar_data"
 
 #define LIDAR_DATA_NUM_POINTS 384 * 75
+
 #define LIDAR_DATA_NUM_REGIONS 4
 
 struct LIDARData
