@@ -22,6 +22,7 @@ protected:
     int widgetIndex = -1;
     QPushButton* loadCANFileButton;
     QTableWidget* codesTable;
+    void clearTable();
 
 signals:
 
