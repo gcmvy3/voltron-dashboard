@@ -117,7 +117,7 @@ void CANWidget::onPacket(CANDataPacket packet)
                         {
                             int byteIndex = i / 8;
                             char c = packet.data[byteIndex];
-                            bool bitValue = c & (1 << i % 8);
+                            bool bitValue = c & (0b10000000 >> i % 8);
                             bits.append(bitValue);
                         }
                         // Convert the bit string to a QString for display
