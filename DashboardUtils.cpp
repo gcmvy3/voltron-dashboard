@@ -36,3 +36,16 @@ int DashboardUtils::getWidgetIndex(QWidget* widget)
 
    return -1;
 }
+
+QWidget* DashboardUtils::getMainWidget()
+{
+    QList<QWidget*> widgets = QApplication::topLevelWidgets();
+    if(widgets.size() > 0)
+    {
+        return widgets.at(0);
+    }
+    else
+    {
+        return nullptr;
+    }
+}

@@ -17,11 +17,14 @@ public:
     explicit CANWidget(QWidget *parent = nullptr);
 
 protected:
-    void showEvent( QShowEvent* event) override;
+    bool event(QEvent* event) override;
 
     int widgetIndex = -1;
     QPushButton* loadCANFileButton;
     QTableWidget* codesTable;
+
+private:
+    void initialize();
 
 signals:
 

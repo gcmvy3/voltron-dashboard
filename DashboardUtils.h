@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QWidget>
+#include <QApplication>
 
 class DashboardUtils : public QObject
 {
@@ -10,6 +11,7 @@ class DashboardUtils : public QObject
 public:
     explicit DashboardUtils(QObject *parent = 0);
     static int getWidgetIndex(QWidget* widget);
+    static QWidget* getMainWidget();
 
 signals:
 

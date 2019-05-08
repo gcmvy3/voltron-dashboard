@@ -12,6 +12,7 @@ SettingsManager::SettingsManager()
 void SettingsManager::onNewCANCodesFile(QString filePath)
 {
     canCodesFilePath = filePath;
+    qDebug() << "Setting canCodesFilePath to " << filePath;
     saveSettings();
 }
 
@@ -28,6 +29,8 @@ void SettingsManager::saveSettings()
     {
         canCodesFilePath = QString("");
     }
+    qDebug() << "CAN codes file path: " << canCodesFilePath;
+
     obj.insert("CAN Codes File Path", QJsonValue::fromVariant(canCodesFilePath));
 
     QJsonDocument doc(obj);

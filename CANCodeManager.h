@@ -9,6 +9,7 @@
 #include <QFileDialog>
 #include <QVector>
 
+#include "DashboardUtils.h"
 #include "CommunicationManager.h"
 #include "CANCode.h"
 

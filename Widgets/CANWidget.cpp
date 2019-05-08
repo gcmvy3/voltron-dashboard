@@ -18,17 +18,23 @@
  */
 CANWidget::CANWidget(QWidget *parent) : QWidget(parent)
 {
+    // Connect signals so the table gets automatically populated when new codes are loaded
+    QObject::connect(CANCodeManager::getInstance(), &CANCodeManager::newCodesLoaded, this, &CANWidget::updateTable);
     QObject::connect(CommunicationManager::canThread, &CANThread::newPacket, this, &CANWidget::onPacket);
 }
 
-/**
- * Called automatically when the widget is shown.
- * Connects the widget to the incoming data packets.
- **/
-void CANWidget::showEvent( QShowEvent* event )
+bool CANWidget::event(QEvent *event)
 {
-    QWidget::showEvent( event );
+   bool returnValue = QWidget::event(event);
+   if (event->type() == QEvent::Polish)
+   {
+       initialize();
+   }
+   return returnValue;
+}
 
+void CANWidget::initialize()
+{
     widgetIndex = DashboardUtils::getWidgetIndex(this);
 
     QString idSuffix = "";
@@ -56,8 +62,15 @@ void CANWidget::showEvent( QShowEvent* event )
         qDebug("ERROR: CANCodesTable does not exist");
     }
 
-    // Connect signals so the table gets automatically populated when new codes are loaded
-    QObject::connect(CANCodeManager::getInstance(), &CANCodeManager::newCodesLoaded, this, &CANWidget::updateTable);
+    if(!CANCodeManager::getInstance()->codes.isEmpty())
+    {
+        qDebug() << "Found existing codes";
+        updateTable(CANCodeManager::getInstance()->codes);
+    }
+    else
+    {
+        qDebug() << "CAN Codes is empty";
+    }
 }
 
 /**

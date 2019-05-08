@@ -8,7 +8,6 @@
    This class is used to load CAN codes from a JSON file and maintain a list of all current codes. See the example JSON file included in the project to learn how to format the JSON file.
 */
 
-
 #include "CANCodeManager.h"
 #include "SettingsManager.h"
 
@@ -39,7 +38,7 @@ CANCodeManager* CANCodeManager::getInstance()
  */
 void CANCodeManager::openCANFile()
 {
-    QString fileName = QFileDialog::getOpenFileName(nullptr, ("Open File"), QDir::currentPath(), ("JSON Files (*.json)"));
+    QString fileName = QFileDialog::getOpenFileName(DashboardUtils::getMainWidget(), ("Open File"), QDir::currentPath(), ("JSON Files (*.json)"));
     if(!fileName.isNull())
     {
         QFile* file = new QFile(fileName);
@@ -64,9 +63,8 @@ void CANCodeManager::loadFromFile(QFile* file)
 
         if(!document.isNull() || !document.isObject())
         {
-            qDebug() << "CAN codes file is valid";
-
             QString filePath = file->fileName();
+            qDebug() << "LoadFromFile called on: " << filePath;
             emit newCodesFileSelected(filePath);
 
             CommunicationManager::printToConsole(QString("Loading CAN code file: ").append(QString(file->fileName())));
@@ -101,6 +99,7 @@ void CANCodeManager::loadFromFile(QFile* file)
                     codes.append(code);
                 }
             }
+            qDebug() << "Loaded CAN codes from file";
             CommunicationManager::printToConsole(QString("Loaded ").append(QString(codes.size())).append(QString( " CAN codes from file.")));
             emit newCodesLoaded(codes);
             return;
