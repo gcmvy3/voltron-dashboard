@@ -18,6 +18,7 @@
  */
 CANWidget::CANWidget(QWidget *parent) : QWidget(parent)
 {
+    codesTable = nullptr;
     QObject::connect(CommunicationManager::canThread, &CANThread::newPacket, this, &CANWidget::onPacket);
 }
 
@@ -92,47 +93,50 @@ void CANWidget::updateTable(QVector<CANCode*> newCodes)
  */
 void CANWidget::onPacket(CANDataPacket packet)
 {
-    QTableWidgetItem* entry = codesTable->item(packet.pktId, 5);
-    if(entry != nullptr)
+    if(codesTable != nullptr && codesTable->rowCount() > packet.pktId)
     {
         // Check existing sender ID
-        QTableWidgetItem* senderIDItem = codesTable->item(packet.pktId, 2);
-        if(senderIDItem != nullptr && !senderIDItem->text().isNull())
+        QTableWidgetItem* entry = codesTable->item(packet.pktId, 5);
+        if(entry != nullptr)
         {
-            bool success;
-            int existingSenderID = senderIDItem->text().toInt(&success, 16);
-            // If sender IDs match, update the table with the new value
-            if(success && existingSenderID == packet.sender)
+            QTableWidgetItem* senderIDItem = codesTable->item(packet.pktId, 2);
+            if(senderIDItem != nullptr && !senderIDItem->text().isNull())
             {
-                int startBit = codesTable->item(packet.pktId, 3)->text().toInt();
-                int endBit = codesTable->item(packet.pktId, 4)->text().toInt();
-                if(startBit >=0 && endBit <= 63)
+                bool success;
+                int existingSenderID = senderIDItem->text().toInt(&success, 16);
+                // If sender IDs match, update the table with the new value
+                if(success && existingSenderID == packet.sender)
                 {
-                    // Extract the designated bits from the chars
-                    QVector<bool> bits = QVector<bool>();
-                    for(int i = startBit; i <= endBit; i++)
+                    int startBit = codesTable->item(packet.pktId, 3)->text().toInt();
+                    int endBit = codesTable->item(packet.pktId, 4)->text().toInt();
+                    if(startBit >=0 && endBit <= 63)
                     {
-                        int byteIndex = i / 8;
-                        char c = packet.data[byteIndex];
-                        bool bitValue = c & (1 << i % 8);
-                        bits.append(bitValue);
-                    }
-                    // Convert the bit string to a QString for display
-                    QString valueString = QString();
-                    for(int i = 0; i < bits.size(); i++)
-                    {
-                        if(bits[i])
+                        // Extract the designated bits from the chars
+                        QVector<bool> bits = QVector<bool>();
+                        for(int i = startBit; i <= endBit; i++)
                         {
-                            valueString.append(QString("1"));
+                            int byteIndex = i / 8;
+                            char c = packet.data[byteIndex];
+                            bool bitValue = c & (1 << i % 8);
+                            bits.append(bitValue);
                         }
-                        else
+                        // Convert the bit string to a QString for display
+                        QString valueString = QString();
+                        for(int i = 0; i < bits.size(); i++)
                         {
-                            valueString.append(QString("0"));
+                            if(bits[i])
+                            {
+                                valueString.append(QString("1"));
+                            }
+                            else
+                            {
+                                valueString.append(QString("0"));
+                            }
                         }
-                    }
 
-                    // Display the value in the table
-                    entry->setText(valueString);
+                        // Display the value in the table
+                        entry->setText(valueString);
+                    }
                 }
             }
         }

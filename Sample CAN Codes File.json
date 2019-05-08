@@ -1,16 +1,10 @@
 {
 	"codes":[
 	{
-		"name": "Headlights On",
-		"senderID": "0CFF6600",
-		"bitStart": 1,
-		"bitEnd" : 4			
-	},
-	{
-		"name": "Headlights Off",
-		"senderID": "0CF00400",
-		"bitStart": 1,
-		"bitEnd": 4
+		"name": "Headlights",
+		"senderID": "18FEF7F3",
+		"bitStart": 32,
+		"bitEnd" : 32			
 	}
 	]	
 }
