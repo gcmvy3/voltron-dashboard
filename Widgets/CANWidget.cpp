@@ -90,7 +90,7 @@ void CANWidget::clearTable()
 {
     if(codesTable != nullptr)
     {
-        codesTable->clear();
+        codesTable->clearContents();
         codesTable->setRowCount(0);
     }
 }
