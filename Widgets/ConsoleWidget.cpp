@@ -74,7 +74,7 @@ void ConsoleWidget::onStopReading()
 void ConsoleWidget::onPacket(DebugPacket packet)
 {
     // Append the message with its timestamp to the console TextBrowser
-    QString timeStamp = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+    QString timeStamp = QDateTime::fromTime_t(packet.timestamp).toString("hh:mm:ss.zzz");
     QString message = QString("[" + timeStamp + "] " + QString(packet.str));
 
     console->moveCursor (QTextCursor::End);
