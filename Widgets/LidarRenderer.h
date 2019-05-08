@@ -26,6 +26,8 @@ private:
     int yRot;
     int zRot;
 
+    const int MAX_ZOOM = 5;
+
 protected:
     void initializeGL() override;
     void resizeGL(int w, int h) override;
@@ -58,6 +60,7 @@ protected:
 
 public slots:
     void onPacket(LIDARPacket);
+    void setZoomPercentage(double);
 };
 
 #endif // LIDARRENDERER_H

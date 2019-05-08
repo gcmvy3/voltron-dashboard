@@ -233,6 +233,11 @@ void LidarRenderer::hideEvent( QHideEvent* event )
     disconnect(CommunicationManager::lidarThread, SIGNAL(newPacket(LIDARPacket)), this, SLOT(onPacket(LIDARPacket)));
 }
 
+void LidarRenderer::setZoomPercentage(double percentage)
+{
+    zoom = percentage / 100 * MAX_ZOOM;
+}
+
 double LidarRenderer::degreesToRadians(double degrees)
 {
     return degrees * (M_PI / 180);
