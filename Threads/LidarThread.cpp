@@ -23,7 +23,7 @@
  */
 LidarThread::LidarThread(QObject *parent) : QObject(parent)
 {
-    qRegisterMetaType<LidarPacket>("LidarPacket");
+    qRegisterMetaType<LIDARPacket>("LIDARPacket");
 }
 
 LidarThread::~LidarThread()
@@ -75,7 +75,7 @@ void LidarThread::readPendingDatagrams()
  */
 void LidarThread::processDatagram(QByteArray datagram)
 {
-    LidarPacket* lidarPacket = (LidarPacket*)datagram.data();
+    LIDARPacket* lidarPacket = (LIDARPacket*)datagram.data();
     LidarThread::latestPacket = lidarPacket;
     emit newPacket(*lidarPacket);
 }

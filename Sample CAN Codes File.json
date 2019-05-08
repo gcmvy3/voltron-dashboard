@@ -1,17 +1,24 @@
 {
 	"codes":[
 	{
-		"name": "Headlights On",
-		"senderID": "0CFF6600",
-		"bitStart": 1,
-		"bitEnd" : 4			
+		"name": "Headlights",
+		"senderID": "18FEF7F3",
+		"bitStart": 39,
+		"bitEnd" : 39			
 	},
 	{
-		"name": "Headlights Off",
-		"senderID": "0CF00400",
-		"bitStart": 1,
-		"bitEnd": 4
+		"name": "High Beams",
+		"senderID": "18FEF7F3",
+		"bitStart": 38,
+		"bitEnd" : 38			
+	},
+	{
+		"name": "Driver Seatbelt",
+		"senderID": "1CFF6A00",
+		"bitStart": 11,
+		"bitEnd" : 11	
 	}
+
 	]	
 }
 

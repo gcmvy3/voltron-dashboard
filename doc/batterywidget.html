@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- BatteryWidget.cpp -->
+  <title>BatteryWidget Class | Qt </title>
+</head>
+<body>
+<li>BatteryWidget</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#protected-functions">Protected Functions</a></li>
+<li class="level1"><a href="#protected-variables">Protected Variables</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">BatteryWidget Class</h1>
+<!-- $$$BatteryWidget-brief -->
+<p>The <a href="batterywidget.html">BatteryWidget</a> class is a custom widget which displays data sent to it in Battery packets. <a href="#details">More...</a></p>
+<!-- @@@BatteryWidget -->
+<ul>
+<li><a href="batterywidget-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="protected-functions"></a>
+<h2 id="protected-functions">Protected Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="batterywidget.html#errorString">errorString</a></b>(int <i>error</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="batterywidget.html#hideEvent">hideEvent</a></b>(int *<i>event</i>) override</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="batterywidget.html#onPacket">onPacket</a></b>(BatteryPacket <i>packet</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="batterywidget.html#onStopReading">onStopReading</a></b>()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="batterywidget.html#showEvent">showEvent</a></b>(int *<i>event</i>) override</td></tr>
+</table></div>
+<a name="protected-variables"></a>
+<h2 id="protected-variables">Protected Variables</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="batterywidget.html#Avar"></a></b></td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$BatteryWidget-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The <a href="batterywidget.html">BatteryWidget</a> class is a custom widget which displays data sent to it in Battery packets.</p>
+<p>This widget contains a QTableWidget child widget, which displays the battery charge data sent to the <a href="batterywidget.html">BatteryWidget</a> via signals. The data is displayed in a table with each row corresponding to a charge value. Battery packets sent to this widget specify which row of the table will be updated with the provided charge value.</p>
+<p><b>Note: </b>While this and the <a href="batterythread.html">BatteryThread</a> classes are fully implemented, the Voltron Core process, at present, does not send true battery data.</p></div>
+<p><b>See also </b><a href="batterythread.html">BatteryThread</a>.</p>
+<!-- @@@BatteryWidget -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$errorString[overload1]$$$errorStringint -->
+<h3 class="fn" id="errorString"><a name="errorString"></a><code>[protected] </code><span class="type">void</span> BatteryWidget::<span class="name">errorString</span>(<span class="type">int</span> <i>error</i>)</h3>
+<p>Calls the message handler with the critical error <i>error</i>.</p>
+<p><b>See also </b>qCritical().</p>
+<!-- @@@errorString -->
+<!-- $$$hideEvent[overload1]$$$hideEventint* -->
+<h3 class="fn" id="hideEvent"><a name="hideEvent"></a><code>[protected] </code><span class="type">void</span> BatteryWidget::<span class="name">hideEvent</span>(<span class="type">int</span> *<i>event</i>)</h3>
+<p>This function overloads hideEvent( QHideEvent* event ).</p>
+<p>This function is called automatically when the widget is shown. Disconnects the widget from the incoming data packets for better performance.</p>
+<p><b>See also </b>QWidget::hideEvent( QHideEvent* event ).</p>
+<!-- @@@hideEvent -->
+<!-- $$$onPacket[overload1]$$$onPacketBatteryPacket -->
+<h3 class="fn" id="onPacket"><a name="onPacket"></a><code>[protected] </code><span class="type">void</span> BatteryWidget::<span class="name">onPacket</span>(<span class="type">BatteryPacket</span> <i>packet</i>)</h3>
+<p>Executed when a <a href="batterythread.html">BatteryThread</a> object signals a new Battery packet to be processed.</p>
+<p>Updates the cell of the child QTableWidget table indicated by the <i>packet</i> struct with the charge value also provided by the <i>packet</i> struct.</p>
+<!-- @@@onPacket -->
+<!-- $$$onStopReading[overload1]$$$onStopReading -->
+<h3 class="fn" id="onStopReading"><a name="onStopReading"></a><code>[protected] </code><span class="type">void</span> BatteryWidget::<span class="name">onStopReading</span>()</h3>
+<p>Disconnects the widget from the incoming data packets for better performance.</p>
+<!-- @@@onStopReading -->
+<!-- $$$showEvent[overload1]$$$showEventint* -->
+<h3 class="fn" id="showEvent"><a name="showEvent"></a><code>[protected] </code><span class="type">void</span> BatteryWidget::<span class="name">showEvent</span>(<span class="type">int</span> *<i>event</i>)</h3>
+<p>This function overloads showEvent( QShowEvent* event ).</p>
+<p>This function is automatically called when the widget is shown. Connects the widget to the incoming data packets.</p>
+<p><b>See also </b>QWidget::showEvent( QShowEvent* event ).</p>
+<!-- @@@showEvent -->
+</div>
+</body>
+</html>

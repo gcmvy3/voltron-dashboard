@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- CANWidget.cpp -->
+  <title>CANWidget Class | Qt </title>
+</head>
+<body>
+<li>CANWidget</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#protected-functions">Protected Functions</a></li>
+<li class="level1"><a href="#protected-variables">Protected Variables</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">CANWidget Class</h1>
+<!-- $$$CANWidget-brief -->
+<p>The <a href="canwidget.html">CANWidget</a> class is a custom widget which displays the value of certain CAN codes in real time. <a href="#details">More...</a></p>
+<!-- @@@CANWidget -->
+<ul>
+<li><a href="canwidget-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="protected-functions"></a>
+<h2 id="protected-functions">Protected Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="canwidget.html#onPacket">onPacket</a></b>(CANDataPacket <i>packet</i>)</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="canwidget.html#showEvent">showEvent</a></b>(int *<i>event</i>) override</td></tr>
+</table></div>
+<a name="protected-variables"></a>
+<h2 id="protected-variables">Protected Variables</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="canwidget.html#Avar"></a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int *</td><td class="memItemRight bottomAlign"><b><a href="canwidget.html#codesTable-var">codesTable</a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int *</td><td class="memItemRight bottomAlign"><b><a href="canwidget.html#loadCANFileButton-var">loadCANFileButton</a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="canwidget.html#widgetIndex-var">widgetIndex</a></b></td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$CANWidget-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The <a href="canwidget.html">CANWidget</a> class is a custom widget which displays the value of certain CAN codes in real time.</p>
+<p>This widget shows a list of all CAN codes currently loaded by <a href="cancodemanager.html">CANCodeManager</a>. It is updated via signals when new CAN codes are loaded. When <a href="canthread.html">CANThread</a> receives an updated CAN value, it emits a signal that updates every <a href="canwidget.html">CANWidget</a> automatically.</p>
+</div>
+<p><b>See also </b><a href="canthread.html">CANThread</a>, <a href="cancode.html">CANCode</a>, and <a href="cancodemanager.html">CANCodeManager</a>.</p>
+<!-- @@@CANWidget -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$onPacket[overload1]$$$onPacketCANDataPacket -->
+<h3 class="fn" id="onPacket"><a name="onPacket"></a><code>[protected] </code><span class="type">void</span> CANWidget::<span class="name">onPacket</span>(<span class="type">CANDataPacket</span> <i>packet</i>)</h3>
+<!-- @@@onPacket -->
+<!-- $$$showEvent[overload1]$$$showEventint* -->
+<h3 class="fn" id="showEvent"><a name="showEvent"></a><code>[protected] </code><span class="type">void</span> CANWidget::<span class="name">showEvent</span>(<span class="type">int</span> *<i>event</i>)</h3>
+<!-- @@@showEvent -->
+</div>
+</body>
+</html>

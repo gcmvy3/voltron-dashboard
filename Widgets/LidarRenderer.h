@@ -55,7 +55,7 @@ protected:
     QSemaphore semaphore;
 
 public slots:
-    void onPacket(LidarPacket);
+    void onPacket(LIDARPacket);
 };
 
 #endif // LIDARRENDERER_H

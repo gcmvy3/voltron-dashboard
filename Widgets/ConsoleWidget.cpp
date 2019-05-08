@@ -22,18 +22,14 @@ ConsoleWidget::ConsoleWidget(QWidget *parent) : QWidget(parent)
 {
 }
 
-/*!
- * \overload showEvent( QShowEvent* event )
- *
- * This function is automatically called when the widget is shown.
- * Connects the widget to the incoming data packets.
- *
- * \sa QWidget::showEvent( QShowEvent* event )
- */
-void ConsoleWidget::showEvent( QShowEvent* event )
+bool ConsoleWidget::event(QEvent *event)
 {
-    QWidget::showEvent( event );
-    onStartReading();
+   bool returnValue = QWidget::event(event);
+   if (event->type() == QEvent::Polish)
+   {
+       onStartReading();
+   }
+   return returnValue;
 }
 
 /*!
@@ -78,7 +74,7 @@ void ConsoleWidget::onStopReading()
 void ConsoleWidget::onPacket(DebugPacket packet)
 {
     // Append the message with its timestamp to the console TextBrowser
-    QString timeStamp = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+    QString timeStamp = QDateTime::fromTime_t(packet.timestamp).toString("hh:mm:ss.zzz");
     QString message = QString("[" + timeStamp + "] " + QString(packet.str));
 
     console->moveCursor (QTextCursor::End);

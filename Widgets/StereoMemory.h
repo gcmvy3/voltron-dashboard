@@ -24,11 +24,13 @@ public:
     int displayType;
 
 protected:
-    QImage frame[CAM_NUM_IMAGES];
+    QImage stereoFrames[CAM_NUM_IMAGES];
+
+    QImage depthFrame;
+    unsigned char* depthMemory;
 
     int sharedMemoryFD;
     struct StereoData* memoryRegions;
-    const unsigned char* memReg;
 
     QSemaphore semaphore;
 

@@ -18,6 +18,8 @@
  */
 CANWidget::CANWidget(QWidget *parent) : QWidget(parent)
 {
+    codesTable = nullptr;
+
     // Connect signals so the table gets automatically populated when new codes are loaded
     QObject::connect(CANCodeManager::getInstance(), &CANCodeManager::newCodesLoaded, this, &CANWidget::updateTable);
     QObject::connect(CommunicationManager::canThread, &CANThread::newPacket, this, &CANWidget::onPacket);
@@ -79,7 +81,7 @@ void CANWidget::initialize()
  */
 void CANWidget::updateTable(QVector<CANCode*> newCodes)
 {
-    codesTable->clearContents();
+    clearTable();
 
     //Add a row to the table for every new can code
     for(int i = 0; i < newCodes.size(); i++)
@@ -98,6 +100,15 @@ void CANWidget::updateTable(QVector<CANCode*> newCodes)
     }
 }
 
+void CANWidget::clearTable()
+{
+    if(codesTable != nullptr)
+    {
+        codesTable->clear();
+        codesTable->setRowCount(0);
+    }
+}
+
 /**
  * @brief CANWidget::updateValue Updates a single value in the table based on a CANDataPacket. Discards the packet if the sender ID does not match the existing entry
  * (happens if new codes have been loaded).
@@ -105,46 +116,50 @@ void CANWidget::updateTable(QVector<CANCode*> newCodes)
  */
 void CANWidget::onPacket(CANDataPacket packet)
 {
-    QTableWidgetItem* entry = codesTable->item(packet.id, 5);
-    if(entry != nullptr)
+    if(codesTable != nullptr && codesTable->rowCount() > packet.pktId)
     {
         // Check existing sender ID
-        QTableWidgetItem* senderIDItem = codesTable->item(packet.id, 2);
-        if(senderIDItem != nullptr && !senderIDItem->text().isNull())
+        QTableWidgetItem* entry = codesTable->item(packet.pktId, 5);
+        if(entry != nullptr)
         {
-            int existingSenderID = senderIDItem->text().toInt();
-            // If sender IDs match, update the table with the new value
-            if(existingSenderID == packet.sender)
+            QTableWidgetItem* senderIDItem = codesTable->item(packet.pktId, 2);
+            if(senderIDItem != nullptr && !senderIDItem->text().isNull())
             {
-                int startBit = codesTable->item(packet.id, 3)->text().toInt();
-                int endBit = codesTable->item(packet.id, 4)->text().toInt();
-                if(startBit >=0 && endBit <= 63)
+                bool success;
+                int existingSenderID = senderIDItem->text().toInt(&success, 16);
+                // If sender IDs match, update the table with the new value
+                if(success && existingSenderID == packet.sender)
                 {
-                    // Extract the designated bits from the chars
-                    QVector<bool> bits = QVector<bool>();
-                    for(int i = startBit; i <= endBit; i++)
+                    int startBit = codesTable->item(packet.pktId, 3)->text().toInt();
+                    int endBit = codesTable->item(packet.pktId, 4)->text().toInt();
+                    if(startBit >=0 && endBit <= 63)
                     {
-                        int byteIndex = i / 8;
-                        char c = packet.data[byteIndex];
-                        bool bitValue = c & (1 << i % 8);
-                        bits.append(bitValue);
-                    }
-                    // Convert the bit string to a QString for display
-                    QString valueString = QString();
-                    for(int i = 0; i < bits.size(); i++)
-                    {
-                        if(bits[i])
+                        // Extract the designated bits from the chars
+                        QVector<bool> bits = QVector<bool>();
+                        for(int i = startBit; i <= endBit; i++)
                         {
-                            valueString.append(QString("1"));
+                            int byteIndex = i / 8;
+                            char c = packet.data[byteIndex];
+                            bool bitValue = c & (0b10000000 >> i % 8);
+                            bits.append(bitValue);
                         }
-                        else
+                        // Convert the bit string to a QString for display
+                        QString valueString = QString();
+                        for(int i = 0; i < bits.size(); i++)
                         {
-                            valueString.append(QString("0"));
+                            if(bits[i])
+                            {
+                                valueString.append(QString("1"));
+                            }
+                            else
+                            {
+                                valueString.append(QString("0"));
+                            }
                         }
-                    }
 
-                    // Display the value in the table
-                    entry->setText(valueString);
+                        // Display the value in the table
+                        entry->setText(valueString);
+                    }
                 }
             }
         }

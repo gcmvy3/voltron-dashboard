@@ -59,6 +59,8 @@ void CANThread::start()
     connect(dataSocket, SIGNAL(readyRead()),
                 this, SLOT(readPendingDatagrams()));
 
+    connect(CANCodeManager::getInstance(), &CANCodeManager::codesCleared, this, &CANThread::onCodesCleared);
+
     // Initialize control socket
     controlSocket = new QUdpSocket(this);
     controlSocket->bind(QHostAddress::AnyIPv4, CAN_CONTROL_PORT, QUdpSocket::ShareAddress);
@@ -101,7 +103,7 @@ void CANThread::processDatagram(QByteArray datagram)
         data.append(QString::number(canPacket->data[i]));
     }
 
-    qDebug() << "Received CAN data:\nSender ID: " << canPacket->sender << "\nCode ID: " << canPacket->id << "\nData: " << data;
+    //qDebug() << "Received CAN data:\nSender ID: " << canPacket->sender << "\nCode ID: " << canPacket->id << "\nData: " << data;
 
     emit newPacket(*canPacket);
 }
@@ -117,7 +119,7 @@ void CANThread::onNewCANCodesLoaded(QVector<CANCode*> codes)
 
         CANControlPacket request = CANControlPacket();
 
-        request.id = code->id;
+        request.pktId = code->id;
         request.sender = code->senderID;
         broadcastCANRequest(request);
     }
@@ -130,5 +132,20 @@ void CANThread::broadcastCANRequest(CANControlPacket packet)
 {
     QByteArray datagram = QByteArray::fromRawData((char *)&packet, sizeof(packet));
     controlSocket->writeDatagram(datagram.data(), datagram.size(), CommunicationManager::getUDPAddress(), CAN_CONTROL_PORT);
+}
+
+/*!
+ * Tells the core program to stop sending all CAN data.
+ * It's a good idea to delay requests immediately after unsubscribing, to ensure that the packet has time to arrive.
+ */
+void CANThread::onCodesCleared()
+{
+    CANControlPacket request = CANControlPacket();
+    request.pktId = -1;
+    request.sender = -1;
+    broadcastCANRequest(request);
+
+    // Wait a little bit to allow the core program to clear
+    QThread::msleep(10);
 }
 
