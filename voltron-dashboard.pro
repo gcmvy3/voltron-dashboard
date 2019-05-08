@@ -38,16 +38,16 @@ SOURCES += \
     Widgets/LidarWidget.cpp \
     Widgets/LidarRenderer.cpp \
     Threads/CANThread.cpp \
-    Widgets/StereoWidget.cpp \
-    Threads/StereoThread.cpp \
-    Widgets/StereoMemory.cpp \
     Widgets/CANWidget.cpp \
     CANCodeManager.cpp \
     DashboardUtils.cpp \
     CANCode.cpp \
     LoggingManager.cpp \
     Widgets/LoggingWidget.cpp \
-    Threads/LoggingThread.cpp
+    Threads/LoggingThread.cpp \
+    Widgets/CameraWidget.cpp \
+    Threads/CameraThread.cpp \
+    Widgets/CameraRenderer.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -61,16 +61,16 @@ HEADERS += \
     Widgets/LidarWidget.h \
     Widgets/LidarRenderer.h \
     Threads/CANThread.h \
-    Widgets/StereoWidget.h \
-    Threads/StereoThread.h \
-    Widgets/StereoMemory.h \
     Widgets/CANWidget.h \
     CANCodeManager.h \
     DashboardUtils.h \
     CANCode.h \
     LoggingManager.h \
     Widgets/LoggingWidget.h \
-    Threads/LoggingThread.h
+    Threads/LoggingThread.h \
+    Widgets/CameraWidget.h \
+    Threads/CameraThread.h \
+    Widgets/CameraRenderer.h
 
 FORMS += \
         mainwindow.ui

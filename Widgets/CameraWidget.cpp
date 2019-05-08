@@ -1,7 +1,7 @@
 /*!
-   \class StereoWidget
+   \class CameraWidget
    \inherits QWidget
-   \brief The StereoWidget class is a custom widget which displays stereoscopic visual data obtained from shared memory.
+   \brief The CameraWidget class is a custom widget which displays stereoscopic visual data obtained from shared memory.
 
    \ingroup voltron
    \ingroup vstereo
@@ -12,26 +12,26 @@
    \sa StereoThread, StereoMemory
 */
 
-#include "StereoWidget.h"
+#include "CameraWidget.h"
 
 /*!
- * Constructs a Stereo widget. Creates the \l QLabel and \l StereoMemory child widgets and establishes their layout within the StereoWidget widget.
+ * Constructs a Stereo widget. Creates the \l QLabel and \l StereoMemory child widgets and establishes their layout within the CameraWidget widget.
  */
-StereoWidget::StereoWidget(QWidget *parent) : QWidget(parent)
+CameraWidget::CameraWidget(QWidget *parent) : QWidget(parent)
 {
-    StereoWidget::title = new QLabel(this);
+    CameraWidget::title = new QLabel(this);
     title->setText("Camera View");
     title->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
 
-    StereoWidget::display = new StereoMemory(this);
+    CameraWidget::display = new CameraRenderer(this);
     display->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-    display->setDisplayType(StereoMemory::DisplayType::STEREO);
+    display->setDisplayType(CameraRenderer::DisplayType::STEREO);
 
-    StereoWidget::typeSelector = new QComboBox(this);
+    CameraWidget::typeSelector = new QComboBox(this);
     typeSelector->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-    typeSelector->addItem("Stereo", QString::number(StereoMemory::DisplayType::STEREO));
-    typeSelector->addItem("Depth", QString::number(StereoMemory::DisplayType::DEPTH));
-    typeSelector->setCurrentIndex(StereoMemory::DisplayType::STEREO);
+    typeSelector->addItem("Stereo", QString::number(CameraRenderer::DisplayType::STEREO));
+    typeSelector->addItem("Depth", QString::number(CameraRenderer::DisplayType::DEPTH));
+    typeSelector->setCurrentIndex(CameraRenderer::DisplayType::STEREO);
 
     QFont font;
     font.setPointSize(font.pointSize() + 4);
@@ -50,7 +50,7 @@ StereoWidget::StereoWidget(QWidget *parent) : QWidget(parent)
     connect(typeSelector, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(onTypeChanged()));
 }
 
-void StereoWidget::onTypeChanged()
+void CameraWidget::onTypeChanged()
 {
     display->setDisplayType(typeSelector->currentIndex());
 }
