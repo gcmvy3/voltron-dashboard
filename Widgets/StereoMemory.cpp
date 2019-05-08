@@ -41,7 +41,7 @@ StereoMemory::StereoMemory(QWidget *parent) : QLabel(parent), semaphore(1)
     }
 
     depthMemory = (unsigned char*)malloc(CAM_WIDTH * CAM_HEIGHT);
-    depthFrames = QImage((const unsigned char*)depthMemory, CAM_WIDTH, CAM_HEIGHT, QImage::Format_Grayscale8);
+    depthFrame = QImage((const unsigned char*)depthMemory, CAM_WIDTH, CAM_HEIGHT, QImage::Format_Grayscale8);
 
     for (int i = 0; i < CAM_NUM_IMAGES; i++)
     {
@@ -70,7 +70,7 @@ void StereoMemory::onPacket(StereoPacket packet)
         for (int i = 0; i < CAM_WIDTH; i++)
             for (int j = 0; j < CAM_HEIGHT; j++)
             {
-                depthMemory[i + j * CAM_WIDTH] = (unsigned char)(memoryRegions[packet.updated].depth[i][j] * 255);
+                depthMemory[i + j * CAM_WIDTH] = static_cast<unsigned char>(memoryRegions[packet.updated].depth[i][j] * 255);
             }
 
         this->setPixmap(QPixmap::fromImage(depthFrame).scaled(this->size(), Qt::KeepAspectRatio, Qt::FastTransformation));
