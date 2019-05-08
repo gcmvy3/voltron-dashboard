@@ -17,7 +17,7 @@ BatteryThread* CommunicationManager::batteryThread;
 ConsoleThread* CommunicationManager::consoleThread;
 LidarThread* CommunicationManager::lidarThread;
 CANThread* CommunicationManager::canThread;
-StereoThread* CommunicationManager::stereoThread;
+CameraThread* CommunicationManager::cameraThread;
 LoggingThread* CommunicationManager::loggingThread;
 
 bool CommunicationManager::loopbackFound = false;
@@ -89,19 +89,19 @@ void CommunicationManager::init()
 
     CANQThread->start();
 
-    // Init and start stereo thread
-    QThread* stereoQThread = new QThread;
-    CommunicationManager::stereoThread = new StereoThread();
-    stereoThread->moveToThread(stereoQThread);
+    // Init and start camera thread
+    QThread* cameraQThread = new QThread;
+    CommunicationManager::cameraThread = new CameraThread();
+    cameraThread->moveToThread(cameraQThread);
 
     // Connect the required signals for a QThread
-    QObject::connect(stereoThread, &StereoThread::error, &CommunicationManager::printToConsole);
-    connect(stereoQThread, SIGNAL(started()), stereoThread, SLOT(start()));
-    connect(stereoThread, SIGNAL(finished()), stereoQThread, SLOT(quit()));
-    connect(stereoThread, SIGNAL(finished()), stereoThread, SLOT(deleteLater()));
-    connect(stereoQThread, SIGNAL(finished()), stereoQThread, SLOT(deleteLater()));
+    QObject::connect(cameraThread, &CameraThread::error, &CommunicationManager::printToConsole);
+    connect(cameraQThread, SIGNAL(started()), cameraThread, SLOT(start()));
+    connect(cameraThread, SIGNAL(finished()), cameraQThread, SLOT(quit()));
+    connect(cameraThread, SIGNAL(finished()), cameraThread, SLOT(deleteLater()));
+    connect(cameraQThread, SIGNAL(finished()), cameraQThread, SLOT(deleteLater()));
 
-    stereoQThread->start();
+    cameraQThread->start();
 
     // Init and start logging  thread
     QThread* loggingQThread = new QThread;

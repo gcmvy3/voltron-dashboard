@@ -1,5 +1,5 @@
-#ifndef STEREOWIDGET_H
-#define STEREOWIDGET_H
+#ifndef CAMERAWIDGET_H
+#define CAMERAWIDGET_H
 
 #include <QWidget>
 #include <QLabel>
@@ -10,16 +10,16 @@
 
 #include "CommunicationManager.h"
 #include "Threads/Packets.h"
-#include "Widgets/StereoMemory.h"
+#include "Widgets/CameraRenderer.h"
 
-class StereoWidget : public QWidget
+class CameraWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit StereoWidget(QWidget *parent = nullptr);
+    explicit CameraWidget(QWidget *parent = nullptr);
 
     QLabel* title;
-    StereoMemory* display;
+    CameraRenderer* display;
     QComboBox* typeSelector;
 
 protected:
@@ -30,4 +30,4 @@ public slots:
     void onTypeChanged();
 };
 
-#endif // STEREOWIDGET_H
+#endif // CAMERAWIDGET_H

@@ -28,7 +28,7 @@ QTabBar::tab { height: 40%;}</string>
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -340,7 +340,7 @@ QTabBar::tab { height: 40%;}</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <widget class="StereoWidget" name="stereoWidget" native="true"/>
+         <widget class="CameraWidget" name="cameraWidget" native="true"/>
         </item>
        </layout>
       </widget>
@@ -555,7 +555,7 @@ QTabBar::tab { height: 40%;}</string>
      <x>0</x>
      <y>0</y>
      <width>983</width>
-     <height>28</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -600,9 +600,9 @@ QTabBar::tab { height: 40%;}</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>StereoWidget</class>
+   <class>CameraWidget</class>
    <extends>QWidget</extends>
-   <header>Widgets/StereoWidget.h</header>
+   <header>Widgets/CameraWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

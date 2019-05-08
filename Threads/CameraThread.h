@@ -1,5 +1,5 @@
-#ifndef STEREOTHREAD_H
-#define STEREOTHREAD_H
+#ifndef CAMERATHREAD_H
+#define CAMERATHREAD_H
 
 #include <QObject>
 #include <QtNetwork/QUdpSocket>
@@ -7,17 +7,17 @@
 
 #include "Threads/Packets.h"
 
-class StereoThread : public QObject
+class CameraThread : public QObject
 {
     Q_OBJECT
 public:
-    explicit StereoThread(QObject *parent = nullptr);
-    StereoPacket* latestPacket;
+    explicit CameraThread(QObject *parent = nullptr);
+    CameraPacket* latestPacket;
 
 signals:
     void finished();
     void error(QString error);
-    void newPacket(StereoPacket packet);
+    void newPacket(CameraPacket packet);
 
 public slots:
     void start();
@@ -28,4 +28,4 @@ private:
     void processDatagram(QByteArray datagram);
 };
 
-#endif // STEREOTHREAD_H
+#endif // CameraThread_H

@@ -1,5 +1,5 @@
-#ifndef STEREOMEMORY_H
-#define STEREOMEMORY_H
+#ifndef CAMERARENDERER_H
+#define CAMERARENDERER_H
 
 #include <QLabel>
 #include <QImage>
@@ -8,11 +8,11 @@
 #include "CommunicationManager.h"
 #include "Threads/Packets.h"
 
-class StereoMemory : public QLabel
+class CameraRenderer : public QLabel
 {
     Q_OBJECT
 public:    
-    StereoMemory(QWidget *parent);
+    CameraRenderer(QWidget *parent);
     void setDisplayType(int type);
 
     enum DisplayType
@@ -30,7 +30,7 @@ protected:
     unsigned char* depthMemory;
 
     int sharedMemoryFD;
-    struct StereoData* memoryRegions;
+    struct CameraData* memoryRegions;
 
     QSemaphore semaphore;
 
@@ -38,7 +38,7 @@ signals:
     void newFrame(QImage image);
 
 public slots:
-    void onPacket(StereoPacket);
+    void onPacket(CameraPacket);
 };
 
-#endif // STEREOMEMORY_H
+#endif // CAMERARENDERER_H

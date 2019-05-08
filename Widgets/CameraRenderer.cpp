@@ -1,7 +1,7 @@
 /*!
-   \class StereoMemory
+   \class CameraRenderer
    \inherits QLabel
-   \brief The StereoMemory class is a custom widget which manages interactions with shared memory for the purpose of displaying Stereoscopic depth video data from the Voltron Core process.
+   \brief The CameraRenderer class is a custom widget which manages interactions with shared memory for the purpose of displaying Stereoscopic depth video data from the Voltron Core process.
 
    \ingroup voltron
    \ingroup vstereo
@@ -14,18 +14,18 @@
 */
 
 
-#include "StereoMemory.h"
+#include "CameraRenderer.h"
 
 #include <fcntl.h>
 #include <sys/mman.h>
 
 /*!
- * Constructs a StereoMemory label. Connects the widget to incoming packets from \l SteroThread.
- * Additionally, attempts to establish access to shared memory reserved for StereoWidget display data.
- * If this connection is successful, then the data in shared memory is cast into an array of StereoData structs.
+ * Constructs a CameraRenderer label. Connects the widget to incoming packets from \l SteroThread.
+ * Additionally, attempts to establish access to shared memory reserved for CameraWidget display data.
+ * If this connection is successful, then the data in shared memory is cast into an array of CameraData structs.
  * An array of \l QImage objects are then defined using video data from these structs, with each object pointing to one of these structs in shared memory.
  */
-StereoMemory::StereoMemory(QWidget *parent) : QLabel(parent), semaphore(1)
+CameraRenderer::CameraRenderer(QWidget *parent) : QLabel(parent), semaphore(1)
 {
     sharedMemoryFD = shm_open(CAM_MEMORY_NAME, O_RDONLY, 0777);
     if (sharedMemoryFD == -1)
@@ -33,8 +33,8 @@ StereoMemory::StereoMemory(QWidget *parent) : QLabel(parent), semaphore(1)
         CommunicationManager::printToConsole("ERROR: STEREO shared memory could not be established");
     }
 
-    size_t dataSize = sizeof(struct StereoData) * CAM_NUM_IMAGES;
-    memoryRegions = (StereoData*)mmap(NULL, dataSize, PROT_READ, MAP_SHARED, sharedMemoryFD, 0);
+    size_t dataSize = sizeof(struct CameraData) * CAM_NUM_IMAGES;
+    memoryRegions = (CameraData*)mmap(NULL, dataSize, PROT_READ, MAP_SHARED, sharedMemoryFD, 0);
     if (memoryRegions == MAP_FAILED)
     {
         CommunicationManager::printToConsole("ERROR: STEREO shared memory was established, but could not be mapped");
@@ -48,10 +48,10 @@ StereoMemory::StereoMemory(QWidget *parent) : QLabel(parent), semaphore(1)
         stereoFrames[i] = QImage((unsigned char*)&memoryRegions[i].rgbImage, CAM_WIDTH*2, CAM_HEIGHT, QImage::Format_ARGB32);
     }
 
-    connect(CommunicationManager::stereoThread, SIGNAL(newPacket(StereoPacket)), this, SLOT(onPacket(StereoPacket)));
+    connect(CommunicationManager::cameraThread, SIGNAL(newPacket(CameraPacket)), this, SLOT(onPacket(CameraPacket)));
 }
 
-void StereoMemory::setDisplayType(int type)
+void CameraRenderer::setDisplayType(int type)
 {
     displayType = type;
 }
@@ -59,9 +59,9 @@ void StereoMemory::setDisplayType(int type)
 /*!
  * Executed when a \l StereoThread object signals a new Stereo packet to be processed.
  *
- * Updates which \l QImage is being displayed by the StereoMemory label based on the index provided by \a packet.
+ * Updates which \l QImage is being displayed by the CameraRenderer label based on the index provided by \a packet.
  */
-void StereoMemory::onPacket(StereoPacket packet)
+void CameraRenderer::onPacket(CameraPacket packet)
 {
     if(semaphore.tryAcquire(1))
     {
