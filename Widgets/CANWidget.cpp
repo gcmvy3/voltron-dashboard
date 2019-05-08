@@ -99,9 +99,10 @@ void CANWidget::updateValue(CANDataPacket packet)
         QTableWidgetItem* senderIDItem = codesTable->item(packet.id, 2);
         if(senderIDItem != nullptr && !senderIDItem->text().isNull())
         {
-            int existingSenderID = senderIDItem->text().toInt();
+            bool success;
+            int existingSenderID = senderIDItem->text().toInt(&success, 16);
             // If sender IDs match, update the table with the new value
-            if(existingSenderID == packet.sender)
+            if(success && existingSenderID == packet.sender)
             {
                 int startBit = codesTable->item(packet.id, 3)->text().toInt();
                 int endBit = codesTable->item(packet.id, 4)->text().toInt();

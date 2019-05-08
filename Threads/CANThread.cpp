@@ -100,7 +100,7 @@ void CANThread::processDatagram(QByteArray datagram)
         data.append(QString::number(canPacket->data[i]));
     }
 
-    qDebug() << "Received CAN data:\nSender ID: " << canPacket->sender << "\nCode ID: " << canPacket->id << "\nData: " << data;
+    //qDebug() << "Received CAN data:\nSender ID: " << canPacket->sender << "\nCode ID: " << canPacket->id << "\nData: " << data;
 
     emit newPacket(*canPacket);
 }
