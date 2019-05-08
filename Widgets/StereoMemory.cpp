@@ -40,28 +40,20 @@ StereoMemory::StereoMemory(QWidget *parent) : QLabel(parent), semaphore(1)
         CommunicationManager::printToConsole("ERROR: STEREO shared memory was established, but could not be mapped");
     }
 
+    depthMemory = (unsigned char*)malloc(CAM_WIDTH * CAM_HEIGHT);
+    depthFrames = QImage((const unsigned char*)depthMemory, CAM_WIDTH, CAM_HEIGHT, QImage::Format_Grayscale8);
+
+    for (int i = 0; i < CAM_NUM_IMAGES; i++)
+    {
+        stereoFrames[i] = QImage((unsigned char*)&memoryRegions[i].rgbImage, CAM_WIDTH*2, CAM_HEIGHT, QImage::Format_ARGB32);
+    }
+
     connect(CommunicationManager::stereoThread, SIGNAL(newPacket(StereoPacket)), this, SLOT(onPacket(StereoPacket)));
 }
 
 void StereoMemory::setDisplayType(int type)
 {
     displayType = type;
-    if(displayType == DisplayType::DEPTH)
-    {
-        for (int i = 0; i < CAM_NUM_IMAGES; i++)
-        {
-            memReg = (unsigned char*)&memoryRegions[i].depth;
-            frame[i] = QImage(memReg, CAM_WIDTH, CAM_HEIGHT, QImage::Format_ARGB32);
-        }
-    }
-    else if(displayType == DisplayType::STEREO)
-    {
-        for (int i = 0; i < CAM_NUM_IMAGES; i++)
-        {
-            memReg = (unsigned char*)&memoryRegions[i].rgbImage;
-            frame[i] = QImage(memReg, CAM_WIDTH*2, CAM_HEIGHT, QImage::Format_ARGB32);
-        }
-    }
 }
 
 /*!
@@ -73,7 +65,20 @@ void StereoMemory::onPacket(StereoPacket packet)
 {
     semaphore.acquire(1);
     this->setAlignment(Qt::AlignCenter);
-    this->setPixmap(QPixmap::fromImage(frame[packet.updated]).scaled(this->size(), Qt::KeepAspectRatio, Qt::FastTransformation));
+    if(displayType == DisplayType::DEPTH)
+    {
+        for (int i = 0; i < CAM_WIDTH; i++)
+            for (int j = 0; j < CAM_HEIGHT; j++)
+            {
+                depthMemory[i + j * CAM_WIDTH] = (unsigned char)(memoryRegions[packet.updated].depth[i][j] * 255);
+            }
+
+        this->setPixmap(QPixmap::fromImage(depthFrame).scaled(this->size(), Qt::KeepAspectRatio, Qt::FastTransformation));
+    }
+    else if(displayType == DisplayType::STEREO)
+    {
+        this->setPixmap(QPixmap::fromImage(stereoFrames[packet.updated]).scaled(this->size(), Qt::KeepAspectRatio, Qt::FastTransformation));
+    }
 
     semaphore.release(1);
 }
