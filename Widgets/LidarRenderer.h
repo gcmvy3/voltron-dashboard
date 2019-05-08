@@ -19,6 +19,7 @@ public:
     LidarRenderer(QWidget* parent);
     void setXRotation(int angle);
     void setYRotation(int angle);
+    static double degreesToRadians(double degrees);
 
 private:
     int xRot;
@@ -45,6 +46,7 @@ protected:
     QOpenGLShaderProgram* program;
 
     float aspect;
+    double zoom;
 
     uint posLoc;
     uint colLoc;

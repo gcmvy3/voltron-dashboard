@@ -7,6 +7,7 @@
 #include <QThread>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QSlider>
 #include "CommunicationManager.h"
 #include "Threads/Packets.h"
 #include "Widgets/LidarRenderer.h"
@@ -18,6 +19,7 @@ public:
     explicit LidarWidget(QWidget *parent = nullptr);
 
     QLabel* title;
+    QSlider* zoomSlider;
     LidarRenderer* renderer;
 
 protected:
