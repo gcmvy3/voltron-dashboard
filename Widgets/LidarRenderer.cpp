@@ -26,7 +26,7 @@ LidarRenderer::LidarRenderer(QWidget* parent) : QOpenGLWidget (parent), semaphor
 {
     lastTouchedPos = QPoint(-1,-1);
 
-    connect(CommunicationManager::lidarThread, SIGNAL(newPacket(LidarPacket)), this, SLOT(onPacket(LidarPacket)));
+    connect(CommunicationManager::lidarThread, SIGNAL(newPacket(LIDARPacket)), this, SLOT(onPacket(LIDARPacket)));
 
     sharedMemoryFD = shm_open(LIDAR_MEMORY_NAME, O_RDONLY, 0777);
     if (sharedMemoryFD == -1)
@@ -139,7 +139,7 @@ void LidarRenderer::paintGL()
 /*!
  * Called automatically when a new LidarPacket is received. Adds the new data to the list of points to be rendered.
  */
-void LidarRenderer::onPacket(LidarPacket packet)
+void LidarRenderer::onPacket(LIDARPacket packet)
 {
     semaphore.acquire(1);
     dirtyBlocks.push_back(packet.updated);
@@ -216,7 +216,7 @@ void LidarRenderer::mouseReleaseEvent(QMouseEvent* event)
 void LidarRenderer::showEvent( QShowEvent* event )
 {
     QWidget::showEvent( event );
-    connect(CommunicationManager::lidarThread, SIGNAL(newPacket(LidarPacket)), this, SLOT(onPacket(LidarPacket)));
+    connect(CommunicationManager::lidarThread, SIGNAL(newPacket(LIDARPacket)), this, SLOT(onPacket(LIDARPacket)));
 }
 
 /**
@@ -226,5 +226,5 @@ void LidarRenderer::showEvent( QShowEvent* event )
 void LidarRenderer::hideEvent( QHideEvent* event )
 {
     QWidget::hideEvent( event );
-    disconnect(CommunicationManager::lidarThread, SIGNAL(newPacket(LidarPacket)), this, SLOT(onPacket(LidarPacket)));
+    disconnect(CommunicationManager::lidarThread, SIGNAL(newPacket(LIDARPacket)), this, SLOT(onPacket(LIDARPacket)));
 }

@@ -25,7 +25,6 @@ public slots:
     void broadcastCANRequest(CANControlPacket request);
     void onNewCANCodesLoaded(QVector<CANCode*> codes);
     void onCodesCleared();
-    void unsubscribeAll();
 
 signals:
     void finished();

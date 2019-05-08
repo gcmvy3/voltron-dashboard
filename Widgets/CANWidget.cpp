@@ -92,11 +92,11 @@ void CANWidget::updateTable(QVector<CANCode*> newCodes)
  */
 void CANWidget::onPacket(CANDataPacket packet)
 {
-    QTableWidgetItem* entry = codesTable->item(packet.id, 5);
+    QTableWidgetItem* entry = codesTable->item(packet.pktId, 5);
     if(entry != nullptr)
     {
         // Check existing sender ID
-        QTableWidgetItem* senderIDItem = codesTable->item(packet.id, 2);
+        QTableWidgetItem* senderIDItem = codesTable->item(packet.pktId, 2);
         if(senderIDItem != nullptr && !senderIDItem->text().isNull())
         {
             bool success;
@@ -104,8 +104,8 @@ void CANWidget::onPacket(CANDataPacket packet)
             // If sender IDs match, update the table with the new value
             if(success && existingSenderID == packet.sender)
             {
-                int startBit = codesTable->item(packet.id, 3)->text().toInt();
-                int endBit = codesTable->item(packet.id, 4)->text().toInt();
+                int startBit = codesTable->item(packet.pktId, 3)->text().toInt();
+                int endBit = codesTable->item(packet.pktId, 4)->text().toInt();
                 if(startBit >=0 && endBit <= 63)
                 {
                     // Extract the designated bits from the chars

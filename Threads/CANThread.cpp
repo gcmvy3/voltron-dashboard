@@ -119,7 +119,7 @@ void CANThread::onNewCANCodesLoaded(QVector<CANCode*> codes)
 
         CANControlPacket request = CANControlPacket();
 
-        request.id = code->id;
+        request.pktId = code->id;
         request.sender = code->senderID;
         broadcastCANRequest(request);
     }
@@ -141,7 +141,7 @@ void CANThread::broadcastCANRequest(CANControlPacket packet)
 void CANThread::onCodesCleared()
 {
     CANControlPacket request = CANControlPacket();
-    request.id = -1;
+    request.pktId = -1;
     request.sender = -1;
     broadcastCANRequest(request);
 

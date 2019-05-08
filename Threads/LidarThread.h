@@ -14,12 +14,12 @@ class LidarThread : public QObject
 public:
     explicit LidarThread(QObject *parent = nullptr);
     ~LidarThread();
-    LidarPacket* latestPacket;
+    LIDARPacket* latestPacket;
 
 signals:
     void finished();
     void error(QString error);
-    void newPacket(LidarPacket packet);
+    void newPacket(LIDARPacket packet);
 
 public slots:
     void start();
