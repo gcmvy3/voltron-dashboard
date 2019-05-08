@@ -1,12 +1,12 @@
 /*!
    \class CANWidget
    \inherits QWidget
-   \brief The CANWidget class is a custom widget which ...
-
+   \brief The CANWidget class is a custom widget which displays the value of certain CAN codes in real time.
    \ingroup voltron
    \ingroup vCAN
 
-   This widget contains ...
+   This widget shows a list of all CAN codes currently loaded by CANCodeManager. It is updated via signals when new CAN codes are loaded.
+   When CANThread receives an updated CAN value, it emits a signal that updates every CANWidget automatically.
 
    \sa CANThread, CANCode, CANCodeManager
 */
@@ -18,7 +18,7 @@
  */
 CANWidget::CANWidget(QWidget *parent) : QWidget(parent)
 {
-    QObject::connect(CommunicationManager::canThread, &CANThread::newPacket, this, &CANWidget::updateValue);
+    QObject::connect(CommunicationManager::canThread, &CANThread::newPacket, this, &CANWidget::onPacket);
 }
 
 /**
@@ -90,7 +90,7 @@ void CANWidget::updateTable(QVector<CANCode*> newCodes)
  * (happens if new codes have been loaded).
  * @param packet A packet containing the new data.
  */
-void CANWidget::updateValue(CANDataPacket packet)
+void CANWidget::onPacket(CANDataPacket packet)
 {
     QTableWidgetItem* entry = codesTable->item(packet.id, 5);
     if(entry != nullptr)

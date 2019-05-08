@@ -27,8 +27,6 @@
  */
 StereoMemory::StereoMemory(QWidget *parent) : QLabel(parent), semaphore(1)
 {
-    connect(CommunicationManager::stereoThread, SIGNAL(newPacket(StereoPacket)), this, SLOT(onPacket(StereoPacket)));
-
     sharedMemoryFD = shm_open(CAM_MEMORY_NAME, O_RDONLY, 0777);
     if (sharedMemoryFD == -1)
     {
@@ -41,6 +39,8 @@ StereoMemory::StereoMemory(QWidget *parent) : QLabel(parent), semaphore(1)
     {
         CommunicationManager::printToConsole("ERROR: STEREO shared memory was established, but could not be mapped");
     }
+
+    connect(CommunicationManager::stereoThread, SIGNAL(newPacket(StereoPacket)), this, SLOT(onPacket(StereoPacket)));
 }
 
 void StereoMemory::setDisplayType(int type)

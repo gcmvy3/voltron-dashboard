@@ -17,12 +17,14 @@ class CANThread : public QObject
 public:
     CANThread();
     ~CANThread();
+    CANDataPacket* latestPacket;
 
 public slots:
     void start();
     void readPendingDatagrams();
     void broadcastCANRequest(CANControlPacket request);
     void onNewCANCodesLoaded(QVector<CANCode*> codes);
+    void unsubscribeAll();
 
 signals:
     void finished();
@@ -32,9 +34,7 @@ signals:
 private:
     QUdpSocket* controlSocket;
     QUdpSocket* dataSocket;
-    CANDataPacket* latestPacket;
     void processDatagram(QByteArray datagram);
-    QByteArray serializeRequestPacket(CANControlPacket packet);
 };
 
 #endif // CANTHREAD_H

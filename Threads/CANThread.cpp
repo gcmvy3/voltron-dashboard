@@ -1,13 +1,15 @@
 /*!
    \class CANThread
    \inherits QObject
-   \brief The CANThread class is a custom class which ....
+   \brief The CANThread class is a custom class which receives CAN data from the Voltron Core program.
 
    \ingroup voltron
    \ingroup vCAN
 
    A single CANThread object is used to read all packets containing CAN code data from the Voltron Core process.
-   The data from these packets are extracted ...
+   The thread first broadcasts a CANControlPacket for each CAN code it wants to subscribe to. The core program receives these
+   control packets and begins to broadcast the corresponding CAN code value in real time. These arrive as CANDataPackets,
+   which are received by the CANThread object.
 
    \sa CANWidget, CANCode, CANCodeManager
 */
@@ -37,7 +39,6 @@ CANThread::CANThread()
  */
 CANThread::~CANThread()
 {
-
 }
 
 // Starts the thread
@@ -50,7 +51,7 @@ CANThread::~CANThread()
 void CANThread::start()
 {
     // Initialize data socket
-    dataSocket = new QUdpSocket();
+    dataSocket = new QUdpSocket(this);
     dataSocket->bind(QHostAddress::AnyIPv4, CAN_DATA_PORT, QUdpSocket::ShareAddress);
 
     dataSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
@@ -59,7 +60,7 @@ void CANThread::start()
                 this, SLOT(readPendingDatagrams()));
 
     // Initialize control socket
-    controlSocket = new QUdpSocket();
+    controlSocket = new QUdpSocket(this);
     controlSocket->bind(QHostAddress::AnyIPv4, CAN_CONTROL_PORT, QUdpSocket::ShareAddress);
 
     controlSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
@@ -106,10 +107,15 @@ void CANThread::processDatagram(QByteArray datagram)
 }
 
 /*!
- * ...
+ * A convenience function for requesting several CANControlPackets at once. Is called when a new CAN code file is loaded by the dashboard.
  */
 void CANThread::onNewCANCodesLoaded(QVector<CANCode*> codes)
 {
+    unsubscribeAll();
+
+    // Wait a little bit to allow the core program to clear
+    QThread::msleep(10);
+
     for(int i = 0; i < codes.size(); i++)
     {
         CANCode* code = codes.at(i);
@@ -132,14 +138,14 @@ void CANThread::broadcastCANRequest(CANControlPacket packet)
 }
 
 /*!
- * ...
+ * Tells the core program to stop sending all CAN data.
+ * It's a good idea to delay requests immediately after unsubscribing, to ensure that the packet has time to arrive.
  */
-QByteArray CANThread::serializeRequestPacket(CANControlPacket packet)
+void CANThread::unsubscribeAll()
 {
-    QByteArray byteArray;
-
-    QDataStream stream(&byteArray, QIODevice::WriteOnly);
-    stream << packet.id << packet.sender;
-
-    return byteArray;
+    CANControlPacket request = CANControlPacket();
+    request.id = -1;
+    request.sender = -1;
+    broadcastCANRequest(request);
 }
+

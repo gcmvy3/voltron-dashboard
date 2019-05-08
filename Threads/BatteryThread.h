@@ -11,8 +11,9 @@ class BatteryThread : public QObject
 {
     Q_OBJECT
 public:
-    BatteryThread();
+    explicit BatteryThread(QObject *parent = nullptr);
     ~BatteryThread();
+    BatteryPacket* latestPacket;
 
 public slots:
     void start();
@@ -24,11 +25,7 @@ signals:
     void newPacket(BatteryPacket packet);
 
 private:
-
     QUdpSocket* udpSocket;
-
-    BatteryPacket* latestPacket;
-
     void processDatagram(QByteArray datagram);
 };
 

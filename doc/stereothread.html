@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- StereoThread.cpp -->
+  <title>StereoThread Class | Qt </title>
+</head>
+<body>
+<li>StereoThread</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">StereoThread Class</h1>
+<!-- $$$StereoThread-brief -->
+<p>The <a href="stereothread.html">StereoThread</a> class is a custom class which manages packets for the Stereo Widget. <a href="#details">More...</a></p>
+<!-- @@@StereoThread -->
+<ul>
+<li><a href="stereothread-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="stereothread.html#readPendingDatagrams">readPendingDatagrams</a></b>()</td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$StereoThread-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The <a href="stereothread.html">StereoThread</a> class is a custom class which manages packets for the Stereo Widget.</p>
+<p>A single <a href="stereothread.html">StereoThread</a> object is used to read all packets containing indicators of new data from the Voltron Core process. The data from these packets are extracted and sent to the corresponding <a href="stereomemory.html">StereoMemory</a> object(s).</p>
+</div>
+<p><b>See also </b><a href="stereomemory.html">StereoMemory</a> and <a href="stereowidget.html">StereoWidget</a>.</p>
+<!-- @@@StereoThread -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$readPendingDatagrams[overload1]$$$readPendingDatagrams -->
+<h3 class="fn" id="readPendingDatagrams"><a name="readPendingDatagrams"></a><span class="type">void</span> StereoThread::<span class="name">readPendingDatagrams</span>()</h3>
+<p>Executed when the UDP socket associated with this class signals that there is data to be read from the Voltron Core process.</p>
+<p>Upon execution, the available data is read into a QByteArray from the UDP socket and passed to the processDatagram(QByteArray datagram) function.</p>
+<!-- @@@readPendingDatagrams -->
+</div>
+</body>
+</html>

@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_BatteryWidget_t {
     QByteArrayData data[9];
-    char stringdata0[93];
+    char stringdata0[92];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,15 +35,15 @@ QT_MOC_LITERAL(0, 0, 13), // "BatteryWidget"
 QT_MOC_LITERAL(1, 14, 14), // "onStartReading"
 QT_MOC_LITERAL(2, 29, 0), // ""
 QT_MOC_LITERAL(3, 30, 13), // "onStopReading"
-QT_MOC_LITERAL(4, 44, 9), // "newPacket"
-QT_MOC_LITERAL(5, 54, 13), // "BatteryPacket"
-QT_MOC_LITERAL(6, 68, 6), // "packet"
-QT_MOC_LITERAL(7, 75, 11), // "errorString"
-QT_MOC_LITERAL(8, 87, 5) // "error"
+QT_MOC_LITERAL(4, 44, 8), // "onPacket"
+QT_MOC_LITERAL(5, 53, 13), // "BatteryPacket"
+QT_MOC_LITERAL(6, 67, 6), // "packet"
+QT_MOC_LITERAL(7, 74, 11), // "errorString"
+QT_MOC_LITERAL(8, 86, 5) // "error"
 
     },
     "BatteryWidget\0onStartReading\0\0"
-    "onStopReading\0newPacket\0BatteryPacket\0"
+    "onStopReading\0onPacket\0BatteryPacket\0"
     "packet\0errorString\0error"
 };
 #undef QT_MOC_LITERAL
@@ -84,7 +84,7 @@ void BatteryWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         switch (_id) {
         case 0: _t->onStartReading(); break;
         case 1: _t->onStopReading(); break;
-        case 2: _t->newPacket((*reinterpret_cast< BatteryPacket(*)>(_a[1]))); break;
+        case 2: _t->onPacket((*reinterpret_cast< BatteryPacket(*)>(_a[1]))); break;
         case 3: _t->errorString((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }

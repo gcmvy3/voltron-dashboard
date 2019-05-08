@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_StereoWidget_t {
-    QByteArrayData data[6];
-    char stringdata0[58];
+    QByteArrayData data[3];
+    char stringdata0[28];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,15 +32,11 @@ struct qt_meta_stringdata_StereoWidget_t {
 static const qt_meta_stringdata_StereoWidget_t qt_meta_stringdata_StereoWidget = {
     {
 QT_MOC_LITERAL(0, 0, 12), // "StereoWidget"
-QT_MOC_LITERAL(1, 13, 14), // "onStartReading"
-QT_MOC_LITERAL(2, 28, 0), // ""
-QT_MOC_LITERAL(3, 29, 13), // "onStopReading"
-QT_MOC_LITERAL(4, 43, 8), // "newFrame"
-QT_MOC_LITERAL(5, 52, 5) // "frame"
+QT_MOC_LITERAL(1, 13, 13), // "onTypeChanged"
+QT_MOC_LITERAL(2, 27, 0) // ""
 
     },
-    "StereoWidget\0onStartReading\0\0onStopReading\0"
-    "newFrame\0frame"
+    "StereoWidget\0onTypeChanged\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -50,7 +46,7 @@ static const uint qt_meta_data_StereoWidget[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       1,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -58,14 +54,10 @@ static const uint qt_meta_data_StereoWidget[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x0a /* Public */,
-       3,    0,   30,    2, 0x0a /* Public */,
-       4,    1,   31,    2, 0x0a /* Public */,
+       1,    0,   19,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::QImage,    5,
 
        0        // eod
 };
@@ -76,12 +68,11 @@ void StereoWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         auto *_t = static_cast<StereoWidget *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->onStartReading(); break;
-        case 1: _t->onStopReading(); break;
-        case 2: _t->newFrame((*reinterpret_cast< QImage(*)>(_a[1]))); break;
+        case 0: _t->onTypeChanged(); break;
         default: ;
         }
     }
+    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject StereoWidget::staticMetaObject = { {
@@ -113,13 +104,13 @@ int StereoWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 1)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 1;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 1)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 1;
     }
     return _id;
 }

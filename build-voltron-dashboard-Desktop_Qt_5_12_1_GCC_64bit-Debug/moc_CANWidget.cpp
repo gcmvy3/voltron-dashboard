@@ -23,7 +23,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_CANWidget_t {
     QByteArrayData data[8];
-    char stringdata0[83];
+    char stringdata0[80];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,14 +37,13 @@ QT_MOC_LITERAL(1, 10, 11), // "updateTable"
 QT_MOC_LITERAL(2, 22, 0), // ""
 QT_MOC_LITERAL(3, 23, 17), // "QVector<CANCode*>"
 QT_MOC_LITERAL(4, 41, 8), // "newCodes"
-QT_MOC_LITERAL(5, 50, 11), // "updateValue"
-QT_MOC_LITERAL(6, 62, 13), // "CANDataPacket"
-QT_MOC_LITERAL(7, 76, 6) // "packet"
+QT_MOC_LITERAL(5, 50, 8), // "onPacket"
+QT_MOC_LITERAL(6, 59, 13), // "CANDataPacket"
+QT_MOC_LITERAL(7, 73, 6) // "packet"
 
     },
     "CANWidget\0updateTable\0\0QVector<CANCode*>\0"
-    "newCodes\0updateValue\0CANDataPacket\0"
-    "packet"
+    "newCodes\0onPacket\0CANDataPacket\0packet"
 };
 #undef QT_MOC_LITERAL
 
@@ -79,7 +78,7 @@ void CANWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->updateTable((*reinterpret_cast< QVector<CANCode*>(*)>(_a[1]))); break;
-        case 1: _t->updateValue((*reinterpret_cast< CANDataPacket(*)>(_a[1]))); break;
+        case 1: _t->onPacket((*reinterpret_cast< CANDataPacket(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {

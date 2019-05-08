@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- CANCodeManager.cpp -->
+  <title>CANCodeManager Class | Qt </title>
+</head>
+<body>
+<li>CANCodeManager</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#public-variables">Public Variables</a></li>
+<li class="level1"><a href="#static-public-members">Static Public Members</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">CANCodeManager Class</h1>
+<!-- $$$CANCodeManager-brief -->
+<p>The <a href="communicationmanager.html">CommunicationManager</a> class is a singleton that maintains a unified list of CANCodes. It is also used to load CAN codes from a JSON file. <a href="#details">More...</a></p>
+<!-- @@@CANCodeManager -->
+<ul>
+<li><a href="cancodemanager-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="cancodemanager.html#loadFromFile">loadFromFile</a></b>(int *<i>file</i>)</td></tr>
+</table></div>
+<a name="public-variables"></a>
+<h2 id="public-variables">Public Variables</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="cancodemanager.html#Avar"></a></b></td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="cancodemanager.html#codes-var">codes</a></b></td></tr>
+</table></div>
+<a name="static-public-members"></a>
+<h2 id="static-public-members">Static Public Members</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> CANCodeManager *</td><td class="memItemRight bottomAlign"><b><a href="cancodemanager.html#getInstance">getInstance</a></b>()</td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$CANCodeManager-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The <a href="communicationmanager.html">CommunicationManager</a> class is a singleton that maintains a unified list of CANCodes. It is also used to load CAN codes from a JSON file.</p>
+<p>This class is used to load CAN codes from a JSON file and maintain a list of all current codes. See the example JSON file included in the project to learn how to format the JSON file.</p>
+</div>
+<!-- @@@CANCodeManager -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$getInstance[overload1]$$$getInstance -->
+<h3 class="fn" id="getInstance"><a name="getInstance"></a><code>[static] </code><span class="type"><a href="cancodemanager.html">CANCodeManager</a></span> *CANCodeManager::<span class="name">getInstance</span>()</h3>
+<p>Returns the single instance of the singleton class.</p>
+<!-- @@@getInstance -->
+<!-- $$$loadFromFile[overload1]$$$loadFromFileint* -->
+<h3 class="fn" id="loadFromFile"><a name="loadFromFile"></a><span class="type">void</span> CANCodeManager::<span class="name">loadFromFile</span>(<span class="type">int</span> *<i>file</i>)</h3>
+<p>Takes in a QFile and attempts to load CANCodes from it. The QFile should be properly formatted JSON.</p>
+<!-- @@@loadFromFile -->
+</div>
+</body>
+</html>

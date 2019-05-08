@@ -119,7 +119,7 @@ void CommunicationManager::init()
 }
 
 /*!
- * ...
+ * Used to find the loopback network interface. This interface is required for communication with the Voltron Core program. This function is cross-platform and helps ensure the correct interface is used.
  */
 QNetworkInterface CommunicationManager::getLoopbackInterface()
 {

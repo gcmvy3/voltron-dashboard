@@ -82,7 +82,7 @@ void BatteryWidget::onStartReading()
         table->setItem(i, 1, new QTableWidgetItem(QString("No data")));
     }
 
-    connect(CommunicationManager::batteryThread, SIGNAL(newPacket(BatteryPacket)), this, SLOT(newPacket(BatteryPacket)));
+    connect(CommunicationManager::batteryThread, SIGNAL(newPacket(BatteryPacket)), this, SLOT(onPacket(BatteryPacket)));
 }
 
 /*!
@@ -90,7 +90,7 @@ void BatteryWidget::onStartReading()
  */
 void BatteryWidget::onStopReading()
 {
-    disconnect(CommunicationManager::batteryThread, SIGNAL(newPacket(BatteryPacket)), this, SLOT(newPacket(BatteryPacket)));
+    disconnect(CommunicationManager::batteryThread, SIGNAL(newPacket(BatteryPacket)), this, SLOT(onPacket(BatteryPacket)));
 }
 
 // Called when a new packet is read
@@ -99,7 +99,7 @@ void BatteryWidget::onStopReading()
  *
  * Updates the cell of the child \l QTableWidget table indicated by the \a packet struct with the charge value also provided by the \a packet struct.
  */
-void BatteryWidget::newPacket(BatteryPacket packet)
+void BatteryWidget::onPacket(BatteryPacket packet)
 {
     // Put the charge value in the appropriate table cell
     int row = packet.cellNum;

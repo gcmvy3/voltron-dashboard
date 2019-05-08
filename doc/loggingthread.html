@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- LoggingThread.cpp -->
+  <title>LoggingThread Class | Qt </title>
+</head>
+<body>
+<li>LoggingThread</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">LoggingThread Class</h1>
+<!-- $$$LoggingThread-brief -->
+<p>The <a href="loggingthread.html">LoggingThread</a> class is a custom class which manages packets being sent to the Voltron Logging process. <a href="#details">More...</a></p>
+<!-- @@@LoggingThread -->
+<ul>
+<li><a href="loggingthread-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2 id="public-functions">Public Functions</h2>
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="loggingthread.html#broadcastPacket">broadcastPacket</a></b>(LoggingControlPacket <i>packet</i>)</td></tr>
+</table></div>
+<a name="details"></a>
+<!-- $$$LoggingThread-description -->
+<div class="descr">
+<h2 id="details">Detailed Description</h2>
+<p>The <a href="loggingthread.html">LoggingThread</a> class is a custom class which manages packets being sent to the Voltron Logging process.</p>
+<p>A single <a href="loggingthread.html">LoggingThread</a> object is used to send command packets to the Voltron Logging process. These packets tell the Logging process to start or stop logging certain sets of data from the Core process.</p>
+</div>
+<p><b>See also </b><a href="loggingwidget.html">LoggingWidget</a> and <a href="loggingmanager.html">LoggingManager</a>.</p>
+<!-- @@@LoggingThread -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$broadcastPacket[overload1]$$$broadcastPacketLoggingControlPacket -->
+<h3 class="fn" id="broadcastPacket"><a name="broadcastPacket"></a><span class="type">void</span> LoggingThread::<span class="name">broadcastPacket</span>(<span class="type">LoggingControlPacket</span> <i>packet</i>)</h3>
+<p>Converts the packet <i>packet</i> into a QByteArray and broadcasts it to the Logging process through the corresponding UDP socket.</p>
+<!-- @@@broadcastPacket -->
+</div>
+</body>
+</html>

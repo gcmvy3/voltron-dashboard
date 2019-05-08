@@ -19,8 +19,6 @@ public:
 
     QTextBrowser *console;
 
-    ConsoleThread *consoleThread;
-
 protected:
     void showEvent( QShowEvent* event) override;
 
@@ -29,7 +27,7 @@ signals:
 public slots:
     void onStartReading();
     void onStopReading();
-    void newPacket(DebugPacket packet);
+    void onPacket(DebugPacket packet);
     void errorString(QString error);
 };
 

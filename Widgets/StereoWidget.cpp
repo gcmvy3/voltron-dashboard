@@ -24,7 +24,7 @@ StereoWidget::StereoWidget(QWidget *parent) : QWidget(parent)
     title->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
 
     StereoWidget::display = new StereoMemory(this);
-    display->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    display->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
     display->setDisplayType(StereoMemory::DisplayType::STEREO);
 
     StereoWidget::typeSelector = new QComboBox(this);

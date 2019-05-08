@@ -26,6 +26,11 @@ LidarThread::LidarThread(QObject *parent) : QObject(parent)
     qRegisterMetaType<LidarPacket>("LidarPacket");
 }
 
+LidarThread::~LidarThread()
+{
+
+}
+
 // Starts the thread
 /*!
  * Executed when the thread the associated object was moved to signals that it has started running.
@@ -35,7 +40,7 @@ LidarThread::LidarThread(QObject *parent) : QObject(parent)
  */
 void LidarThread::start()
 {
-    udpSocket = new QUdpSocket();
+    udpSocket = new QUdpSocket(this);
     udpSocket->bind(QHostAddress::AnyIPv4, LIDAR_PORT, QUdpSocket::ShareAddress);
 
     udpSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());

@@ -13,6 +13,8 @@ class LidarThread : public QObject
     Q_OBJECT
 public:
     explicit LidarThread(QObject *parent = nullptr);
+    ~LidarThread();
+    LidarPacket* latestPacket;
 
 signals:
     void finished();
@@ -24,11 +26,7 @@ public slots:
     void readPendingDatagrams();
 
 private:
-
     QUdpSocket* udpSocket;
-
-    LidarPacket* latestPacket;
-
     void processDatagram(QByteArray datagram);
 };
 

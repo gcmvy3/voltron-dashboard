@@ -1,0 +1,23 @@
+include(/home/voltron/Qt/5.12.1/gcc_64/doc/global/compat.qdocconf)
+
+# You can also specify file extensions manually.
+headers.fileextensions  = "*.h *.hpp"
+sources.fileextensions  = "*.cpp *.qml *.qdoc"
+
+# The outputdir variable specifies the directory
+# where QDoc will put the generated documentation.
+outputdir   = doc
+
+# The headerdirs variable specifies the directories
+# containing the header files associated
+# with the .cpp source files used in the documentation.
+headerdirs  = . \
+              Threads \
+	      Widgets
+
+# The sourcedirs variable specifies the
+# directories containing the .cpp or .qdoc
+# files used in the documentation.
+sourcedirs  = . \
+              Threads \
+	      Widgets
