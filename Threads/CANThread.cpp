@@ -63,9 +63,8 @@ void CANThread::start()
 
     // Initialize control socket
     controlSocket = new QUdpSocket(this);
-    controlSocket->bind(QHostAddress::AnyIPv4, CAN_CONTROL_PORT, QUdpSocket::ShareAddress);
-
-    controlSocket->joinMulticastGroup(QHostAddress(CommunicationManager::getUDPAddress()), CommunicationManager::getLoopbackInterface());
+    controlSocket->bind(QHostAddress(QStringLiteral("127.0.0.1")), CAN_CONTROL_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
+    controlSocket->setMulticastInterface(CommunicationManager::getLoopbackInterface());
 }
 
 /*!
@@ -103,8 +102,6 @@ void CANThread::processDatagram(QByteArray datagram)
         data.append(QString::number(canPacket->data[i]));
     }
 
-    //qDebug() << "Received CAN data:\nSender ID: " << canPacket->sender << "\nCode ID: " << canPacket->id << "\nData: " << data;
-
     emit newPacket(*canPacket);
 }
 
@@ -131,7 +128,7 @@ void CANThread::onNewCANCodesLoaded(QVector<CANCode*> codes)
 void CANThread::broadcastCANRequest(CANControlPacket packet)
 {
     QByteArray datagram = QByteArray::fromRawData((char *)&packet, sizeof(packet));
-    controlSocket->writeDatagram(datagram.data(), datagram.size(), CommunicationManager::getUDPAddress(), CAN_CONTROL_PORT);
+    controlSocket->writeDatagram(datagram.data(), datagram.size(), QHostAddress(QStringLiteral(MULTICAST_GROUP)), CAN_CONTROL_PORT);
 }
 
 /*!
