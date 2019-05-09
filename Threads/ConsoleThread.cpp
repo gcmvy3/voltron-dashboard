@@ -93,6 +93,7 @@ void ConsoleThread::processDatagram(QByteArray datagram)
  */
 void ConsoleThread::injectMessage(QString message)
 {
+    message.append("\n");
     DebugPacket* consolePacket = new DebugPacket();
     strcpy(consolePacket->str, message.toUtf8().constData());
     consolePacket->strLength = message.length();

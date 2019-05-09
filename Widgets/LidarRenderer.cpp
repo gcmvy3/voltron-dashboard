@@ -82,9 +82,8 @@ void LidarRenderer::initializeGL()
     aspect = std::max(this->width(), this->height()) / std::min(this->width(), this->height());
 
     xRot = 0;
-    yRot = 0;
-    zRot = 0;
     zoom = 1.0;
+    cameraHeight = 1.0;
 }
 
 /*!
@@ -125,10 +124,11 @@ void LidarRenderer::paintGL()
     camTransform.perspective(60.0f, aspect, 0.1f, 1000.0f);
 
     double xOffset = cos(degreesToRadians(xRot)) * zoom;
-    double zOffset = sin(degreesToRadians(xRot)) * zoom;
-    QVector3D camPosition = QVector3D(xOffset, 0, zOffset);
+    double yOffset = sin(degreesToRadians(xRot)) * zoom;
+    QVector3D camPosition = QVector3D(-xOffset, -yOffset, -std::max(cameraHeight / 100, 0.0));
+
+    camTransform.lookAt(-camPosition, QVector3D(0, 0, 0), QVector3D(0, 0, 1));
     camTransform.translate(camPosition);
-    camTransform.lookAt(camPosition, QVector3D(0, 0, 0), QVector3D(0, 1, 0));
 
     program->setUniformValue(transformLoc, camTransform);
 
@@ -168,20 +168,11 @@ void LidarRenderer::setXRotation(int angle)
     }
 }
 
-/*!
- * Sets the Y rotation of the camera within 3D space.
- */
-void LidarRenderer::setYRotation(int angle)
+void LidarRenderer::setCameraHeight(double height)
 {
-    //Normalize angle
-    while (angle < 0)
-        angle += 360 * 16;
-    while (angle > 360 * 16)
-        angle -= 360 * 16;
-
-    if(angle != yRot)
+    if(height > 0 && height < MAX_CAM_HEIGHT);
     {
-        yRot = angle;
+        cameraHeight = height;
     }
 }
 
@@ -198,7 +189,7 @@ void LidarRenderer::mouseMoveEvent(QMouseEvent *event)
         if(event->buttons() & Qt::LeftButton)
         {
             setXRotation(xRot + dx);
-            setYRotation(yRot + dy);
+            setCameraHeight(cameraHeight + dy);
         }
     }
 

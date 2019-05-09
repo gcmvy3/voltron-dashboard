@@ -18,15 +18,15 @@ class LidarRenderer : public QOpenGLWidget, protected QOpenGLFunctions
 public:
     LidarRenderer(QWidget* parent);
     void setXRotation(int angle);
-    void setYRotation(int angle);
+    void setCameraHeight(double height);
     static double degreesToRadians(double degrees);
 
 private:
     int xRot;
-    int yRot;
-    int zRot;
+    double cameraHeight = 1;
 
     const int MAX_ZOOM = 5;
+    const int MAX_CAM_HEIGHT = 5;
 
 protected:
     void initializeGL() override;
