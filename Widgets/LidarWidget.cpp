@@ -26,9 +26,21 @@ LidarWidget::LidarWidget(QWidget *parent) : QWidget(parent)
     LidarWidget::renderer = new LidarRenderer(this);
     renderer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
+    zoomSlider = new QSlider(this);
+    zoomSlider->setOrientation(Qt::Vertical);
+    zoomSlider->setMaximum(100);
+    zoomSlider->setMinimum(1);
+    zoomSlider->setValue(20);
+
+    QHBoxLayout* hLayout = new QHBoxLayout();
+    hLayout->addWidget(renderer);
+    hLayout->addWidget(zoomSlider);
+
     QVBoxLayout* layout = new QVBoxLayout();
     layout->addWidget(title);
-    layout->addWidget(renderer);
+    layout->addLayout(hLayout);
     setLayout(layout);
+
+    connect(zoomSlider, &QSlider::valueChanged, renderer, &LidarRenderer::setZoomPercentage);
 }
 

@@ -19,11 +19,14 @@ public:
     LidarRenderer(QWidget* parent);
     void setXRotation(int angle);
     void setYRotation(int angle);
+    static double degreesToRadians(double degrees);
 
 private:
     int xRot;
     int yRot;
     int zRot;
+
+    const int MAX_ZOOM = 5;
 
 protected:
     void initializeGL() override;
@@ -45,6 +48,7 @@ protected:
     QOpenGLShaderProgram* program;
 
     float aspect;
+    double zoom;
 
     uint posLoc;
     uint colLoc;
@@ -56,6 +60,7 @@ protected:
 
 public slots:
     void onPacket(LIDARPacket);
+    void setZoomPercentage(double);
 };
 
 #endif // LIDARRENDERER_H

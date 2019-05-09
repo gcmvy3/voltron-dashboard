@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <sys/mman.h>
 #include <fcntl.h>
+#include <math.h>
 
 #include <QMatrix4x4>
 
@@ -83,6 +84,7 @@ void LidarRenderer::initializeGL()
     xRot = 0;
     yRot = 0;
     zRot = 0;
+    zoom = 1.0;
 }
 
 /*!
@@ -119,13 +121,16 @@ void LidarRenderer::paintGL()
 
     program->bind();
 
-    QMatrix4x4 transform;
-    transform.perspective(60.0f, aspect, 0.1f, 1000.0f);
-    transform.translate(0, 0, -2);
-    transform.rotate(xRot, 0, 1, 0);
-    transform.rotate(yRot, 1, 0, 0);
+    QMatrix4x4 camTransform;
+    camTransform.perspective(60.0f, aspect, 0.1f, 1000.0f);
 
-    program->setUniformValue(transformLoc, transform);
+    double xOffset = cos(degreesToRadians(xRot)) * zoom;
+    double zOffset = sin(degreesToRadians(xRot)) * zoom;
+    QVector3D camPosition = QVector3D(xOffset, 0, zOffset);
+    camTransform.translate(camPosition);
+    camTransform.lookAt(camPosition, QVector3D(0, 0, 0), QVector3D(0, 1, 0));
+
+    program->setUniformValue(transformLoc, camTransform);
 
     glEnableVertexAttribArray(0);
     buffer->bind();
@@ -226,4 +231,14 @@ void LidarRenderer::hideEvent( QHideEvent* event )
 {
     QWidget::hideEvent( event );
     disconnect(CommunicationManager::lidarThread, SIGNAL(newPacket(LIDARPacket)), this, SLOT(onPacket(LIDARPacket)));
+}
+
+void LidarRenderer::setZoomPercentage(double percentage)
+{
+    zoom = percentage / 100 * MAX_ZOOM;
+}
+
+double LidarRenderer::degreesToRadians(double degrees)
+{
+    return degrees * (M_PI / 180);
 }
